@@ -1,12 +1,36 @@
 import { describe, expect, it, vi } from 'vitest';
 import { useCodesignStore } from '../store';
 import {
+  computeFitPreviewZoom,
+  findReusablePendingCommentForSelector,
   handlePreviewMessage,
+  isPreviewPaneWelcomeState,
   isTrustedPreviewMessageSource,
+  postClearPinToPreviewWindow,
   postModeToPreviewWindow,
+  postPinSelectorToPreviewWindow,
+  previewArtboardFrameClass,
+  previewArtboardStyle,
+  previewPaneLayoutClasses,
+  previewViewportDimensions,
   scaleRectForZoom,
   stablePreviewSourceKey,
 } from './PreviewPane';
+
+const COMMENT_BASE = {
+  schemaVersion: 1 as const,
+  designId: 'design-1',
+  snapshotId: 'snapshot-1',
+  kind: 'edit' as const,
+  selector: '#hero',
+  tag: 'section',
+  outerHTML: '<section id="hero">Hero</section>',
+  rect: { top: 0, left: 0, width: 100, height: 80 },
+  text: 'Make it softer',
+  status: 'pending' as const,
+  createdAt: '2026-05-13T00:00:00.000Z',
+  appliedInSnapshotId: null,
+};
 
 describe('isTrustedPreviewMessageSource', () => {
   it('accepts only messages from the active preview iframe window', () => {
@@ -41,6 +65,121 @@ describe('scaleRectForZoom', () => {
       width: 75,
       height: 75,
     });
+  });
+});
+
+describe('preview artboard frame', () => {
+  it('keeps the preview stage shrinkable inside the workspace shell', () => {
+    const classes = previewPaneLayoutClasses();
+
+    expect(classes.root).toContain('min-w-0');
+    expect(classes.root).toContain('overflow-hidden');
+    expect(classes.stage).toContain('min-w-0');
+    expect(classes.stage).toContain('overflow-hidden');
+    expect(classes.canvasHost).toContain('min-w-0');
+    expect(classes.canvasHost).toContain('overflow-hidden');
+  });
+
+  it('uses fixed viewport dimensions for desktop and tablet frames', () => {
+    expect(previewArtboardStyle('desktop')).toEqual({
+      width: 'var(--size-preview-desktop-width)',
+      height: 'var(--size-preview-desktop-height)',
+    });
+    expect(previewArtboardStyle('tablet')).toEqual({
+      width: 'var(--size-preview-tablet-width)',
+      height: 'var(--size-preview-tablet-height)',
+    });
+  });
+
+  it('renders a visible boundary around framed preview artboards', () => {
+    const className = previewArtboardFrameClass();
+
+    expect(className).toContain('border');
+    expect(className).toContain('shadow-[var(--shadow-elevated)]');
+    expect(className).toContain('overflow-hidden');
+  });
+
+  it('computes fit zoom from the available preview viewport', () => {
+    expect(previewViewportDimensions('desktop')).toEqual({ width: 1440, height: 900 });
+    expect(
+      computeFitPreviewZoom({
+        containerWidth: 1000,
+        containerHeight: 700,
+        viewport: 'desktop',
+      }),
+    ).toBe(66);
+    expect(
+      computeFitPreviewZoom({
+        containerWidth: 3000,
+        containerHeight: 2000,
+        viewport: 'desktop',
+      }),
+    ).toBe(100);
+  });
+});
+
+describe('preview pane welcome state', () => {
+  it('hides chrome only for the empty base files tab', () => {
+    expect(
+      isPreviewPaneWelcomeState({
+        activeTab: { kind: 'files' },
+        tabCount: 1,
+        errorMessage: null,
+        previewSource: null,
+        designHasContent: false,
+      }),
+    ).toBe(true);
+  });
+
+  it('keeps tabs visible for opened file tabs without preview content', () => {
+    expect(
+      isPreviewPaneWelcomeState({
+        activeTab: { kind: 'file', path: 'index.html' },
+        tabCount: 2,
+        errorMessage: null,
+        previewSource: null,
+        designHasContent: false,
+      }),
+    ).toBe(false);
+  });
+});
+
+describe('findReusablePendingCommentForSelector', () => {
+  it('reuses the pending comment already attached to the same selector', () => {
+    const comment = { ...COMMENT_BASE, id: 'comment-1' };
+
+    expect(
+      findReusablePendingCommentForSelector({
+        comments: [comment],
+        currentSnapshotId: 'snapshot-1',
+        selector: '#hero',
+      }),
+    ).toBe(comment);
+  });
+
+  it('ignores applied comments and comments from another selector', () => {
+    expect(
+      findReusablePendingCommentForSelector({
+        comments: [
+          { ...COMMENT_BASE, id: 'other-selector', selector: '#other' },
+          { ...COMMENT_BASE, id: 'applied', status: 'applied' as const },
+        ],
+        currentSnapshotId: 'snapshot-1',
+        selector: '#hero',
+      }),
+    ).toBeNull();
+  });
+
+  it('falls back to the latest pending comment for the same selector when snapshots drift', () => {
+    const stale = { ...COMMENT_BASE, id: 'stale', snapshotId: 'snapshot-old' };
+
+    expect(
+      findReusablePendingCommentForSelector({
+        comments: [stale],
+        currentSnapshotId: 'snapshot-1',
+        selector: '#hero',
+      }),
+    ).toBe(stale);
   });
 });
 
@@ -218,6 +357,33 @@ describe('postModeToPreviewWindow', () => {
   it('returns false silently when the window handle is missing', () => {
     const onError = vi.fn();
     expect(postModeToPreviewWindow(null, 'comment', onError)).toBe(false);
+    expect(onError).not.toHaveBeenCalled();
+  });
+});
+
+describe('preview pin postMessage helpers', () => {
+  it('posts PIN_SELECTOR for saved-comment selections', () => {
+    const onError = vi.fn();
+    const post = vi.fn();
+    const win = { postMessage: post } as unknown as Window;
+
+    expect(postPinSelectorToPreviewWindow(win, '#hero', onError)).toBe(true);
+
+    expect(post).toHaveBeenCalledWith(
+      { __codesign: true, type: 'PIN_SELECTOR', selector: '#hero' },
+      '*',
+    );
+    expect(onError).not.toHaveBeenCalled();
+  });
+
+  it('posts CLEAR_PIN for closed comment bubbles', () => {
+    const onError = vi.fn();
+    const post = vi.fn();
+    const win = { postMessage: post } as unknown as Window;
+
+    expect(postClearPinToPreviewWindow(win, onError)).toBe(true);
+
+    expect(post).toHaveBeenCalledWith({ __codesign: true, type: 'CLEAR_PIN' }, '*');
     expect(onError).not.toHaveBeenCalled();
   });
 });

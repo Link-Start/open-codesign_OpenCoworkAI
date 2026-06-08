@@ -14,11 +14,11 @@ Open CoDesign 用户最常问到的问题。如果这里没有你的答案，可
 
 ## Open CoDesign 是什么？
 
-Open CoDesign 是一款开源的桌面 AI 设计工具。它把自然语言提示词转换为 HTML 原型、React 组件、幻灯片、PDF 和营销素材。它是 Anthropic Claude Design、Vercel v0、StackBlitz Bolt.new、Lovable 的开源替代方案——但完全运行在你的本机，使用你自己的任意模型提供商的 API Key。
+Open CoDesign 是一款开源的桌面 AI 设计工具。它把自然语言提示词转换为 HTML 原型、React 组件、幻灯片、PDF 和营销素材。它是 Anthropic Claude Design、Vercel v0、StackBlitz Bolt.new、Lovable 的开源替代方案——但完全运行在你的本机，可使用你自己的 API Key、本地模型端点或 ChatGPT 订阅登录。
 
 ## Open CoDesign 是 Claude Design 的开源替代品吗？
 
-是的。Open CoDesign 是 MIT 协议下、开源的 Anthropic Claude Design 替代方案。它完全运行在桌面端，通过 BYOK（自带 API Key）支持任意 AI 模型，无需云端账号或订阅。仓库地址：[github.com/OpenCoworkAI/open-codesign](https://github.com/OpenCoworkAI/open-codesign)。
+是的。Open CoDesign 是 MIT 协议下、开源的 Anthropic Claude Design 替代方案。它完全运行在桌面端，通过 BYOK（自带 API Key）、本地端点或 ChatGPT 订阅登录支持多种 AI 模型，不需要 OpenCoworkAI 托管账号。仓库地址：[github.com/OpenCoworkAI/open-codesign](https://github.com/OpenCoworkAI/open-codesign)。
 
 ## Open CoDesign 和 Vercel v0 比怎么样？
 
@@ -42,7 +42,7 @@ Bolt.new 是基于浏览器的全栈应用构建器，跑在 StackBlitz 的 WebC
 
 - **开源**（Open CoDesign，MIT）vs **闭源**（Lovable）
 - **本地优先**（Open CoDesign）vs **云端托管**（Lovable）
-- **只付 token 成本**（Open CoDesign）vs **按用量计费的订阅**（Lovable）
+- **只付 provider 或已有订阅成本**（Open CoDesign）vs **按用量计费的订阅**（Lovable）
 - **设计优先的原型**（Open CoDesign）vs **端到端产品打造，集成 Supabase**（Lovable）
 
 ## Open CoDesign 和 Figma AI / Figma Make 比怎么样？
@@ -51,19 +51,19 @@ Bolt.new 是基于浏览器的全栈应用构建器，跑在 StackBlitz 的 WebC
 
 ## Open CoDesign 收费吗？
 
-不收费。Open CoDesign 是 MIT 协议的开源软件，应用本身可免费下载、使用、修改、分发。你只需要为你自带 API Key 的模型提供商付 token 费用——我们不收订阅费，也不在 token 上加价。
+不收费。Open CoDesign 是 MIT 协议的开源软件，应用本身可免费下载、使用、修改、分发。你只需要为自己选择的模型入口付费，比如 provider token 成本或已有的 ChatGPT 订阅——我们不收订阅费，也不在 token 上加价。
 
-## 我能用我的 Claude Code 或 Codex API Key 吗？
+## 我能用我的 Claude Code 或 Codex 配置吗？
 
-可以。Open CoDesign 会读取你已有的 `~/.claude/settings.json` 和 `~/.codex/config.toml`，一键导入提供商、模型和 API Key。应用直接用你的 API Key 调用提供商的接口——没有代理层、没有服务端存储、不会劫持 OAuth token。
+可以。Open CoDesign 会读取你已有的 `~/.claude/settings.json` 和 `~/.codex/config.toml`，一键导入 API key 形式的 provider、model 和 key。如果 Codex 使用的是 ChatGPT 订阅登录，请在 Open CoDesign 里直接使用 ChatGPT 登录，而不是把它导入成 API key provider。应用会直接调用你选择的模型入口——没有代理层，也没有服务端存储。
 
 ## 我能用 ChatGPT Plus 或 Codex 订阅登录代替 API Key 吗？
 
-可以。从 v0.1.4 开始，Open CoDesign 支持 ChatGPT Plus / Codex OAuth 订阅登录。一键完成，无需 API Key。
+可以。Open CoDesign 支持 ChatGPT Plus / Pro / Team 订阅登录，可用于 Codex 模型和图像生成。一键完成，无需 API Key。
 
 ## Open CoDesign 会把我的提示词或设计发给第三方吗？
 
-不会。设计、提示词和扫描结果都存在你本机。v0.1 用 SQLite 存设计历史，TOML 配置文件在 `~/.config/open-codesign/config.toml`，文件权限 0600；v0.2 会把设计迁到 JSONL session 和工作区文件。唯一的对外网络流量就是直接发给你配置的模型提供商，用的是你自己的 API Key。默认零遥测。
+不会。设计、提示词和扫描结果都存在你本机。v0.2 使用 JSONL 保存 design session，并把生成源码放在真实工作区文件里，配置文件在 `~/.config/open-codesign/config.toml`。唯一的对外网络流量就是直接发给你配置的模型入口，例如 provider API、本地网关或 ChatGPT 订阅端点。默认零遥测。
 
 ## Open CoDesign 支持哪些 AI 模型？
 
@@ -94,18 +94,15 @@ PDF 导出（依赖本机 Chrome）、PPTX 生成等重型功能首次使用时�
 最快方式：用包管理器。
 
 ```bash
-# Windows
-winget install OpenCoworkAI.OpenCoDesign
-
 # macOS
 brew install --cask opencoworkai/tap/open-codesign
 
-# Windows（备选）
+# Windows
 scoop bucket add opencoworkai https://github.com/OpenCoworkAI/scoop-bucket
-scoop install open-codesign
+scoop install opencoworkai/open-codesign
 ```
 
-或者直接到 [GitHub Releases](https://github.com/OpenCoworkAI/open-codesign/releases) 下载安装包。每个版本都附带 `SHA256SUMS.txt` 和 CycloneDX SBOM 供校验。
+或者直接到 [GitHub Releases](https://github.com/OpenCoworkAI/open-codesign/releases) 下载安装包。每个版本都附带 `SHA256SUMS.txt` 和 CycloneDX SBOM 供校验。winget 包已经提交，正在等 Microsoft review；合并后 `winget install OpenCoworkAI.OpenCoDesign` 才会成为可用的一行命令。
 
 ## Open CoDesign 能离线使用吗？
 
@@ -119,11 +116,11 @@ scoop install open-codesign
 - **PDF 单页**——通过 Puppeteer-core 调用本机 Chrome 渲染。
 - **ZIP 资源包**——HTML + CSS + JS + 资源文件，目录结构确定。可交付给工程团队。
 - **Markdown 导出**——带 frontmatter，可被静态站点直接收录。
-- **AI 生成的位图素材**——封面图、背景图、插图、Logo，通过 gpt-image-2 或 OpenRouter 图像模型生成。可选启用，默认关闭。
+- **AI 生成的位图素材**——封面图、背景图、插图、Logo，可通过 OpenAI 图像模型、OpenRouter 图像模型或已登录的 ChatGPT 订阅生成。可选启用，默认关闭。
 
-## v0.2 会带来什么？
+## v0.2 改了什么？
 
-v0.2 是 Agentic Design 大更新，预计一周左右发布。它会把 Open CoDesign 从一次性的提示词转产物生成器，升级成一个本地设计 agent：
+v0.2 是 Agentic Design 大更新。它会把 Open CoDesign 从一次性的提示词转产物生成器，升级成一个本地设计 agent：
 
 - **带真实工作区的 design**——每个 design 都是一个 pi session，历史写入 JSONL，产物落在磁盘文件里
 - **带权限的本地工具**——read、write、edit、bash、grep、find、ls 都会经过 Open CoDesign 的权限 UI
@@ -140,19 +137,19 @@ v0.2 是 Agentic Design 大更新，预计一周左右发布。它会把 Open Co
 安全模型：
 
 - **本地优先。** 设计、提示词、扫描结果不出本机。
-- **配置存在磁盘上，权限 0600。** API Key 存在 `~/.config/open-codesign/config.toml`，权限和 Claude Code / Codex / gh CLI 一致。
-- **没有代理层。** 你的 API Key 直接打到提供商接口。
+- **配置和凭证都保存在本地。** API Key 存在 `~/.config/open-codesign/config.toml`，ChatGPT OAuth token 保存在应用配置目录下的 token store 中。
+- **没有代理层。** 你的 API Key 或 ChatGPT OAuth token 直接用于你选择的模型入口。
 - **默认零遥测。** 没有分析统计，没有自动更新追踪。
 - **每个版本带签名 SBOM。** CycloneDX 供应链清单附在每个 GitHub Release 上。
 - **MIT 协议。** 源码自己可审计。
 
-v0.1.x 阶段安装包未签名。Apple Developer ID 公证和 Windows Authenticode 签名将在 v0.5 落地。在那之前，仓库里有每个平台可靠的手动安装说明。
+v0.2.0 安装包仍未签名。Apple Developer ID 公证和 Windows Authenticode 签名将在 v0.5 落地。在那之前，仓库里有每个平台可靠的手动安装说明。
 
 ## 怎么贡献？
 
 - **报 bug**——开 issue 并附复现步骤。
 - **提建议**——用 [GitHub Discussions → Ideas](https://github.com/OpenCoworkAI/open-codesign/discussions/categories/ideas)。
-- **提 PR**——读 [CONTRIBUTING.md](https://github.com/OpenCoworkAI/open-codesign/blob/main/CONTRIBUTING.md)，跑 `pnpm lint && pnpm typecheck && pnpm test`，用户可见改动加 changeset。
+- **提 PR**——读 [CONTRIBUTING.md](https://github.com/OpenCoworkAI/open-codesign/blob/main/CONTRIBUTING.md)。提交带 DCO 签名，跑 `pnpm lint && pnpm typecheck && pnpm test`，加 changeset。
 - **晒成果**——发到 [Show & Tell](https://github.com/OpenCoworkAI/open-codesign/discussions/categories/show-and-tell)。优秀作品会被收录到 release notes。
 
 ## 在哪里求助？

@@ -7,20 +7,19 @@
  * English alias for backward compatibility with pre-i18n callers.
  */
 
-import { type Locale, availableLocales, normalizeLocale } from '@open-codesign/i18n';
+import { availableLocales, type Locale, normalizeLocale } from '@open-codesign/i18n';
 import { enDemos } from './locales/en';
 import { esDemos } from './locales/es';
 import { ptBRDemos } from './locales/pt-BR';
 import { zhCNDemos } from './locales/zh-CN';
 
-export { SYSTEM_PROMPTS, type SystemPromptId } from './system/index';
 export {
   EXAMPLES,
-  getExample,
-  getExamples,
   type Example,
   type ExampleCategory,
   type ExampleContent,
+  getExample,
+  getExamples,
   type LocalizedExample,
 } from './examples/index';
 

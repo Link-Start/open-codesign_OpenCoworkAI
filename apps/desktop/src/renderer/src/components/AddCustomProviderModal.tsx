@@ -1,5 +1,5 @@
 import { useT } from '@open-codesign/i18n';
-import { type WireApi, canonicalBaseUrl, detectWireFromBaseUrl } from '@open-codesign/shared';
+import { canonicalBaseUrl, detectWireFromBaseUrl, type WireApi } from '@open-codesign/shared';
 import { Button } from '@open-codesign/ui';
 import { AlertCircle, Check, CheckCircle, Loader2, X } from 'lucide-react';
 import { useRef, useState } from 'react';
@@ -39,6 +39,9 @@ interface Props {
      *  placeholder so user knows there's a stored key, and an empty submit
      *  doesn't wipe it. */
     keyMask?: string;
+    /** Existing per-provider TLS verification opt-out, so the checkbox can
+     *  start in the right state when re-opening Edit. */
+    tlsRejectUnauthorized?: boolean;
   };
 }
 
@@ -68,6 +71,27 @@ function pickBestModel(models: string[]): string {
     if (match !== undefined) return match;
   }
   return models[0] ?? '';
+}
+
+export function buildEndpointDiscoveryPayload(
+  wire: WireApi,
+  baseUrl: string,
+  allowPrivateNetwork: boolean,
+  tlsRejectUnauthorized = false,
+): {
+  wire: WireApi;
+  baseUrl: string;
+  apiKey: string;
+  allowPrivateNetwork: boolean;
+  tlsRejectUnauthorized?: boolean;
+} {
+  return {
+    wire,
+    baseUrl: baseUrl.trim(),
+    apiKey: '',
+    allowPrivateNetwork,
+    ...(tlsRejectUnauthorized ? { tlsRejectUnauthorized: true } : {}),
+  };
 }
 
 /**
@@ -100,6 +124,15 @@ export function AddCustomProviderModal({
   const [test, setTest] = useState<TestState>({ kind: 'idle' });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [allowPrivateNetwork, setAllowPrivateNetwork] = useState(false);
+  // Per-provider TLS verification opt-out. Gated to non-builtin entries
+  // because connection-ipc / generate.ts force-ignore the flag for builtins.
+  const [tlsRejectUnauthorized, setTlsRejectUnauthorized] = useState(
+    editTarget?.tlsRejectUnauthorized === true,
+  );
+  // Acknowledge the security warning once per modal session so re-toggling
+  // doesn't re-prompt. Mirrors the allow-private-network pattern intent.
+  const tlsConfirmed = useRef(editTarget?.tlsRejectUnauthorized === true);
 
   const [discovery, setDiscovery] = useState<DiscoveryState>({ kind: 'idle' });
   // When true, user explicitly chose to type a model name instead of picking from the dropdown.
@@ -110,7 +143,11 @@ export function AddCustomProviderModal({
   const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const discoverySeq = useRef(0);
 
-  function scheduleDiscovery(currentBaseUrl: string, currentWire: WireApi) {
+  function scheduleDiscovery(
+    currentBaseUrl: string,
+    currentWire: WireApi,
+    privateNetworkAllowed = allowPrivateNetwork,
+  ) {
     if (debounceTimer.current !== null) clearTimeout(debounceTimer.current);
     if (!currentBaseUrl.trim().match(/^https?:\/\//)) {
       discoverySeq.current += 1;
@@ -118,20 +155,27 @@ export function AddCustomProviderModal({
       return;
     }
     debounceTimer.current = setTimeout(() => {
-      void runDiscovery(currentBaseUrl, currentWire);
+      void runDiscovery(currentBaseUrl, currentWire, privateNetworkAllowed);
     }, 500);
   }
 
-  async function runDiscovery(currentBaseUrl: string, currentWire: WireApi) {
+  async function runDiscovery(
+    currentBaseUrl: string,
+    currentWire: WireApi,
+    privateNetworkAllowed = allowPrivateNetwork,
+  ) {
     if (!window.codesign?.config) return;
     const seq = ++discoverySeq.current;
     setDiscovery({ kind: 'discovering' });
     try {
-      const res = await window.codesign.config.testEndpoint({
-        wire: currentWire,
-        baseUrl: currentBaseUrl.trim(),
-        apiKey: '',
-      });
+      const res = await window.codesign.config.testEndpoint(
+        buildEndpointDiscoveryPayload(
+          currentWire,
+          currentBaseUrl,
+          privateNetworkAllowed,
+          tlsRejectUnauthorized,
+        ),
+      );
       if (seq !== discoverySeq.current) return;
       if (res.ok && res.models.length > 0) {
         setDiscovery({ kind: 'found', models: res.models });
@@ -174,6 +218,40 @@ export function AddCustomProviderModal({
     userPickedModel.current = v.length > 0;
   }
 
+  // Only show the TLS toggle for non-built-in providers — the runtime
+  // force-ignores the field on built-ins, and surfacing it there would
+  // mislead users into thinking the bypass would take effect.
+  const showTlsToggle = !isEdit || editTarget?.builtin !== true;
+
+  function handleTlsToggle(nextChecked: boolean) {
+    if (!nextChecked) {
+      setTlsRejectUnauthorized(false);
+      setTest({ kind: 'idle' });
+      scheduleDiscovery(baseUrl, wire);
+      return;
+    }
+    // window.confirm matches the existing in-renderer confirmation pattern
+    // (see ChatgptLoginCard) — packages/ui ships no AlertDialog primitive and
+    // adding Radix here would introduce a dep for a single one-shot prompt.
+    // We acknowledge once per modal session so re-toggling doesn't re-nag.
+    if (tlsConfirmed.current) {
+      setTlsRejectUnauthorized(true);
+      setTest({ kind: 'idle' });
+      scheduleDiscovery(baseUrl, wire);
+      return;
+    }
+    const ok = window.confirm(
+      `${t('settings.providers.tlsRejectUnauthorized.confirmTitle')}\n\n${t(
+        'settings.providers.tlsRejectUnauthorized.confirmBody',
+      )}`,
+    );
+    if (!ok) return;
+    tlsConfirmed.current = true;
+    setTlsRejectUnauthorized(true);
+    setTest({ kind: 'idle' });
+    scheduleDiscovery(baseUrl, wire);
+  }
+
   async function handleTest() {
     if (!window.codesign?.config) return;
     if (baseUrl.trim().length === 0) return;
@@ -183,6 +261,8 @@ export function AddCustomProviderModal({
         wire,
         baseUrl: baseUrl.trim(),
         apiKey: apiKey.trim(),
+        allowPrivateNetwork,
+        ...(tlsRejectUnauthorized ? { tlsRejectUnauthorized: true } : {}),
       });
       if (res.ok) setTest({ kind: 'ok', modelCount: res.modelCount });
       else setTest({ kind: 'error', message: res.message });
@@ -215,6 +295,12 @@ export function AddCustomProviderModal({
         }
         const typedKey = apiKey.trim();
         if (typedKey.length > 0) update.apiKey = typedKey;
+        if (!editTarget.builtin) {
+          const previous = editTarget.tlsRejectUnauthorized === true;
+          if (previous !== tlsRejectUnauthorized) {
+            update.tlsRejectUnauthorized = !!tlsRejectUnauthorized;
+          }
+        }
         await window.codesign.config.updateProvider(update);
       } else {
         const slug = slugify(name);
@@ -227,6 +313,7 @@ export function AddCustomProviderModal({
           apiKey: apiKey.trim(),
           defaultModel: defaultModel.trim(),
           setAsActive: initialSetAsActive,
+          ...(tlsRejectUnauthorized ? { tlsRejectUnauthorized: true } : {}),
         });
       }
       onSave();
@@ -336,6 +423,45 @@ export function AddCustomProviderModal({
                 {t('settings.providers.custom.compatibilityHintBody')}
               </p>
             </div>
+          )}
+          {!lockEndpoint && (
+            <label className="mt-2 flex items-start gap-2 rounded-[var(--radius-md)] border border-[var(--color-border-subtle)] px-3 py-2 text-[var(--text-xs)] text-[var(--color-text-secondary)]">
+              <input
+                type="checkbox"
+                checked={allowPrivateNetwork}
+                onChange={(e) => {
+                  const nextAllowPrivateNetwork = e.target.checked;
+                  setAllowPrivateNetwork(nextAllowPrivateNetwork);
+                  setTest({ kind: 'idle' });
+                  scheduleDiscovery(baseUrl, wire, nextAllowPrivateNetwork);
+                }}
+                className="mt-0.5 accent-[var(--color-accent)]"
+              />
+              <span>
+                {t('settings.providers.custom.allowPrivateNetwork', {
+                  defaultValue:
+                    'Allow testing local or private-network provider URLs from this computer',
+                })}
+              </span>
+            </label>
+          )}
+          {showTlsToggle && (
+            <label className="mt-2 flex items-start gap-2 rounded-[var(--radius-md)] border border-[var(--color-border-subtle)] px-3 py-2 text-[var(--text-xs)] text-[var(--color-text-secondary)]">
+              <input
+                type="checkbox"
+                checked={tlsRejectUnauthorized}
+                onChange={(e) => handleTlsToggle(e.target.checked)}
+                className="mt-0.5 accent-[var(--color-accent)]"
+              />
+              <span className="flex flex-col gap-1">
+                <span className="font-medium text-[var(--color-text-primary)]">
+                  {t('settings.providers.tlsRejectUnauthorized.label')}
+                </span>
+                <span className="text-[var(--color-text-muted)]">
+                  {t('settings.providers.tlsRejectUnauthorized.description')}
+                </span>
+              </span>
+            </label>
           )}
         </Field>
 

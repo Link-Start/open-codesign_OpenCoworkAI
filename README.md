@@ -37,7 +37,8 @@
 
 ## What's new
 
-- **v0.2.0** *(in preparation, expected in about a week)* — Agentic Design: workspace-backed design sessions · permissioned file/tool loop · lazy skills and scaffolds · `DESIGN.md` design systems
+- **`feat/decompose-to-ui-kit`** *(branch)* — Image -> componentized `ui_kits/<slug>/` bundle for coding-agent handoff · Boolean-per-dimension visual parity judge (12 standard checks) · Verify-and-iterate loop · Per-decompose cost row · See [BENCHMARKS.md](./BENCHMARKS.md). Refs [#225](https://github.com/OpenCoworkAI/open-codesign/issues/225).
+- **v0.2.0** *(2026-05-09)* — Agentic Design: workspace-backed sessions · permissioned local tools · Files panel upgrades · provider diagnostics · security hardening · `DESIGN.md` design systems
 - **v0.1.4** *(2026-04-23)* — AI image generation · ChatGPT Plus/Codex subscription support · CLIProxyAPI one-click import · API config hardening
 - **v0.1.3** *(2026-04-21)* — Gemini `models/` prefix fix · OpenAI-compatible relay "instructions required" fix · third-party relay SSE-truncation hint
 - **v0.1.2** *(2026-04-21)* — Release pipeline · Homebrew / winget / Scoop packaging manifests
@@ -50,7 +51,7 @@
 
 Turn a prompt into a polished prototype, slide deck, or marketing asset, locally, with the model you already use.
 
-**Open CoDesign is the open-source Claude Design alternative** — built for people who want the speed of AI-native design tools without subscription lock-in, cloud-only workflows, or being forced onto a single provider. An MIT-licensed desktop app, local-first from day one, with BYOK for any model (Claude, GPT, Gemini, DeepSeek, Kimi, GLM, Ollama, or any OpenAI-compatible endpoint). One-click import of your existing Claude Code or Codex API key gets you running in under 90 seconds.
+**Open CoDesign is the open-source Claude Design alternative** — built for people who want the speed of AI-native design tools without subscription lock-in, cloud-only workflows, or being forced onto a single provider. An MIT-licensed desktop app, local-first from day one, with BYOK for any model (Claude, GPT, Gemini, DeepSeek, Kimi, GLM, Ollama, or any OpenAI-compatible endpoint) plus direct ChatGPT Plus / Pro / Team subscription sign-in for Codex models. One-click import of existing Claude Code or Codex provider configs, or one-click ChatGPT sign-in, gets you running in under 90 seconds.
 
 ---
 
@@ -82,10 +83,10 @@ Open source, desktop-native, and built for people who do not want their design w
 | Bring your own key | ✅ Any provider | ❌ Anthropic only | ❌ Vercel only | ⚠️ Limited |
 | Local / offline | ✅ Fully local app | ❌ Cloud | ❌ Cloud | ❌ Cloud |
 | Models | ✅ 20+ (Claude, GPT, Gemini, Ollama…) | Claude only | GPT-4o | Multi-LLM |
-| Version history | ✅ Local SQLite snapshots | ❌ | ❌ | ❌ |
+| Version history | ✅ Local sessions + workspace files | ❌ | ❌ | ❌ |
 | Data privacy | ✅ On-device app state | ❌ Cloud-processed | ❌ Cloud | ❌ Cloud |
 | Editable export | ✅ HTML, PDF, PPTX, ZIP, Markdown | ⚠️ Limited | ⚠️ Limited | ⚠️ Limited |
-| Price | ✅ Free app, token cost only | 💳 Subscription | 💳 Subscription | 💳 Subscription |
+| Price | ✅ Free app, provider/subscription cost only | 💳 Subscription | 💳 Subscription | 💳 Subscription |
 
 ---
 
@@ -128,23 +129,24 @@ Open source, desktop-native, and built for people who do not want their design w
 
 **Time to first artifact:** about 3 minutes
 
-**Requires:** one API key or local Ollama
+**Requires:** one API key, ChatGPT subscription sign-in, or local Ollama
 
 **Runs on:** macOS 12+ (Monterey or later), Windows 10+, Linux (glibc ≥ 2.31)
 
 ### 1. Install
 
-**One-liner** (recommended):
+**Package manager** (recommended):
 
 ```bash
-# Windows
-winget install OpenCoworkAI.OpenCoDesign
-
 # macOS
 brew install --cask opencoworkai/tap/open-codesign
+
+# Windows — Scoop
+scoop bucket add opencoworkai https://github.com/OpenCoworkAI/scoop-bucket
+scoop install opencoworkai/open-codesign
 ```
 
-**Or direct download** (v0.1.x) from [GitHub Releases](https://github.com/OpenCoworkAI/open-codesign/releases):
+**Or direct download** from the [v0.2.0 GitHub Release](https://github.com/OpenCoworkAI/open-codesign/releases/tag/v0.2.0):
 
 | Platform | File |
 |---|---|
@@ -163,14 +165,16 @@ Each release ships with `SHA256SUMS.txt` and a CycloneDX SBOM (`*-sbom.cdx.json`
 
 | Manager | Command | Status |
 |---|---|---|
-| Scoop (Windows) | `scoop bucket add opencoworkai https://github.com/OpenCoworkAI/scoop-bucket && scoop install open-codesign` | 🟢 Live |
-| Flathub (Linux) | `flatpak install flathub ai.opencowork.codesign` | ⏸ Deferred to v0.2 (needs signed build + AppStream metadata) |
+| Homebrew Cask (macOS) | `brew install --cask opencoworkai/tap/open-codesign` | 🟢 Live |
+| Scoop (Windows) | `scoop bucket add opencoworkai https://github.com/OpenCoworkAI/scoop-bucket && scoop install opencoworkai/open-codesign` | 🟢 Live |
+| winget (Windows) | `winget install OpenCoworkAI.OpenCoDesign` | 🟡 PR submitted; waiting for Microsoft review |
+| Flathub (Linux) | `flatpak install flathub ai.opencowork.codesign` | ⏸ Deferred; needs signed build + AppStream metadata |
 | Snap (Linux) | `snap install --dangerous open-codesign-*.snap` | 🟡 Attached to releases best-effort; Snap Store publish not yet wired |
 
-After each tag push, CI auto-syncs SHAs back into `packaging/` and (once the winget PR merges) auto-opens downstream bumps. Every `packaging/*/README.md` documents its own mirror flow.
+After each stable tag push, CI syncs SHAs back into `packaging/` and publishes downstream Homebrew/Scoop updates when the repo secrets are configured. The first winget submission is in review; once Microsoft accepts the package, future winget bumps can be automated from the release workflow. Every `packaging/*/README.md` documents its own channel.
 </details>
 
-> **v0.1 note:** installers are unsigned. On **macOS Sequoia 15+** right-click → Open no longer bypasses Gatekeeper, and "Open Anyway" in System Settings often fails. Reliable one-liner:
+> **Unsigned installer note:** installers are not notarized or Authenticode-signed yet. On **macOS Sequoia 15+** right-click → Open no longer bypasses Gatekeeper, and "Open Anyway" in System Settings often fails. Reliable one-liner:
 >
 > ```sh
 > xattr -cr "/Applications/Open CoDesign.app"
@@ -181,16 +185,15 @@ After each tag push, CI auto-syncs SHAs back into `packaging/` and (once the win
 >
 > Want a verified build? Compile from source — see [CONTRIBUTING.md](./CONTRIBUTING.md).
 
-### 2. Add your API key
+### 2. Add a provider
 
-On first launch, Open CoDesign opens the Settings page. Paste any supported provider key:
+On first launch, Open CoDesign opens the Settings page. Pick the path that matches how you already use models:
 
-- Anthropic (`sk-ant-…`)
-- OpenAI (`sk-…`)
-- Google Gemini
-- Any OpenAI-compatible relay (OpenRouter, SiliconFlow, local Ollama)
+- **ChatGPT subscription** — sign in with ChatGPT to use Codex models without pasting an API key.
+- **API key** — paste Anthropic (`sk-ant-...`), OpenAI (`sk-...`), Google Gemini, OpenRouter, SiliconFlow, DeepSeek, or another supported provider key.
+- **Local / keyless** — use Ollama or an IP-allowlisted OpenAI-compatible gateway.
 
-Credentials stay in `~/.config/open-codesign/config.toml` (file mode 0600, same convention as Claude Code, Codex, and `gh` CLI). Nothing leaves your machine unless your chosen model provider requires it.
+Credentials stay in `~/.config/open-codesign/config.toml` and the ChatGPT OAuth token store under the app config directory. Nothing leaves your machine unless your chosen model route requires it.
 
 ### 3. Type your first prompt
 
@@ -200,7 +203,7 @@ Pick one of **fifteen built-in demos** — landing page, dashboard, pitch slide,
 
 ## Bring your stack
 
-Already using Claude Code or Codex? Your providers, models, and API keys import in one click, with no copy-paste and no need to re-enter settings:
+Already using Claude Code or Codex? API-key provider configs import in one click, with no copy-paste and no need to re-enter settings. If you use Codex through ChatGPT subscription login, sign in directly from Settings:
 
 ![Import from Claude Code or Codex in one click](https://raw.githubusercontent.com/OpenCoworkAI/open-codesign/main/website/public/demos/claude-code-import.gif)
 
@@ -220,16 +223,23 @@ Add a `SKILL.md` to any project to teach the model your own taste.
 
 ### Models and providers
 - **Unified provider model** — Anthropic, OpenAI, Gemini, DeepSeek, OpenRouter, SiliconFlow, local Ollama, or any OpenAI-compatible relay; keyless (IP-allowlisted) proxies supported
-- **One-click import** from Claude Code and Codex configs — bring your existing providers, models, and keys in a single click
+- **One-click import and sign-in** — bring Claude Code / Codex API-key provider configs across, or sign in with ChatGPT subscription for Codex models
 - **Dynamic model picker** — every provider exposes its real model catalogue, not a hardcoded shortlist
 
 ### Generation and editing
 - **Prompt → HTML or JSX/React component** prototype, rendered in a sandboxed iframe (vendored React 18 + Babel on-device)
 - **Fifteen built-in demos + twelve design skill modules** — ready-to-edit starting points for common design briefs
 - **Live agent panel** — watch tool calls stream in real time as the model edits files
-- **AI image generation** — opt-in bitmap assets for heroes, product shots, backgrounds, and illustrations
+- **AI image generation** — opt-in bitmap assets for heroes, product shots, backgrounds, and illustrations via OpenAI, OpenRouter, or signed-in ChatGPT subscription
 - **AI-generated sliders** — the model emits the parameters worth tweaking (color, spacing, font)
 - **Comment mode** — click any element in the preview to drop a pin, leave a note, and let the model rewrite only that region
+- **Decompose to UI Kit** — one click in the chat sidebar emits a `ui_kits/<slug>/` folder (`index.html` + `components/*.tsx` + `tokens.css` + `manifest.json` + `README.md`) shaped for coding-agent handoff. Built-in deterministic + vision verifiers self-check parity using a 12-question boolean rubric (no floating-point arbitrary scores) and re-iterate on gaps. Per-decompose cost surfaces inline as a toast. See [BENCHMARKS.md](./BENCHMARKS.md).
+
+  ![Decompose to UI Kit — source image vs agent-emitted ui_kit, side-by-side parity check](https://raw.githubusercontent.com/OpenCoworkAI/open-codesign/main/website/public/screenshots/decompose-to-ui-kit.png)
+  <sub>Source image (gpt-image input) on the left, agent-emitted <code>ui_kit</code> rendered headlessly on the right. Parity score and status are derived deterministically — <code>parityScore = passCount / totalChecks</code> — from the 12-check boolean rubric. Numbers are from a real <code>e2e-opus-final</code> run, not a mock.</sub>
+
+  ![Iter-0 → iter-1 reconcile loop with honest score drift](https://raw.githubusercontent.com/OpenCoworkAI/open-codesign/main/website/public/demos/decompose-iter-reel.gif)
+  <sub>4-frame reel from the <code>e2e-nodebench-iter</code> run: source → iter-0 (parityScore 0.82, 6 gaps) → iter-1 (parityScore 0.78, 5 gaps) → honest verdict. The agent fixed some gaps and introduced new layout drift; the boolean rubric exposes the regression instead of hiding it. <a href="https://raw.githubusercontent.com/OpenCoworkAI/open-codesign/main/website/public/demos/decompose-iter-reel.mp4">MP4 version</a>.</sub>
 - **Generation cancellation** — stop mid-stream without losing prior turns
 
 ### Preview and workflow
@@ -249,24 +259,24 @@ Add a `SKILL.md` to any project to teach the model your own taste.
 
 ## Roadmap
 
-Current release: v0.1.4. The next release theme is locked: **Agentic Design**.
+Current release: v0.2.0. The current release theme is **Agentic Design**.
 
-### Now — v0.1.4 shipped
+### Now — v0.2.0 shipped
 
-- **AI image generation** — opt-in bitmap assets through OpenAI image models or OpenRouter image models
-- **ChatGPT Plus / Codex subscription login** — one-click OAuth for users who do not want to paste an API key
-- **CLIProxyAPI one-click import** — auto-detect a running local proxy and bring it into Settings
-- **API config hardening** — clearer relay diagnostics for timeouts, SSE truncation, missing `/models`, and incompatible Messages APIs
-
-### Next — v0.2.0 (Agentic Design)
-
-Expected in about a week. v0.2 turns Open CoDesign from a one-shot generator into a local design agent with a real workspace:
+v0.2 turns Open CoDesign from a one-shot generator into a local design agent with a real workspace:
 
 - **Design as session** — every design is a pi session with JSONL history and a workspace folder on disk
 - **Permissioned agent loop** — pi built-ins for read, write, edit, bash, grep, find, and ls, gated by Open CoDesign's permission UI
 - **Design tools on demand** — `ask`, `scaffold`, `skill`, `preview`, `gen_image`, `tweaks`, `todos`, and `done`
 - **`DESIGN.md` as shared memory** — brand tokens and design-system decisions become editable files, not model memory
 - **v0.1 migration path** — existing SQLite designs migrate into workspaces and session history
+
+### Previous — v0.1.4
+
+- **AI image generation** — opt-in bitmap assets through OpenAI image models or OpenRouter image models
+- **ChatGPT Plus / Codex subscription login** — one-click OAuth for users who do not want to paste an API key
+- **CLIProxyAPI one-click import** — auto-detect a running local proxy and bring it into Settings
+- **API config hardening** — clearer relay diagnostics for timeouts, SSE truncation, missing `/models`, and incompatible Messages APIs
 
 ### Later — v0.2.x and beyond
 
@@ -300,7 +310,7 @@ Have a different priority in mind? [Open an issue](https://github.com/OpenCowork
 
 - Electron + React 19 + Vite 6 + Tailwind v4
 - `@mariozechner/pi-ai` and `pi-coding-agent` (model/provider and agent-loop primitives)
-- `better-sqlite3`, `electron-builder`
+- `electron-builder`
 
 ## Reporting issues
 
@@ -335,14 +345,14 @@ For Chinese-speaking users, we also keep a WeChat group for product updates, usa
   />
 </p>
 
-> ⚠️ The WeChat QR code rotates every 7 days and is currently valid until **May 4**.
+> ⚠️ The WeChat QR code rotates every 7 days and is currently valid until **May 16**.
 > If the code has expired, please leave a message in [GitHub Issues](https://github.com/OpenCoworkAI/open-codesign/issues) and we will refresh the image in-repo.
 
 See also the Chinese README: [README.zh-CN.md#社群](./README.zh-CN.md#%E7%A4%BE%E7%BE%A4).
 
 ## Contributing
 
-Read [CONTRIBUTING.md](./CONTRIBUTING.md). Open an issue before larger changes and run `pnpm lint && pnpm typecheck && pnpm test` before a PR.
+Read [CONTRIBUTING.md](./CONTRIBUTING.md). Open an issue before writing code and run `pnpm lint && pnpm typecheck && pnpm test` before a PR.
 
 ## License
 

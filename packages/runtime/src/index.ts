@@ -47,7 +47,8 @@ const JSX_TEMPLATE_END = '<!-- AGENT_BODY_END -->';
 const OVERLAY_MARKER = '<!-- CODESIGN_OVERLAY_SCRIPT -->';
 const JSX_RUNTIME_MARKER = '<!-- CODESIGN_JSX_RUNTIME -->';
 const STANDALONE_RUNTIME_MARKER = '<!-- CODESIGN_STANDALONE_RUNTIME -->';
-const EDITMODE_MARKER_RE = /\/\*\s*EDITMODE-BEGIN\s*\*\/[\s\S]*?\/\*\s*EDITMODE-END\s*\*\//g;
+const EDITMODE_BEGIN_RE = /\/\*\s*EDITMODE-BEGIN\s*\*\//g;
+const EDITMODE_END_RE = /\/\*\s*EDITMODE-END\s*\*\//g;
 export type RenderableSourceKind = 'html' | 'jsx' | 'tsx' | 'unknown';
 
 export interface BuildPreviewDocumentOptions {
@@ -306,7 +307,23 @@ function transformOptionsForKind(kind: 'jsx' | 'tsx'): { presets: unknown[]; fil
 }
 
 function bindEditmodeTokensToRuntime(source: string): string {
-  return source.replace(EDITMODE_MARKER_RE, 'window.__codesign_tweaks__.tokens');
+  const chunks: string[] = [];
+  let cursor = 0;
+  while (cursor < source.length) {
+    EDITMODE_BEGIN_RE.lastIndex = cursor;
+    const begin = EDITMODE_BEGIN_RE.exec(source);
+    if (!begin) break;
+    EDITMODE_END_RE.lastIndex = EDITMODE_BEGIN_RE.lastIndex;
+    const end = EDITMODE_END_RE.exec(source);
+    // An unmatched first BEGIN means no later BEGIN can have a matching END.
+    // Do not rescan its suffix for every nested BEGIN (quadratic on malformed input).
+    if (!end) break;
+    chunks.push(source.slice(cursor, begin.index), 'window.__codesign_tweaks__.tokens');
+    cursor = EDITMODE_END_RE.lastIndex;
+  }
+  if (chunks.length === 0) return source;
+  chunks.push(source.slice(cursor));
+  return chunks.join('');
 }
 
 function compileAndRunScript(

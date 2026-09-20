@@ -16,7 +16,15 @@
  * the runtime's iframe HTML builder.
  */
 
-export const OVERLAY_SCRIPT = `(function() {
+import {
+  isSourceEditSelection,
+  SOURCE_EDIT_ATTRIBUTE,
+  type SourceEditOverlayContext,
+  type SourceEditSelection,
+} from './source-edit-instrumentation';
+
+export function buildOverlayScript(sourceEdit?: SourceEditOverlayContext): string {
+  return `(function() {
   'use strict';
   var hovered = null;
   var pinned = null;
@@ -28,6 +36,18 @@ export const OVERLAY_SCRIPT = `(function() {
     try { console.warn('[overlay] ' + key, err); } catch (_) { /* noop */ }
   }
   var currentMode = 'default';
+  var sourceEditContext = ${JSON.stringify(sourceEdit ?? null).replaceAll('<', '\\u003c')};
+  function sourceEditSelection(el) {
+    if (!sourceEditContext || !el || typeof el.getAttribute !== 'function') return null;
+    var marker = el.getAttribute('${SOURCE_EDIT_ATTRIBUTE}');
+    var prefix = sourceEditContext.previewRevision + ':';
+    if (typeof marker !== 'string' || marker.slice(0, prefix.length) !== prefix) return null;
+    var id = marker.slice(prefix.length);
+    if (!Object.prototype.hasOwnProperty.call(sourceEditContext.targets, id)) return null;
+    if (String(el.tagName).toLowerCase() !== sourceEditContext.targets[id].toLowerCase()) return null;
+    // Authored code can forge same-frame DOM and messages; main must revalidate the source.
+    return { targetId: id, sourceHash: sourceEditContext.sourceHash, previewRevision: sourceEditContext.previewRevision };
+  }
 
   window.addEventListener('keydown', function(e) {
     if (e.key !== 'Escape' || e.isComposing || e.keyCode === 229) return;
@@ -232,7 +252,7 @@ export const OVERLAY_SCRIPT = `(function() {
       } catch (_) { /* parent inaccessible — leave blank */ }
       pinElement(el, selector, false);
       try {
-        window.parent.postMessage({
+        var selection = {
           __codesign: true,
           type: 'ELEMENT_SELECTED',
           selector: selector,
@@ -240,7 +260,10 @@ export const OVERLAY_SCRIPT = `(function() {
           outerHTML: selectedHtml,
           parentOuterHTML: parentHtml,
           rect: { top: rect.top, left: rect.left, width: rect.width, height: rect.height }
-        }, '*');
+        };
+        var provenance = sourceEditSelection(el);
+        if (provenance) selection.sourceEdit = provenance;
+        window.parent.postMessage(selection, '*');
       } catch (err) { console.warn('[overlay] postMessage ELEMENT_SELECTED failed:', err); }
       return;
     }
@@ -414,10 +437,14 @@ export const OVERLAY_SCRIPT = `(function() {
     }
   } catch (err) { try { console.warn('[overlay] navguard install failed:', err); } catch (_) {} }
 })();`;
+}
+
+export const OVERLAY_SCRIPT = buildOverlayScript();
 
 export interface OverlayMessage {
   __codesign: true;
   type: 'ELEMENT_SELECTED';
+  sourceEdit?: SourceEditSelection;
   selector: string;
   tag: string;
   outerHTML: string;
@@ -433,12 +460,17 @@ export function isOverlayMessage(data: unknown): data is OverlayMessage {
   return (
     d.__codesign === true &&
     d.type === 'ELEMENT_SELECTED' &&
+    (d.sourceEdit === undefined || isSourceEditSelection(d.sourceEdit)) &&
     typeof d.selector === 'string' &&
     d.selector.length > 0 &&
+    d.selector.length <= 8192 &&
     typeof d.tag === 'string' &&
     d.tag.length > 0 &&
+    d.tag.length <= 128 &&
     typeof d.outerHTML === 'string' &&
-    (d.parentOuterHTML === undefined || typeof d.parentOuterHTML === 'string') &&
+    d.outerHTML.length <= 800 &&
+    (d.parentOuterHTML === undefined ||
+      (typeof d.parentOuterHTML === 'string' && d.parentOuterHTML.length <= 600)) &&
     isElementRect(d.rect)
   );
 }

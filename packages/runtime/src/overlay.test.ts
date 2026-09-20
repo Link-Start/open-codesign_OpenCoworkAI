@@ -1,5 +1,10 @@
 import { describe, expect, it, vi } from 'vitest';
-import { isElementRectsMessage, isOverlayMessage, OVERLAY_SCRIPT } from './overlay';
+import {
+  buildOverlayScript,
+  isElementRectsMessage,
+  isOverlayMessage,
+  OVERLAY_SCRIPT,
+} from './overlay';
 
 interface FakeWindow {
   addEventListener: (type: string, fn: unknown, capture?: boolean) => void;
@@ -93,7 +98,7 @@ interface ListenerHarness {
   postedToParent: unknown[];
 }
 
-function runOverlayWithHarness(): ListenerHarness {
+function runOverlayWithHarness(script = OVERLAY_SCRIPT): ListenerHarness {
   const body = {};
   const selectorMatches = new Map<string, unknown[]>();
   const elementIds = new Map<string, unknown>();
@@ -124,7 +129,7 @@ function runOverlayWithHarness(): ListenerHarness {
     'document',
     'console',
     'setInterval',
-    `with (window) { ${OVERLAY_SCRIPT} }`,
+    `with (window) { ${script} }`,
   );
   sandbox(fakeWindow, fakeDocument, { warn: () => {} }, fakeSetInterval);
   return {
@@ -661,5 +666,105 @@ describe('OVERLAY_SCRIPT rect broadcast', () => {
       selector: '/div[1]/span[1]',
       rect: { top: 20, left: 30, width: 40, height: 50 },
     });
+  });
+});
+
+describe('source provenance selection hints', () => {
+  const context = {
+    sourceHash: 'a'.repeat(64),
+    previewRevision: 'preview-1',
+    targets: { '10:50': 'button' },
+  };
+  function click(h: ListenerHarness, marker: string | null, tagName = 'BUTTON', parent?: object) {
+    h.windowListeners.get('message')?.({
+      source: h.parent,
+      data: { __codesign: true, type: 'SET_MODE', mode: 'comment' },
+    });
+    h.documentListeners.get('click')?.({
+      preventDefault: () => {},
+      stopPropagation: () => {},
+      target: {
+        nodeType: 1,
+        tagName,
+        parentElement: parent ?? h.body,
+        style: {},
+        outerHTML: '<button>Save</button>',
+        getAttribute: (name: string) => (name === 'data-codesign-source-id' ? marker : null),
+        getBoundingClientRect: () => ({ top: 0, left: 0, width: 10, height: 10 }),
+      },
+    });
+    return h.postedToParent.at(-1);
+  }
+  it('emits only the clicked host own known marker and bound revisions', () => {
+    const h = runOverlayWithHarness(buildOverlayScript(context));
+    const selection = click(h, 'preview-1:10:50');
+    expect(selection).toMatchObject({
+      sourceEdit: {
+        targetId: '10:50',
+        sourceHash: context.sourceHash,
+        previewRevision: 'preview-1',
+      },
+    });
+    expect(isOverlayMessage(selection)).toBe(true);
+  });
+  it('never guesses an ancestor origin or trusts unknown marker/tag pairs', () => {
+    for (const [marker, tagName] of [
+      [null, 'SPAN'],
+      ['preview-1:99:100', 'BUTTON'],
+      ['preview-1:10:50', 'DIV'],
+    ] as const) {
+      const h = runOverlayWithHarness(buildOverlayScript(context));
+      const parent = {
+        nodeType: 1,
+        tagName: 'BUTTON',
+        parentElement: h.body,
+        getAttribute: () => 'preview-1:10:50',
+      };
+      expect(click(h, marker, tagName, parent)).not.toHaveProperty('sourceEdit');
+    }
+  });
+  it.each([
+    '10:50',
+    'author-value',
+    'preview-old:10:50',
+    'preview-1:99:100',
+  ])('ignores authored, stale or unmapped attribute values: %s', (marker) => {
+    const h = runOverlayWithHarness(buildOverlayScript(context));
+    const selection = click(h, marker);
+    expect(isOverlayMessage(selection)).toBe(true);
+    expect(selection).not.toHaveProperty('sourceEdit');
+  });
+  it('does not treat a current-looking marker as provenance without an injected target', () => {
+    const h = runOverlayWithHarness(buildOverlayScript({ ...context, targets: {} }));
+    expect(click(h, 'preview-1:10:50')).not.toHaveProperty('sourceEdit');
+  });
+  it('keeps old comments compatible and ignores authored markers without an inspect plan', () => {
+    const h = runOverlayWithHarness();
+    const selection = click(h, 'preview-1:10:50');
+    expect(isOverlayMessage(selection)).toBe(true);
+    expect(selection).not.toHaveProperty('sourceEdit');
+  });
+  it('does not accept a forged parent control message even with a source-edit plan', () => {
+    const h = runOverlayWithHarness(buildOverlayScript(context));
+    h.windowListeners.get('message')?.({
+      source: {},
+      data: { __codesign: true, type: 'SET_MODE', mode: 'comment' },
+    });
+    h.documentListeners.get('click')?.({ target: { tagName: 'BUTTON' } });
+    expect(h.postedToParent).toEqual([]);
+  });
+  it('bounds metadata and existing selection strings', () => {
+    const h = runOverlayWithHarness(buildOverlayScript(context));
+    const message = click(h, 'preview-1:10:50');
+    if (!isOverlayMessage(message)) throw new Error('Missing fixture selection');
+    for (const invalid of [
+      { ...message, sourceEdit: { ...message.sourceEdit, path: '../outside.jsx' } },
+      { ...message, sourceEdit: { ...message.sourceEdit, sourceHash: 'old' } },
+      { ...message, selector: 'x'.repeat(8193) },
+      { ...message, outerHTML: 'x'.repeat(801) },
+      { ...message, parentOuterHTML: 'x'.repeat(601) },
+      { ...message, tag: 'x'.repeat(129) },
+    ])
+      expect(isOverlayMessage(invalid)).toBe(false);
   });
 });

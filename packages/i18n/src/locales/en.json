@@ -65,6 +65,19 @@
     "filesTabEmptyHint": "Describe your design in the chat, attach local references, or choose an existing workspace. Your files and preview will appear here.",
     "openInTab": "Open in tab",
     "previewHint": "Thumbnail preview · double-click the file or use Open in tab for full view",
+    "sourceEdit": {
+      "toggle": "Edit source",
+      "title": "Local source edit",
+      "close": "Close source editor",
+      "text": "Text",
+      "apply": "Save source definition",
+      "scope": "Edits the source definition, not an arbitrary rendered instance.",
+      "reloadWarning": "Saving reloads the preview and may reset its state.",
+      "selectHint": "Select an element in the preview. Only supported static source fields can be edited.",
+      "unsupportedSelection": "This element has no supported source target. Dynamic or ambiguous sources cannot be edited.",
+      "saved": "Saved to workspace",
+      "unavailable": "Requires a real workspace JSX/TSX source; editing is disabled during generation."
+    },
     "documentPreview": {
       "previewLabel": "Document preview",
       "loading": "Preparing document preview…",

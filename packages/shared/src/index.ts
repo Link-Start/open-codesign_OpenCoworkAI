@@ -47,6 +47,7 @@ export {
   parseDesignMd,
   validateDesignMd,
 } from './design-md';
+export * from './source-edits';
 export { DEFAULT_SOURCE_ENTRY, LEGACY_SOURCE_ENTRY } from './source-entries';
 export { inspectTweakSource, type TweakSourceState } from './tweak-source';
 

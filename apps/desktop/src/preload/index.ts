@@ -28,6 +28,10 @@ import type {
   ResourceStateV1,
   SelectedElement,
   SnapshotCreateInput,
+  SourceEditApplyRequestV1,
+  SourceEditApplyResultV1,
+  SourceEditInspectRequestV1,
+  SourceEditInspectResultV1,
   SupportedOnboardingProvider,
   WireApi,
 } from '@open-codesign/shared';
@@ -682,6 +686,18 @@ const api = {
       ipcRenderer.invoke('ollama:v1:probe', baseUrl) as Promise<
         { ok: true; models: string[] } | { ok: false; code: string; message: string }
       >,
+  },
+  sourceEdits: {
+    inspect: (input: SourceEditInspectRequestV1) =>
+      ipcRenderer.invoke(
+        'codesign:source-edits:v1:inspect',
+        input,
+      ) as Promise<SourceEditInspectResultV1>,
+    apply: (input: SourceEditApplyRequestV1) =>
+      ipcRenderer.invoke(
+        'codesign:source-edits:v1:apply',
+        input,
+      ) as Promise<SourceEditApplyResultV1>,
   },
   files: {
     list: (designId: string) =>

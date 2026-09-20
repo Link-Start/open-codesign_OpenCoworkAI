@@ -1,3 +1,4 @@
+import { realpath } from 'node:fs/promises';
 import path_module from 'node:path';
 import {
   ActiveRunMessages,
@@ -84,6 +85,7 @@ import {
   listSnapshots,
   recordDiagnosticEvent,
 } from '../snapshots-db';
+import { registerSourceEditBusyCheck } from '../source-edits-ipc';
 import { withTlsBypass } from '../tls-override';
 import { withStableWorkspacePath } from '../workspace-path-lock';
 import { listWorkspaceFilesAt, readWorkspaceFilesAt } from '../workspace-reader';
@@ -999,6 +1001,29 @@ export function registerGenerateIpc({ db, getMainWindow }: RegisterGenerateIpcDe
   const inFlight = new Map<string, AbortController>();
   const inFlightByDesign = new Map<string, { generationId: string; startedAt: number }>();
   const inFlightByWorkspace = new Map<string, { generationId: string; startedAt: number }>();
+  const unregisterSourceEditBusyCheck = registerSourceEditBusyCheck(
+    async (designId, workspacePath) => {
+      if (inFlightByDesign.has(designId)) return true;
+      const key = (value: string) => (process.platform === 'win32' ? value.toLowerCase() : value);
+      const roots = new Set(inFlightByWorkspace.keys());
+      // Design registration precedes workspace acquisition during setup. Include
+      // those real runs too, including another design bound to this workspace.
+      for (const activeDesignId of inFlightByDesign.keys()) {
+        const root = db === null ? null : getDesign(db, activeDesignId)?.workspacePath;
+        if (root) roots.add(root);
+        else return true;
+      }
+      for (const root of roots) {
+        try {
+          if (key(await realpath(root)) === key(workspacePath)) return true;
+        } catch {
+          // An active run with an unresolved workspace must not permit a write.
+          return true;
+        }
+      }
+      return inFlightByDesign.has(designId);
+    },
+  );
 
   const armTimeout = (id: string, controller: AbortController) =>
     armGenerationTimeout(
@@ -1749,6 +1774,7 @@ export function registerGenerateIpc({ db, getMainWindow }: RegisterGenerateIpcDe
   });
 
   return () => {
+    unregisterSourceEditBusyCheck();
     for (const controller of inFlight.values()) {
       try {
         controller.abort();

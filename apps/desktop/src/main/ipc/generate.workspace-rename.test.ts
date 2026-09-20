@@ -1,4 +1,4 @@
-import { mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, readFile, rm, symlink, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { Agent } from '@mariozechner/pi-agent-core';
@@ -68,6 +68,11 @@ const generateControl = vi.hoisted(() => {
 });
 generateControl.reset();
 
+// This suite exercises IPC handlers in Node, never an Electron process.
+vi.mock('electron', () => ({
+  app: { getPath: vi.fn(() => path.join(os.tmpdir(), fixtureRootName)) },
+  ipcMain: { handle: vi.fn((channel: string, handler: Handler) => handlers.set(channel, handler)) },
+}));
 vi.mock('../electron-runtime', () => ({
   app: {
     getPath: vi.fn(() => path.join(os.tmpdir(), fixtureRootName)),
@@ -213,6 +218,7 @@ import {
   updateDesignWorkspace,
 } from '../snapshots-db';
 import { registerSnapshotsIpc } from '../snapshots-ipc';
+import { registerSourceEditsIpc } from '../source-edits-ipc';
 import { normalizeWorkspacePath } from '../workspace-path';
 import { registerGenerateIpc } from './generate';
 
@@ -256,6 +262,53 @@ describe('generate IPC workspace rename coordination', () => {
     }
   });
 
+  it('gates source edits with the real generation maps, shared workspace aliases and registry lifecycle', async () => {
+    const db = initTestDb();
+    const design = createDesign(db, 'Generating source');
+    const other = createDesign(db, 'Alias editor');
+    const workspace = path.join(defaultWorkspaceRoot, 'source-busy');
+    const alias = path.join(documentsRoot, 'source-alias');
+    await mkdir(workspace);
+    await symlink(workspace, alias, process.platform === 'win32' ? 'junction' : 'dir');
+    const content = 'function App() { return <h1>Title</h1>; }';
+    await writeFile(path.join(workspace, 'App.jsx'), content);
+    updateDesignWorkspace(db, design.id, workspace);
+    updateDesignWorkspace(db, other.id, alias);
+    const dispose = registerGenerateIpc({ db, getMainWindow: () => null });
+    registerSourceEditsIpc(db, () => null);
+    const inspect = (id: string) =>
+      Promise.resolve(
+        getHandler('codesign:source-edits:v1:inspect')(null, {
+          schemaVersion: 1,
+          designId: id,
+          path: 'App.jsx',
+          expectedContent: content,
+        }),
+      );
+    try {
+      expect(await inspect(other.id)).toMatchObject({ status: 'ready' });
+      pendingFixtureGeneration = Promise.resolve(
+        getHandler('codesign:v1:generate')(null, {
+          schemaVersion: 1,
+          generationId: 'source-busy',
+          designId: design.id,
+          prompt: 'Continue',
+          history: [],
+          attachments: [],
+          model: { provider: 'mock-provider', modelId: 'mock-model' },
+        }),
+      );
+      await generateControl.started;
+      expect(await inspect(design.id)).toMatchObject({ status: 'rejected', reason: 'busy' });
+      expect(await inspect(other.id)).toMatchObject({ status: 'rejected', reason: 'busy' });
+      generateControl.release();
+      await pendingFixtureGeneration;
+      expect(await inspect(other.id)).toMatchObject({ status: 'ready' });
+    } finally {
+      dispose();
+    }
+    expect(await inspect(other.id)).toMatchObject({ status: 'rejected', reason: 'unavailable' });
+  });
   it('journals headless runs and reattaches by sequence without duplicating chat', async () => {
     vi.mocked(generateViaAgent).mockImplementationOnce(async (_input, deps) => {
       deps?.onEvent?.({ type: 'turn_start' });

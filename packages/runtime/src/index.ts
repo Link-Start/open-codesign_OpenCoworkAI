@@ -27,13 +27,19 @@ import IOS_FRAME_JSX from '../vendor/ios-frame.jsx?raw';
 import REACT_UMD from '../vendor/react.umd.js?raw';
 import REACT_DOM_UMD from '../vendor/react-dom.umd.js?raw';
 
-import { OVERLAY_SCRIPT } from './overlay';
+import { buildOverlayScript, OVERLAY_SCRIPT } from './overlay';
+import {
+  instrumentSourceForEditing,
+  type SourceEditOverlayContext,
+  type SourceEditPreviewOptions,
+} from './source-edit-instrumentation';
 import { TWEAKS_BRIDGE_LISTENER, TWEAKS_BRIDGE_SETUP } from './tweaks-bridge';
 
 export type { IframeErrorMessage } from './iframe-errors';
 export { isIframeErrorMessage } from './iframe-errors';
 export type { ElementRectsMessage, OverlayMessage } from './overlay';
 export { isElementRectsMessage, isOverlayMessage, OVERLAY_SCRIPT } from './overlay';
+export type { SourceEditPreviewOptions, SourceEditSelection } from './source-edit-instrumentation';
 export { isTweakCompatibilityNotice } from './tweaks-bridge';
 
 const JSX_TEMPLATE_BEGIN = '<!-- AGENT_BODY_BEGIN -->';
@@ -49,6 +55,10 @@ export interface BuildPreviewDocumentOptions {
   path?: string | undefined;
   /** Optional absolute file:// base URL so relative assets resolve in srcdoc/data URLs. */
   baseHref?: string | undefined;
+}
+
+export interface BuildInteractivePreviewDocumentOptions extends BuildPreviewDocumentOptions {
+  sourceEdit?: SourceEditPreviewOptions | undefined;
 }
 
 function extensionKind(path: string | undefined): RenderableSourceKind {
@@ -227,10 +237,9 @@ export function requiresPreviewScripts(source: string, path?: string | undefined
 }
 
 function escapeForScriptLiteral(jsx: string): string {
-  // JSON.stringify handles quotes/newlines; the </script> escape prevents the
-  // outer <script> from being closed early if the agent's source happens to
-  // contain that literal string.
-  return JSON.stringify(jsx).split('</script>').join('<\\/script>');
+  // HTML parses script terminators case-insensitively, before JavaScript strings.
+  // Escape every opening delimiter in the preview/export copy, not the source file.
+  return JSON.stringify(jsx).replaceAll('<', '\\u003c');
 }
 
 function escapeHtmlAttr(value: string): string {
@@ -349,7 +358,11 @@ function jsxRuntimeBaseScripts(): string {
 
 function wrapJsxAsSrcdoc(
   jsx: string,
-  opts: { kind?: 'jsx' | 'tsx'; baseHref?: string | undefined } = {},
+  opts: {
+    kind?: 'jsx' | 'tsx';
+    baseHref?: string | undefined;
+    sourceEdit?: SourceEditOverlayContext;
+  } = {},
 ): string {
   const kind = opts.kind ?? 'jsx';
   // v0.2 requires canonical EDITMODE markers. `ensureEditmodeMarkers` is kept
@@ -374,7 +387,7 @@ ${JSX_TEMPLATE_BEGIN}
 ${compileAndRunScript(normalized, kind, { liveTweaks: true })}
 ${JSX_TEMPLATE_END}
 <script>${TWEAKS_BRIDGE_LISTENER}</script>
-<script>${OVERLAY_SCRIPT}</script>
+<script>${opts.sourceEdit ? buildOverlayScript(opts.sourceEdit) : OVERLAY_SCRIPT}</script>
 </body>
 </html>`;
 }
@@ -634,9 +647,28 @@ export const INTERACTIVE_PREVIEW_SANDBOX = 'allow-scripts allow-forms';
 
 export function buildInteractivePreviewDocument(
   userSource: string,
-  opts: BuildPreviewDocumentOptions = {},
+  opts: BuildInteractivePreviewDocumentOptions = {},
 ): string {
-  const document = buildPreviewDocument(userSource, opts).replace(/^\s*<!doctype[^>]*>/iu, '');
+  let preview: string;
+  if (opts.sourceEdit) {
+    const kind = extensionKind(opts.path);
+    if (
+      (kind !== 'jsx' && kind !== 'tsx') ||
+      looksLikeFullHtmlDocument(userSource) ||
+      userSource.includes(JSX_TEMPLATE_BEGIN)
+    ) {
+      throw new Error('Source edit preview supports only original JSX or TSX source.');
+    }
+    const instrumented = instrumentSourceForEditing(userSource, opts.sourceEdit);
+    preview = wrapJsxAsSrcdoc(instrumented.source, {
+      kind,
+      baseHref: opts.baseHref,
+      sourceEdit: instrumented.context,
+    });
+  } else {
+    preview = buildPreviewDocument(userSource, opts);
+  }
+  const document = preview.replace(/^\s*<!doctype[^>]*>/iu, '');
   // Apply before even malformed authored head markup. Submit events may run,
   // but browser-enforced CSP also blocks form.submit(), which bypasses events.
   return `<!doctype html>

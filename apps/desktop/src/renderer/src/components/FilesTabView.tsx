@@ -3,6 +3,7 @@ import {
   buildInteractivePreviewDocument,
   INTERACTIVE_PREVIEW_SANDBOX,
   isRenderablePath,
+  type SourceEditSelection,
 } from '@open-codesign/runtime';
 import {
   type CommentRow,
@@ -18,6 +19,7 @@ import {
   Folder,
   FolderOpen,
   Globe2,
+  MousePointer2,
   RefreshCw,
 } from 'lucide-react';
 import {
@@ -61,11 +63,13 @@ import {
   postPinSelectorToPreviewWindow,
   stablePreviewSourceKey,
 } from '../preview/helpers';
+import { useWorkspaceSourceEdit } from '../preview/useWorkspaceSourceEdit';
 import {
   readWorkspacePreviewSource,
   resolveDesignPreviewSource,
 } from '../preview/workspace-source';
 import { useCodesignStore } from '../store';
+import { SourceEditPanel } from './SourceEditPanel';
 
 export { resolveReferencedWorkspacePreviewPath } from '../preview/workspace-source';
 
@@ -1009,6 +1013,8 @@ interface WorkspaceFilePreviewProps {
 }
 
 interface WorkspaceFilePreviewMessageHandlerInput {
+  sourceEditMode?: boolean;
+  onSourceEditSelected?: (selection?: SourceEditSelection) => void;
   onSelectionCleared?: (() => void) | undefined;
   sourcePath?: string | undefined;
   comments?: CommentRow[] | undefined;
@@ -1044,6 +1050,8 @@ export function findReusableWorkspaceFileCommentForSelector(input: {
 }
 
 export function createWorkspaceFilePreviewMessageHandlers({
+  sourceEditMode = false,
+  onSourceEditSelected,
   onSelectionCleared,
   sourcePath,
   comments = [],
@@ -1057,6 +1065,10 @@ export function createWorkspaceFilePreviewMessageHandlers({
     onPreviewEscape: handlePreviewFullscreenEscape,
     onSelectionCleared: () => onSelectionCleared?.(),
     onElementSelected: (msg) => {
+      if (sourceEditMode) {
+        onSourceEditSelected?.(msg.sourceEdit);
+        return;
+      }
       selectCanvasElement({
         ...(sourcePath ? { sourcePath } : {}),
         selector: msg.selector,
@@ -1091,6 +1103,7 @@ export function createWorkspaceFilePreviewMessageHandlers({
 }
 
 interface WorkspacePreviewSource {
+  workspaceDesignId?: string;
   content: string;
   path: string;
 }
@@ -1565,6 +1578,8 @@ export function WorkspaceFilePreview({
   const currentSnapshotId = useCodesignStore((s) => s.currentSnapshotId);
   const commentBubble = useCodesignStore((s) => s.commentBubble);
   const previewFullscreen = useCodesignStore((s) => s.previewFullscreen);
+  const isGenerating = useCodesignStore((s) => s.isGenerating);
+  const generatingDesignId = useCodesignStore((s) => s.generatingDesignId);
   const { files: observedFiles } = useDesignFiles(files ? null : currentDesignId);
   const workspaceFiles = files ?? observedFiles;
   const currentDesign = designs.find((d) => d.id === currentDesignId);
@@ -1599,6 +1614,7 @@ export function WorkspaceFilePreview({
     previewSource?.path,
   );
   const [readError, setReadError] = useState<string | null>(null);
+  const [sourceReadPending, setSourceReadPending] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const previousPreview = useRef<{
     designId: string | null;
@@ -1613,13 +1629,37 @@ export function WorkspaceFilePreview({
     ? previewSource
     : null;
 
+  const sourceEdit = useWorkspaceSourceEdit({
+    designId: currentDesignId,
+    selectedPath: path,
+    source: activePreviewSource,
+    available: interactive && renderable,
+    loading: sourceReadPending,
+    generating: isGenerating && generatingDesignId === currentDesignId,
+    onPersist: setPreviewSource,
+    onSaved: (warnings) =>
+      useCodesignStore.getState().pushToast({
+        variant: 'success',
+        title: t('canvas.sourceEdit.saved'),
+        ...(warnings.length > 0 ? { description: warnings.join('\n') } : {}),
+      }),
+  });
+  const previewInteractionMode = sourceEdit.active
+    ? 'comment'
+    : interactive
+      ? interactionMode
+      : 'default';
+
   useLayoutEffect(() => {
     function onMessage(event: MessageEvent): void {
       if (!isTrustedPreviewMessageSource(event.source, iframeRef.current?.contentWindow)) return;
       handlePreviewMessage(
         event.data,
         createWorkspaceFilePreviewMessageHandlers({
+          sourceEditMode: sourceEdit.active,
+          onSourceEditSelected: sourceEdit.select,
           onSelectionCleared: () => {
+            sourceEdit.clearSelection();
             if (interactive) useCodesignStore.getState().clearCanvasElement();
           },
           sourcePath: activePreviewSource?.path,
@@ -1638,12 +1678,17 @@ export function WorkspaceFilePreview({
           },
           pushIframeError,
         }),
+        sourceEdit.inspection ?? undefined,
       );
     }
 
     window.addEventListener('message', onMessage);
     return () => window.removeEventListener('message', onMessage);
   }, [
+    sourceEdit.active,
+    sourceEdit.select,
+    sourceEdit.clearSelection,
+    sourceEdit.inspection,
     pushIframeError,
     activePreviewSource?.path,
     comments,
@@ -1657,14 +1702,15 @@ export function WorkspaceFilePreview({
   useEffect(() => {
     postModeToPreviewWindow(
       iframeRef.current?.contentWindow,
-      interactive ? interactionMode : 'default',
+      previewInteractionMode,
       pushIframeError,
     );
-  }, [interactionMode, pushIframeError, interactive]);
+  }, [previewInteractionMode, pushIframeError]);
 
   useEffect(() => {
     if (!interactive) return;
     if (
+      !sourceEdit.active &&
       commentBubble &&
       commentBubble.sourcePath === activePreviewSource?.path &&
       interactionMode === 'comment'
@@ -1677,18 +1723,27 @@ export function WorkspaceFilePreview({
       return;
     }
     postClearPinToPreviewWindow(iframeRef.current?.contentWindow, pushIframeError);
-  }, [commentBubble, activePreviewSource?.path, interactionMode, interactive, pushIframeError]);
+  }, [
+    commentBubble,
+    activePreviewSource?.path,
+    interactionMode,
+    interactive,
+    pushIframeError,
+    sourceEdit.active,
+  ]);
 
   useEffect(() => {
     // Re-read when the file watcher reports changed metadata for either the
     // selected file or an HTML placeholder's resolved JSX/TSX source.
     void currentDesignUpdatedAt;
+    void currentDesign?.workspacePath;
     void previewDependencyKey;
     if ((!renderable && !textPreview) || !currentDesignId) {
       setPreviewSource(null);
       setReadError(null);
       return;
     }
+    setSourceReadPending(false);
     const read = window.codesign?.files?.read;
     if (useDesignPreviewResolver) {
       let cancelled = false;
@@ -1733,15 +1788,18 @@ export function WorkspaceFilePreview({
     }
     let cancelled = false;
     setReadError(null);
+    setSourceReadPending(true);
     void readWorkspacePreviewSource({ designId: currentDesignId, path, read })
       .then((result) => {
         if (cancelled) return;
-        setPreviewSource(result);
+        setPreviewSource({ ...result, workspaceDesignId: currentDesignId });
+        setSourceReadPending(false);
       })
       .catch((err) => {
         if (cancelled) return;
         setPreviewSource(null);
         setReadError(err instanceof Error ? err.message : t('errors.unknown'));
+        setSourceReadPending(false);
       });
     return () => {
       cancelled = true;
@@ -1749,6 +1807,7 @@ export function WorkspaceFilePreview({
   }, [
     currentDesignId,
     currentDesignUpdatedAt,
+    currentDesign?.workspacePath,
     previewDependencyKey,
     path,
     currentPreviewSource,
@@ -1767,7 +1826,7 @@ export function WorkspaceFilePreview({
     Boolean(activePreviewSource?.path.toLowerCase().endsWith('.html')) &&
     htmlRequiresWorkspaceDevServer(activePreviewSource?.content ?? '');
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: previewSourceStableKey intentionally masks EDITMODE-only token changes so live tweaks can update via postMessage without rebuilding the iframe.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Only the default preview masks tweak changes; source editing always uses exact bytes and a new inspected revision.
   const srcDoc = useMemo(() => {
     if (!activePreviewSource || !renderable || workspaceDevServerRequired) return null;
     try {
@@ -1779,6 +1838,7 @@ export function WorkspaceFilePreview({
       return buildInteractivePreviewDocument(activePreviewSource.content, {
         path: activePreviewSource.path,
         baseHref,
+        ...(sourceEdit.inspection ? { sourceEdit: sourceEdit.inspection } : {}),
       });
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);
@@ -1789,6 +1849,8 @@ export function WorkspaceFilePreview({
     currentDesignId,
     activePreviewSource?.path,
     previewSourceStableKey,
+    sourceEdit.active ? activePreviewSource?.content : null,
+    sourceEdit.inspection,
     renderable,
     workspaceDevServerRequired,
   ]);
@@ -1858,7 +1920,7 @@ export function WorkspaceFilePreview({
   }
 
   return (
-    <>
+    <div className="relative h-full min-h-0">
       <iframe
         key={srcDoc}
         ref={iframeRef}
@@ -1867,9 +1929,10 @@ export function WorkspaceFilePreview({
         srcDoc={srcDoc}
         onLoad={() => {
           const win = iframeRef.current?.contentWindow;
-          postModeToPreviewWindow(win, interactive ? interactionMode : 'default', pushIframeError);
+          postModeToPreviewWindow(win, previewInteractionMode, pushIframeError);
           if (
             interactive &&
+            !sourceEdit.active &&
             commentBubble &&
             commentBubble.sourcePath === activePreviewSource?.path
           ) {
@@ -1879,20 +1942,60 @@ export function WorkspaceFilePreview({
         className="w-full h-full bg-white border-0 block"
       />
       <div hidden={previewFullscreen}>
-        {showTweakPanel ? (
+        {interactive ? (
+          <div className="absolute right-[var(--space-3)] top-[var(--space-3)] z-10 flex max-h-[calc(100%_-_var(--space-6))] w-[min(100%,var(--size-menu-wide))] pointer-events-none [&>*]:pointer-events-auto flex-col items-end gap-[var(--space-2)]">
+            <button
+              type="button"
+              aria-pressed={sourceEdit.active}
+              disabled={!sourceEdit.eligible}
+              title={
+                sourceEdit.eligible
+                  ? t('canvas.sourceEdit.scope')
+                  : t('canvas.sourceEdit.unavailable')
+              }
+              onClick={() => {
+                useCodesignStore.getState().clearCanvasElement();
+                sourceEdit.toggle();
+              }}
+              className="inline-flex min-h-[var(--size-control-sm)] items-center gap-[var(--space-2)] rounded-[var(--radius-sm)] border border-[var(--color-border)] bg-[var(--color-surface)] px-[var(--space-3)] py-[var(--space-1)] text-[var(--text-sm)] text-[var(--color-text-secondary)] shadow-[var(--shadow-soft)] hover:bg-[var(--color-surface-hover)] disabled:opacity-50"
+            >
+              <MousePointer2 className="size-[var(--space-4)]" aria-hidden />
+              {t('canvas.sourceEdit.toggle')}
+            </button>
+            {sourceEdit.active && activePreviewSource ? (
+              <SourceEditPanel
+                key={`${sourceEdit.inspection?.previewRevision}:${sourceEdit.selection?.id ?? ''}`}
+                path={activePreviewSource.path}
+                target={sourceEdit.selection}
+                busy={sourceEdit.busy}
+                message={sourceEdit.message}
+                onApply={sourceEdit.apply}
+                onClose={sourceEdit.toggle}
+              />
+            ) : null}
+          </div>
+        ) : null}
+        {showTweakPanel && !sourceEdit.active ? (
           <Suspense fallback={null}>
             {activePreviewSource ? (
               <TweakPanel
                 key={`${currentDesignId}:${activePreviewSource.path}`}
                 iframeRef={iframeRef}
                 source={activePreviewSource}
-                onPersist={setPreviewSource}
+                onPersist={(source) =>
+                  setPreviewSource({
+                    ...source,
+                    ...(activePreviewSource.workspaceDesignId
+                      ? { workspaceDesignId: activePreviewSource.workspaceDesignId }
+                      : {}),
+                  })
+                }
               />
             ) : null}
           </Suspense>
         ) : null}
       </div>
-    </>
+    </div>
   );
 }
 

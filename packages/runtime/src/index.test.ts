@@ -11,6 +11,13 @@ import {
   resolveArtifactSourceReferencePath,
 } from './index';
 
+function compiledArtifactSource(document: string): string {
+  const compiled = [...document.matchAll(/var source = ([^\n]+);\n {2}var options = /g)].at(
+    -1,
+  )?.[1];
+  if (!compiled) throw new Error('Missing compiled artifact source');
+  return JSON.parse(compiled) as string;
+}
 describe('interactive preview form policy', () => {
   it.each([
     ['App.jsx', 'function App(){return <form><button>Save</button></form>}'],
@@ -204,7 +211,7 @@ describe('buildSrcdoc', () => {
     const out = buildSrcdoc('<div>plain</div>');
     expect(out).toContain('AGENT_BODY_BEGIN');
     expect(out).toContain('window.Babel.transform');
-    expect(out).toContain('<div>plain</div>');
+    expect(compiledArtifactSource(out)).toBe('<div>plain</div>');
   });
 });
 
@@ -346,7 +353,9 @@ describe('standalone renderable classification', () => {
     const out = buildPreviewDocument('function _App() { return <div>hi</div>; }', {
       path: 'demo.jsx',
     });
-    expect(out).toContain("ReactDOM.createRoot(document.getElementById('root')).render(<_App />);");
+    expect(compiledArtifactSource(out)).toContain(
+      "ReactDOM.createRoot(document.getElementById('root')).render(<_App />);",
+    );
   });
 
   it('preserves explicit mount code without adding an _App fallback', () => {
@@ -354,8 +363,8 @@ describe('standalone renderable classification', () => {
       'function App() { return <div>hi</div>; }\nReactDOM.createRoot(document.getElementById("root")).render(<App/>);',
       { path: 'demo.jsx' },
     );
-    expect(out).toContain('render(<App/>);');
-    expect(out).not.toContain('render(<_App />);');
+    expect(compiledArtifactSource(out)).toContain('render(<App/>);');
+    expect(compiledArtifactSource(out)).not.toContain('render(<_App />);');
   });
 
   it('uses the TypeScript Babel preset for TSX files', () => {

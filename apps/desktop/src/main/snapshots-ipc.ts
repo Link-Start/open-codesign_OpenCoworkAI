@@ -82,6 +82,7 @@ import {
   updateDesignWorkspace,
   upsertDesignFile,
 } from './snapshots-db';
+import { registerSourceEditsIpc } from './source-edits-ipc';
 import { prepareWorkspaceWriteContent } from './workspace-file-content';
 import { normalizeWorkspacePath } from './workspace-path';
 import {
@@ -2285,6 +2286,7 @@ export function registerWorkspaceIpc(db: Database, getWin: () => BrowserWindow |
   );
 
   registerFilesWatcherIpc(db, getWin);
+  registerSourceEditsIpc(db, getWin);
 }
 
 function parseIdPayload(raw: unknown, channel: string): string {
@@ -2335,6 +2337,8 @@ export const SNAPSHOTS_CHANNELS_V1 = [
   'codesign:files:v1:import-to-workspace',
   'codesign:files:v1:subscribe',
   'codesign:files:v1:unsubscribe',
+  'codesign:source-edits:v1:inspect',
+  'codesign:source-edits:v1:apply',
   'chat:v1:list',
   'chat:v1:append',
   'chat:v1:seed-from-snapshots',

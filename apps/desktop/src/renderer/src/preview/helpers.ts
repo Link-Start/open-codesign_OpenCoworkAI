@@ -5,6 +5,7 @@ import {
   isIframeErrorMessage,
   isOverlayMessage,
   type OverlayMessage,
+  type SourceEditSelection,
 } from '@open-codesign/runtime';
 
 export function formatIframeError(
@@ -117,11 +118,16 @@ export interface PreviewMessageHandlers {
 
 export type PreviewMessageOutcome =
   | { status: 'handled'; type: AllowedPreviewMessageType }
-  | { status: 'rejected'; reason: 'envelope' | 'unknown-type' | 'shape'; type?: string };
+  | {
+      status: 'rejected';
+      reason: 'envelope' | 'unknown-type' | 'shape' | 'stale-source-edit';
+      type?: string;
+    };
 
 export function handlePreviewMessage(
   data: unknown,
   handlers: PreviewMessageHandlers,
+  expectedSourceEditRevision?: Pick<SourceEditSelection, 'sourceHash' | 'previewRevision'>,
 ): PreviewMessageOutcome {
   if (typeof data !== 'object' || data === null) {
     return { status: 'rejected', reason: 'envelope' };
@@ -140,6 +146,16 @@ export function handlePreviewMessage(
       return { status: 'handled', type: envelope.type };
     case 'ELEMENT_SELECTED':
       if (isOverlayMessage(data)) {
+        // WindowProxy survives document navigation. Same-frame messages are still
+        // candidate hints, and the main process must independently validate edits.
+        if (
+          data.sourceEdit &&
+          expectedSourceEditRevision &&
+          (data.sourceEdit.sourceHash !== expectedSourceEditRevision.sourceHash ||
+            data.sourceEdit.previewRevision !== expectedSourceEditRevision.previewRevision)
+        ) {
+          return { status: 'rejected', reason: 'stale-source-edit', type: envelope.type };
+        }
         handlers.onElementSelected(data);
         return { status: 'handled', type: 'ELEMENT_SELECTED' };
       }

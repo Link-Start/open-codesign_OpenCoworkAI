@@ -50,6 +50,9 @@ importers:
 
   apps/desktop:
     dependencies:
+      '@babel/parser':
+        specifier: 7.29.2
+        version: 7.29.2
       jszip:
         specifier: ^3.10.1
         version: 3.10.1

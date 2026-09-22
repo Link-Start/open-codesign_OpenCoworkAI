@@ -1,0 +1,33 @@
+import {publicationCLI,blockPublicationNativeExecution} from './publication-safety.mjs';
+publicationCLI(import.meta.url);
+import assert from 'node:assert/strict';
+import {readFile,writeFile} from 'node:fs/promises';
+import {join} from 'node:path';
+export async function runNumberValueCase({output,format,viewportName,viewport,calibrationPolicy=null,records=[],inputHashesBefore}={}){
+ blockPublicationNativeExecution();
+ const {researchRoot,runtimeDirectory}=await import('../publication/paths.mjs');
+ const root=researchRoot; // Research sources/fixtures/out, not the product checkout root.
+ const {start,staticGate,sha256,APP_SCRIPT_ENTRY_CONTRACT,HTML_ENTRY_CONTRACT}=await import('../src/browser-session-r3.mjs');
+ const {measureUntilDeadline}=await import('../src/measurement-r2.mjs');
+ const fixturePath=join(root,'fixtures','handwritten','number-value-r3.'+format),sourceBytes=await readFile(fixturePath),entryContract=format==='jsx'?APP_SCRIPT_ENTRY_CONTRACT:HTML_ENTRY_CONTRACT;
+ if(inputHashesBefore)assert.equal(sha256(sourceBytes),inputHashesBefore['fixture:number-value-r3.'+format]);
+ const caseId='number-'+(calibrationPolicy?'validation':'discovery')+'-'+format+'-'+viewportName,record={caseId,format,viewportName,fixturePath,fixtureSha256:sha256(sourceBytes),samples:[],actions:[],passed:false};records.push(record);
+ const session=await start({browserPath:process.env.CODESIGN_BROWSER_PATH,runtimeDir:runtimeDirectory(),artifactRoot:join(output,caseId),entryContract,trustLevel:'trusted-microfixture',trustedFixturePaths:[fixturePath],calibrationPolicy,viewport,settleMs:250,sessionLifetimeMs:120000});
+ const label=label=>({by:'form-control-label',label,exact:true});
+ async function sample(name){const before=await session.trustedValueWitness({selector:'input[type=number]'}),inspection=await session.inspect({selector:'input[type=number]'}),after=await session.trustedValueWitness({selector:'input[type=number]'});for(const w of before.elements){assert.equal(typeof w.value,'string');const a=after.elements.find(e=>e.backendNodeId===w.backendNodeId);assert.equal(w.value,a.value,'stable independent number getter');if(calibrationPolicy){const observed=inspection.elements.find(e=>e.backendNodeId===w.backendNodeId);if(observed.visible&&observed.rawPresence.axNode&&!observed.rawPresence.axIgnored){assert.equal(observed.valueState,'available',name+' '+w.id+' '+JSON.stringify(observed.rawPresence));assert.equal(observed.value,w.value,name+' '+w.id)}else assert.equal(observed.valueState,'unavailable')}}record.samples.push({label:name,before,nativeWitness:after,inspection,checks:inspection.elements.map(e=>({id:e.attributes.id,type:e.type,visible:e.visible,stable:true,witnessValue:after.elements.find(w=>w.backendNodeId===e.backendNodeId).value,rawPresence:e.rawPresence}))});return inspection}
+ async function fill(name,value){const result=await session.act({locator:label(name),action:'fill',value});record.actions.push({name,value,result});return sample(name+' <- '+JSON.stringify(value))}
+ try{
+  record.receipt=await session.render({sourceBytes,format,entryContract,fixturePath,trustLevel:'trusted-microfixture',staticGate:staticGate({sourceBytes,format,entryContract}),artifactId:caseId});
+  const initial=await sample('initial');record.formLabel=await session.captureFacts({targets:[{key:'t0',locator:label('Number zero')},{key:'t1',locator:label('Number empty')},{key:'t2',locator:label('Mixed label')}],includeDocument:true});assert.equal(record.formLabel.state,'ok',JSON.stringify(record.formLabel.error));assert.equal(record.formLabel.facts.targets[0].matchCount,1);assert.equal(record.formLabel.facts.targets[0].nodes[0].role,'spinbutton');assert.equal(record.formLabel.facts.targets[1].matchCount,1);assert.equal(record.formLabel.facts.targets[2].matchCount,2,'public unspecified type cannot secretly choose textbox or spinbutton');
+  record.within=await session.captureFacts({targets:[{key:'t0',locator:{...label('Mixed label'),within:{by:'role',role:'group',name:'Number controls',exact:true}}}],includeDocument:true});assert.equal(record.within.state,'ok');assert.equal(record.within.facts.targets[0].matchCount,1);assert.equal(record.within.facts.targets[0].nodes[0].type,'input:number');
+  record.numberKeyboardDefaults=[];for(const [key,value]of [['ArrowUp','1'],['ArrowDown','0']]){const action=await session.act({locator:label('Number zero'),action:'key',key}),inspection=await sample('number-'+key),e=inspection.elements.find(n=>n.attributes.id==='number-zero'),w=record.samples.at(-1).nativeWitness.elements.find(w=>w.backendNodeId===e.backendNodeId);record.numberKeyboardDefaults.push({key,action,backendNodeId:e.backendNodeId,nativeValue:w.value,observedValue:e.value});assert.equal(w.value,value);assert.equal(e.value,value)}
+  await fill('Number empty','0');await fill('Number empty','');await fill('Number empty','-2');await fill('Number empty','1.5');await fill('Number empty','1e2');await fill('Number empty','00');await fill('Number empty','');
+  await fill('Number React accept','');await fill('Number React accept','9');await fill('Number React accept','');await fill('Number React reject','');
+  const final=record.samples.at(-1).nativeWitness.elements;const finalObserved=record.samples.at(-1).inspection.elements,byId=id=>final.find(e=>e.backendNodeId===finalObserved.find(n=>n.attributes.id===id).backendNodeId).value;assert.equal(byId('number-react-accept'),'');assert.equal(byId('number-react-reject'),'0');
+  for(const name of ['Number readonly','Number disabled']){let caught;try{await session.act({locator:label(name),action:'fill',value:'9'})}catch(error){caught={code:error.code,message:error.message}}assert.ok(caught,'readonly/disabled must reject fill');record.actions.push({name,error:caught})}
+  record.measurements=[];if(calibrationPolicy)for(const [name,value]of [['Number empty',''],['Number React accept',''],['Number React reject','0'],['Number exponent','1e2'],['Number leading zero','00']]){const measured=await measureUntilDeadline({collect:session.valueCollector({locator:label(name)}),expect:{cmp:'eq',value},abort:()=>session.abortRender()});record.measurements.push({name,measured});assert.equal(measured.outcome,'observed-satisfied');assert.equal(measured.coverage.validSamples,3)}
+  record.passed=true;
+ }catch(error){record.error={code:error.code,message:error.message,stack:error.stack};throw error}
+ finally{await session.close();record.cleanup=session.diagnostics;assert.ok(record.cleanup.ownedProcesses.every(p=>p.closedAt));await writeFile(join(output,caseId+'.json'),JSON.stringify(record,null,2),{flag:'wx'})}
+ return record;
+}

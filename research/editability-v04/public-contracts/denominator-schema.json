@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:codesign:v04:denominators:draft-1",
+  "title": "v04 endpoint-method funnel rollup (draft-not-frozen)",
+  "$comment": "No network resolution required. Counts and rates are derived from immutable slot records. JSON Schema does not enforce arithmetic; runner and independent auditor must enforce x-invariants. This schema is a draft, not a test result.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "protocolStatus", "datasetId", "datasetKind", "endpoint", "method", "runStatus", "clusterUnit", "clusterCount", "counts", "rates", "evidenceRef"],
+  "properties": {
+    "schemaVersion": {"const": "v04-draft-1"},
+    "protocolStatus": {"enum": ["draft-not-frozen", "frozen", "deferred"]},
+    "datasetId": {"type": "string", "minLength": 1},
+    "datasetKind": {"enum": ["dev", "pilot", "formal"]},
+    "endpoint": {"enum": ["R", "G"]},
+    "method": {"enum": ["FULL", "SCOPE_OFF", "PROVENANCE_OFF", "LLM_ONESHOT", "EXTERNAL_ADAPTER"]},
+    "runStatus": {"enum": ["planned", "running", "completed", "interrupted", "deferred"]},
+    "clusterUnit": {"enum": ["brief", "family"]},
+    "clusterCount": {"$ref": "#/$defs/count"},
+    "counts": {
+      "type": "object", "additionalProperties": false,
+      "required": ["P", "E", "Q", "A", "S", "W", "U_A", "originalIneligible", "eligibilityUnresolved", "upstreamMissing", "notScreened", "preparationFailure", "preparationNotExecuted", "rejection", "methodError", "proposalNotExecuted", "methodRejection", "publicProtocolRejection"],
+      "properties": {
+        "P": {"$ref": "#/$defs/count"}, "E": {"$ref": "#/$defs/count"},
+        "Q": {"$ref": "#/$defs/count"}, "A": {"$ref": "#/$defs/count"},
+        "S": {"$ref": "#/$defs/count"}, "W": {"$ref": "#/$defs/count"},
+        "U_A": {"$ref": "#/$defs/count"},
+        "originalIneligible": {"$ref": "#/$defs/count"},
+        "eligibilityUnresolved": {"$ref": "#/$defs/count"},
+        "upstreamMissing": {"$ref": "#/$defs/count"},
+        "notScreened": {"$ref": "#/$defs/count"},
+        "preparationFailure": {"$ref": "#/$defs/count"},
+        "preparationNotExecuted": {"$ref": "#/$defs/count"},
+        "rejection": {"$ref": "#/$defs/count"},
+        "methodError": {"$ref": "#/$defs/count"},
+        "proposalNotExecuted": {"$ref": "#/$defs/count"},
+        "methodRejection": {"$ref": "#/$defs/count"},
+        "publicProtocolRejection": {"$ref": "#/$defs/count"}
+      }
+    },
+    "rates": {
+      "type": "object", "additionalProperties": false,
+      "required": ["S_over_P", "S_over_E", "Q_over_E", "A_over_E", "W_over_A", "U_A_over_A", "rejection_over_Q"],
+      "properties": {
+        "S_over_P": {"$ref": "#/$defs/rate"}, "S_over_E": {"$ref": "#/$defs/rate"},
+        "Q_over_E": {"$ref": "#/$defs/rate"}, "A_over_E": {"$ref": "#/$defs/rate"},
+        "W_over_A": {"$ref": "#/$defs/rate"}, "U_A_over_A": {"$ref": "#/$defs/rate"},
+        "rejection_over_Q": {"$ref": "#/$defs/rate"}
+      }
+    },
+    "evidenceRef": {"type": "string", "minLength": 1}
+  },
+  "$defs": {
+    "count": {"type": "integer", "minimum": 0},
+    "rate": {"type": ["number", "null"], "minimum": 0, "maximum": 1}
+  },
+  "x-invariants": [
+    "P = E + originalIneligible + eligibilityUnresolved + upstreamMissing + notScreened",
+    "E = Q + preparationFailure + preparationNotExecuted",
+    "Q = A + rejection + methodError + proposalNotExecuted",
+    "A = S + W + U_A",
+    "rejection = methodRejection + publicProtocolRejection",
+    "Each rate equals its named ratio; zero denominator is null, never zero",
+    "Each planned dataset/source/task/method slot is unique; R/G are masks on one proposal, not two independent proposals",
+    "Core methods share original eligibility and public preparation; unsupported methods do not reduce E/Q",
+    "Formal target P=768 per core method per endpoint; deviations require visible protocol/run status and retained missing slots",
+    "Acceptance is locked before private evaluation; nonaccepted slots never have S/W/U_A",
+    "Confirmed violation dominates unknown for accepted W; preserve co-occurring uncertainty separately",
+    "Eligibility reason precedence: not screened if never attempted; missing source if attempted upstream without source; otherwise confirmed ineligible dominates unresolved, else eligible",
+    "Eligibility, preparation and proposal not-executed counts remain in P; completed means terminal ledger, not every slot performed",
+    "No pooled DEV/PILOT/FORMAL or pooled G/R efficacy denominators",
+    "Cluster unit is highest dependent brief/family level, never individual task"
+  ]
+}

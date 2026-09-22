@@ -1,0 +1,2 @@
+# Preserve research snapshot bytes and hash commitments across platforms.
+* -text -eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

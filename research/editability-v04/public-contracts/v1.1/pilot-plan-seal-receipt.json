@@ -1,0 +1,74 @@
+{
+  "schemaVersion": "v04-public-pilot-plan-seal-receipt-1.1",
+  "datasetId": "pilot-8-v1.1",
+  "sealedAt": "2026-09-20T10:26:16.290Z",
+  "privateManifestSha256": "5a7fae6b7d45a1fef54820efb7b249388ca44c6d2be3733db02eecd6fd2068c1",
+  "privateManifestBytes": 5065,
+  "phase": "pre-source-specification-seal-not-pilot-admission-not-F1",
+  "counts": {
+    "briefs": 8,
+    "publicTaskTemplates": 32,
+    "generationConfigSlots": 2,
+    "plannedSourceSlots": 16,
+    "plannedCoreMethodSlots": 256,
+    "llmEditAttemptUpperBound": 64
+  },
+  "sourceGenerationAttempts": 0,
+  "llmEditAttempts": 0,
+  "browserNaturalProgramRuns": 0,
+  "formalBriefsCreated": 0,
+  "neverFormal": true,
+  "sourceGenerationAdmitted": false,
+  "executionAllowed": false,
+  "userAuthorization": "conditional-authorized: 16 one-shot generations via existing two configs, at most 64 one-shot LLM edits after all gates; no retries/replacements; no formal96.",
+  "reviewSummary": {
+    "publicRequirements": {
+      "pass": 3,
+      "fail": 0,
+      "needsReview": 2
+    },
+    "privateOracle": {
+      "pass": 4,
+      "fail": 0,
+      "needsReview": 1
+    },
+    "unit": "audit dimensions, not task outcomes",
+    "disposition": "conditional specification acceptance; operational and statistical provenance gates remain"
+  },
+  "activeArtifactDigests": [
+    {
+      "artifact": "public-facing-requirements.json",
+      "sha256": "ed700c7fcb793c327ad063613a443d584aaeb739c12685d112617cf9d67665ca",
+      "bytes": 26565
+    },
+    {
+      "artifact": "public-facing-tasks.json",
+      "sha256": "a109f31bb6465122df68a6c3b22226a391430db3ae1e1809374c72affd60007b",
+      "bytes": 28230
+    },
+    {
+      "artifact": "private-oracle-plan.json",
+      "sha256": "63fe37a62b28c06435702f02963aea94b64f635a986b4744872048e5487c440b",
+      "bytes": 3816078
+    },
+    {
+      "artifact": "structure-cards-for-independent-review.json",
+      "sha256": "572c2785ea44767a7b41ed9bc69bb3684b53b7ed6fbf2c2d98cbd01a7865471f",
+      "bytes": 15821
+    }
+  ],
+  "privateAccess": {
+    "authorizedReaders": [
+      "independent-protocol-owner",
+      "independent-pilot-plan-and-oracle-reviewer"
+    ],
+    "methodsOrParentGrantedConcreteContent": false,
+    "publicFieldsOnly": "abstract schemas, counts, hashes and aggregate review status",
+    "osIsolationVerified": false,
+    "allSystemWideReadsObserved": false
+  },
+  "governanceAuthority": "plans/v1.1/protocol-amendment-01.md",
+  "governanceAuthoritySha256": "142cb921c52ec054b8605243182966ab2721b2a292f9b65703a2ed1f08434fd6",
+  "revisionRule": "Do not overwrite these sealed bytes. Operational binding/normalization/conditional-native-control policy requires a new source-free revision and independent signoff before execution. No edits based on source or method outcomes.",
+  "limitation": "This seals pre-source plan bytes, not runnable pilot admission, F1 preregistration, actual sample independence or editing performance."
+}

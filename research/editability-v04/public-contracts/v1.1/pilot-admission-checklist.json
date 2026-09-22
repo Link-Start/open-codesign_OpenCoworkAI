@@ -1,0 +1,176 @@
+{
+  "schemaVersion": "v04-pilot-admission-1.1",
+  "recordedAt": "2026-09-20T10:27:34.240Z",
+  "phase": "planning-only",
+  "executionAllowed": false,
+  "admissionGranted": false,
+  "formalExecutionAuthorized": false,
+  "userAuthorization": {
+    "status": "conditional-authorized-attested-by-parent",
+    "evidence": "Same-session parent message quotes direct user approval after independent pilot-admission: fixed 8 briefs, 16 one-shot generations via existing two configurations, at most 64 one-shot LLM edits, no retries/replacements, costs observed.",
+    "directUserTurnReceiptRef": null,
+    "bounds": {
+      "briefs": 8,
+      "generationConfigs": 2,
+      "generationAttemptsMax": 16,
+      "llmEditAttemptsMax": 64,
+      "retriesPerSlot": 0,
+      "replacements": 0,
+      "formal96": false
+    },
+    "remainingCondition": "All independent admission gates and explicit parent trusted-chain signoff."
+  },
+  "gates": [
+    {
+      "id": "PLAN-SEAL",
+      "ownerRole": "independent-protocol-owner",
+      "status": "pending",
+      "requiredEvidence": "Exact requirements/tasks/oracle/replay versions sealed before any source; all independent specification-level findings resolved or prospectively excluded, never by observed outcomes.",
+      "receiptRefs": [
+        "public-contracts/v1.1/pilot-plan-seal-receipt.json"
+      ],
+      "boundHashes": {
+        "privatePlanManifest": "5a7fae6b7d45a1fef54820efb7b249388ca44c6d2be3733db02eecd6fd2068c1"
+      },
+      "signedBy": null,
+      "signedAt": null,
+      "preparationStatus": "source-free-specification-bytes-sealed-with-conditional-independent-review",
+      "remainingBlocker": "Executable public-interface/normalizer/native-control binding requires new source-free revision and operational evidence; specification seal is not admission."
+    },
+    {
+      "id": "PUBLIC-PROJECTION",
+      "ownerRole": "independent-evaluation-and-method-owners",
+      "status": "pending",
+      "requiredEvidence": "Generator gets requirements only; each editor gets its own request/public evidence only; collector receives query/action/probe only; sentinel controls show no expected/baseline/private-key leakage.",
+      "receiptRefs": [],
+      "boundHashes": {},
+      "signedBy": null,
+      "signedAt": null,
+      "preparationEvidence": "11 structural/integrity checks, 222 projected packet validations; no runtime secrecy proof."
+    },
+    {
+      "id": "QUERY-TYPES",
+      "ownerRole": "browser-owner",
+      "status": "pending",
+      "requiredEvidence": "Role/name/within and implementation-neutral form-control-label resolution; cardinality, legal input native types, empty vs unavailable controls.",
+      "receiptRefs": [],
+      "boundHashes": {},
+      "signedBy": null,
+      "signedAt": null
+    },
+    {
+      "id": "FULL-OBSERVATION-DOMAIN",
+      "ownerRole": "browser-owner",
+      "status": "pending",
+      "requiredEvidence": "value/text/count/enabled/attribute/rect/withinViewport/gap/grid/order/documentOverflow with coherent acquisition/identity and source-independent semantic normalization.",
+      "receiptRefs": [],
+      "boundHashes": {},
+      "signedBy": null,
+      "signedAt": null
+    },
+    {
+      "id": "FULL-REPLAY-DOMAIN",
+      "ownerRole": "browser-and-evaluation-owners",
+      "status": "pending",
+      "requiredEvidence": "click/fill/key/reload/setViewport; state retention through viewport changes, edited-source reload; legal native-control validation/conditional interaction semantics.",
+      "receiptRefs": [],
+      "boundHashes": {},
+      "signedBy": null,
+      "signedAt": null
+    },
+    {
+      "id": "BOUND-BASELINE",
+      "ownerRole": "evaluation-owner",
+      "status": "pending",
+      "requiredEvidence": "Independent original capture with complete source/replay/catalog/viewport/observer/policy/checkpoint/ABI provenance; no private source expectations sent to browser.",
+      "receiptRefs": [],
+      "boundHashes": {},
+      "signedBy": null,
+      "signedAt": null
+    },
+    {
+      "id": "R-G-NONWORSENING",
+      "ownerRole": "evaluation-and-protocol-owners",
+      "status": "pending",
+      "requiredEvidence": "R non-noop plus measurable baseline; G original healthy without silently adding non-noop. Separate noOpStatus; passed protection stays passed, failed protection no worse, missing is unknown. Independent requirement-to-assertion coverage review must establish the full frozen G gate; replaying an action without asserting its distinct effect does not count as coverage.",
+      "receiptRefs": [],
+      "boundHashes": {},
+      "signedBy": null,
+      "signedAt": null,
+      "remainingBlocker": "Current private pre-source catalog honestly declares finite unasserted business effects; do not relabel its bounded conformance as completed G-health or silently weaken the original G protocol. Complete coverage prospectively in an independently reviewed new revision before admission."
+    },
+    {
+      "id": "FOUR-METHODS",
+      "ownerRole": "methods-owner",
+      "status": "pending",
+      "requiredEvidence": "FULL/SCOPE_OFF/PROVENANCE_OFF/LLM_ONESHOT real wrappers; same preguard candidate for scope ablation, true provenance removal, one-shot-only reference, shared output checks and acceptance locked before private evaluation.",
+      "receiptRefs": [],
+      "boundHashes": {},
+      "signedBy": null,
+      "signedAt": null
+    },
+    {
+      "id": "SLOT-LEDGER",
+      "ownerRole": "runner-and-independent-audit-owners",
+      "status": "pending",
+      "requiredEvidence": "16 fixed generation slots, 256 core planned method slots, max64 one-shot LLM edit calls; R/G reuse one proposal, P/E/Q/A conservation and complete keys including not-executed.",
+      "receiptRefs": [],
+      "boundHashes": {},
+      "signedBy": null,
+      "signedAt": null
+    },
+    {
+      "id": "CONFIGURATION-FREEZE",
+      "ownerRole": "runner-and-user-authorized-executor",
+      "status": "pending",
+      "requiredEvidence": "Exact two existing generation configurations and edit configuration, prompts, response extraction, output windows, timeout/concurrency/transport/version hashes pinned; no unsupported upstream identity claims.",
+      "receiptRefs": [],
+      "boundHashes": {},
+      "signedBy": null,
+      "signedAt": null
+    },
+    {
+      "id": "CALIBRATION-DRIFT",
+      "ownerRole": "browser-and-independent-audit-owners",
+      "status": "pending",
+      "requiredEvidence": "Complete trusted chain for actual current helper/observer/measurement/runtime/compiler/browser; old U5AyYj proves only its bound versions and limited domain; no hash-only recertification.",
+      "receiptRefs": [],
+      "boundHashes": {},
+      "signedBy": null,
+      "signedAt": null
+    },
+    {
+      "id": "PILOT-STATISTICS",
+      "ownerRole": "statistics-owner",
+      "status": "pending",
+      "requiredEvidence": "Pilot remains descriptive/never formal; brief repeated measures and overlapping families recorded; 96 brief vs functional family distinction acknowledged; no fake independent CI/effectiveN.",
+      "receiptRefs": [],
+      "boundHashes": {},
+      "signedBy": null,
+      "signedAt": null
+    },
+    {
+      "id": "COST-SAFETY-PRIVATE",
+      "ownerRole": "executor-and-independent-governance-owners",
+      "status": "pending",
+      "requiredEvidence": "Attempt/cost logging, unknown nulls, process/network/payload containment, source not run in Node, explicit private access scopes and seen feedback ledger.",
+      "receiptRefs": [],
+      "boundHashes": {},
+      "signedBy": null,
+      "signedAt": null
+    },
+    {
+      "id": "PARENT-TRUSTED-CHAIN-SIGNOFF",
+      "ownerRole": "parent-coordinator",
+      "status": "pending",
+      "requiredEvidence": "Parent explicitly confirms all above receipts and hashes form a complete trusted chain and approves this precise pilot plan revision for dispatch.",
+      "receiptRefs": [],
+      "boundHashes": {},
+      "signedBy": null,
+      "signedAt": null
+    }
+  ],
+  "blockingRule": "All gates require scoped concrete receipts and immutable hashes. A populated plan or hash alone never grants execution. Conditional user authorization does not bypass missing gates.",
+  "samplingArbitration": "96 distinct independently sourced/selected requirement briefs, not automatically 96 different functional families; disclose real lineage dependence and cluster C, assess inference before sources.",
+  "noOpArbitration": "Keep F0 E_R nonNoop and E_G original-health eligibility unchanged; optional G-intersect-nonNoop table must be separately named, never replace E_G."
+}

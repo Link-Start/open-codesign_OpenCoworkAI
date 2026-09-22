@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "v04-source-pool-feasibility-evidence-1.2",
+  "recordedAt": "2026-09-22T11:04:22.883Z",
+  "scope": "Public catalogue/provenance/license investigation only; no raw candidate dataset acquired, no future TEST assembled or selected.",
+  "formalReadiness": false,
+  "formalBriefsCreated": 0,
+  "eligibleIndependentBriefCount": null,
+  "credibleClusterCount": null,
+  "studiedPools": [
+    {
+      "id": "webapp1k",
+      "availability": "Official paper and public GitHub repository metadata actually retrieved.",
+      "paper": "https://arxiv.org/html/2408.00019v1",
+      "repositoryMetadata": "https://api.github.com/repos/onekq/WebApp1k",
+      "pinnedRepositoryCommit": "00895306c81d5329904827b65f4a933ce3cb8746",
+      "commitEvidence": "https://api.github.com/repos/onekq/WebApp1k/git/ref/heads/main",
+      "publishedUnitCount": 1000,
+      "unit": "user journeys/problems, not1000 independently originated applications",
+      "provenanceEvidence": "Paper section2: human proposes20 apps/feature sets; GPT-4o describes50 journeys per app, iterated/reviewed; each journey receives success/failure tests following fetchMock-await-expect.",
+      "license": {
+        "repositoryMetadataDeclaredSpdx": "MIT",
+        "articleLicense": "CC-BY-4.0",
+        "licenseTextDirectlyVerified": false,
+        "datasetReuseCleared": false,
+        "reason": "Repository metadata declares MIT; pinned LICENSE retrieval failed. Paper/repository licensing must not be silently extended to all separately hosted prompts/tests or third-party material."
+      },
+      "dependencyAndFit": "Known20-app ancestry and common generation/review pipeline require lineage audit; do not count1000 as independent. Mock-API success/failure and imported React/router/testing setup are not a ready-made offline single-script requirement/oracle frame. No code/template adopted.",
+      "disposition": "Potential licensed-metadata lead and useful negative independence/contract-fit evidence, not formal admission."
+    },
+    {
+      "id": "webgen-bench",
+      "availability": "Official arXiv/NeurIPS abstract and GitHub repository metadata actually retrieved.",
+      "paper": "https://arxiv.org/abs/2505.03733",
+      "publisher": "https://proceedings.neurips.cc/paper_files/paper/2025/hash/6841eed8bb6a2ec49e49235c8115efee-Abstract-Datasets_and_Benchmarks_Track.html",
+      "repositoryMetadata": "https://api.github.com/repos/mnluzimu/WebGen-Bench",
+      "pinnedRepositoryCommit": "c89e0743438e458d617cebaf7a682e0e66e41049",
+      "commitEvidence": "https://api.github.com/repos/mnluzimu/WebGen-Bench/git/ref/heads/main",
+      "publicCounts": {
+        "majorCategories": 3,
+        "minorCategories": 13,
+        "testCases": 647,
+        "trainingInstructions": 6667
+      },
+      "provenanceEvidence": "Human annotators plus GPT-4o create instructions; test cases are model-generated then manually filtered/refined; WebGen-Instruct is explicitly a training set.",
+      "license": {
+        "repositoryMetadataDeclaredSpdx": null,
+        "datasetReuseCleared": false,
+        "reason": "Official repository API license field was null. This does not prove no license exists; explicit dataset/code terms remain unverified, so public availability is not permission."
+      },
+      "dependencyAndFit": "647 is test-case count, not independent brief count. Shared annotation/generation and multi-file codebase target need audit; a training set is not automatically unseen. No silent reduction of multi-file/backend requirements to static MVP-compatible tasks.",
+      "disposition": "Real accessible project evidence, but rights/lineage/runtime-fit unresolved."
+    },
+    {
+      "id": "stackoverflow-react-tag-metadata",
+      "availability": "Official unauthenticated tag metadata endpoint returned HTTP200.",
+      "source": "https://api.stackexchange.com/2.3/tags/reactjs/info?site=stackoverflow",
+      "observedTagCount": 473811,
+      "countMeaning": "Posts tagged reactjs; not standalone requirements or independent eligible briefs.",
+      "provenanceEvidence": "Real community question channel with potential author/thread/duplicate lineage metadata; no question bodies, answers or IDs fetched or selected in this investigation.",
+      "license": {
+        "officialHelpUrl": "https://stackoverflow.com/help/licensing",
+        "officialHelpFetchStatus": 403,
+        "termsVerified": false,
+        "datasetReuseCleared": false,
+        "reason": "The help page was blocked by an access challenge; no bypass attempted and no remembered license version substituted for current verified terms."
+      },
+      "dependencyAndFit": "Potential user-origin channel, but duplicate threads, repeated authors, code-debug questions, permissions and conversion to standalone offline requirements need prospective review. Large tag count proves neither96 eligibility nor independence.",
+      "disposition": "Verified channel availability only, not cleared sampling frame."
+    },
+    {
+      "id": "webdev-arena-preference-10k",
+      "availability": "Search index identified official hosted catalogue; direct card and API metadata fetches failed.",
+      "catalogue": "https://huggingface.co/datasets/lmarena-ai/webdev-arena-preference-10k",
+      "countsVerified": false,
+      "licenseVerified": false,
+      "provenanceVerified": false,
+      "datasetReuseCleared": false,
+      "disposition": "Do not adopt third-party summaries, name-derived10k counts, preference-row counts or unverified license as evidence of96 usable independent requirements."
+    }
+  ],
+  "exposureBoundary": {
+    "rawDatasetRowsDownloaded": 0,
+    "futureCasesSelected": 0,
+    "studySourceGeneratedOrObserved": 0,
+    "publicPaperExamplesAndSearchSnippetsEncountered": true,
+    "examplesHandledAs": "Seen public literature/DEV only; do not claim those exact examples as unseen formal requirements. No example content or code reproduced in this receipt.",
+    "productOrStudyMethodImplementationRead": false,
+    "modelGatewayRequests": 0,
+    "publicWebResearchPerformed": true
+  },
+  "transportLimitations": [
+    "HuggingFace/raw-content host fetches failed with DNS resolution errors; GitHub HTML/file endpoints had fetch failures.",
+    "A direct Node public-document request failed before content retrieval; no authenticated fallback or secret discovery used.",
+    "Successful GitHub repository/ref APIs and StackExchange tag API are metadata evidence only; complete pinned LICENSE/card legal review remains pending."
+  ],
+  "nextEvidenceRequired": [
+    "Verify exact dataset-specific license text, attribution/share-alike/privacy/access conditions and any third-party rights before acquiring/adapting records.",
+    "After method/observer/statistics freeze, independently inspect actual candidate origin/thread/template ancestry and complete semantic dedup without method-result filtering.",
+    "Freeze permissible adaptation, exclusion, source-frame, ordering and cluster-capacity rules before formal generation; do not tailor requirements to native capabilities.",
+    "Record seen examples, generator/annotation lineage and repeated-author/duplicate structure. Functional-family count alone is not an independence certificate or96-family quota."
+  ],
+  "conclusion": "Actual public evidence improves beyond a hypothetical channel list, but no surveyed pool is yet a cleared96-brief independent offline React requirement frame. Formal feasible independent count and C remain unknown; no claim of achieved96 or guaranteed precision.",
+  "cost": {
+    "experimentalModelApiAttempts": 0,
+    "publicResearchNetworkRequestsPerformed": true,
+    "activeHumanSeconds": null,
+    "authoringTokens": null,
+    "money": null,
+    "limitation": "Public research traffic is distinct from experimental generation/edit API calls; no claim this authoring work was free."
+  }
+}

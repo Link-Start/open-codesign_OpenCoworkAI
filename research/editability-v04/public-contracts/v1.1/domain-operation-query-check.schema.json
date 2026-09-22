@@ -1,0 +1,66 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:codesign:v04:pilot-public-interface:1.1",
+  "title":"Abstract public pilot action/query/probe packet; no private expectations",
+  "$comment":"Planning interface only, not an implemented adapter promise. No remote schema resolution is required. Node-private oracle keys, expected/comparator/baseline are excluded. Recursive query references must be checked for cycles and uniqueness by runner.",
+  "type":"object","additionalProperties":false,
+  "required":["schemaVersion","packetKind","publicId","body"],
+  "properties":{
+    "schemaVersion":{"const":"v04-public-interface-1.1"},
+    "packetKind":{"enum":["action","probe"]},
+    "publicId":{"type":"string","minLength":1},
+    "body":{"oneOf":[{"$ref":"#/$defs/action"},{"$ref":"#/$defs/probe"}]}
+  },
+  "allOf":[{"if":{"properties":{"packetKind":{"const":"action"}}},"then":{"properties":{"body":{"$ref":"#/$defs/action"}}}},{"if":{"properties":{"packetKind":{"const":"probe"}}},"then":{"properties":{"body":{"$ref":"#/$defs/probe"}}}}],
+  "$defs":{
+    "query":{
+      "type":"object","additionalProperties":false,"required":["kind"],
+      "properties":{
+        "kind":{"enum":["role","form-control-label","query-ref"]},
+        "role":{"type":"string","minLength":1},"name":{"type":"string"},"label":{"type":"string","minLength":1},"ref":{"type":"string","minLength":1},
+        "within":{"$ref":"#/$defs/query"},"exact":{"type":"boolean"}
+      },
+      "allOf":[
+        {"if":{"properties":{"kind":{"const":"role"}}},"then":{"required":["role"]}},
+        {"if":{"properties":{"kind":{"const":"form-control-label"}}},"then":{"required":["label"]}},
+        {"if":{"properties":{"kind":{"const":"query-ref"}}},"then":{"required":["ref"]}}
+      ]
+    },
+    "viewport":{"type":"object","additionalProperties":false,"required":["width","height"],"properties":{"width":{"type":"integer","minimum":1},"height":{"type":"integer","minimum":1}}},
+    "action":{
+      "type":"object","additionalProperties":false,"required":["type"],
+      "properties":{"type":{"enum":["click","fill","key","reload","setViewport"]},"query":{"$ref":"#/$defs/query"},"value":{"type":"string"},"key":{"type":"string"},"viewport":{"$ref":"#/$defs/viewport"}},
+      "allOf":[
+        {"if":{"properties":{"type":{"enum":["click","fill","key"]}}},"then":{"required":["query"]}},
+        {"if":{"properties":{"type":{"const":"fill"}}},"then":{"required":["value"]}},
+        {"if":{"properties":{"type":{"const":"key"}}},"then":{"required":["key"]}},
+        {"if":{"properties":{"type":{"const":"setViewport"}}},"then":{"required":["viewport"]}}
+      ]
+    },
+    "probe":{
+      "type":"object","additionalProperties":false,"required":["kind"],
+      "properties":{
+        "kind":{"enum":["value","text","count","enabled","attribute","rect","withinViewport","gap","grid","order","documentOverflow"]},
+        "query":{"$ref":"#/$defs/query"},"queries":{"type":"array","items":{"$ref":"#/$defs/query"},"minItems":1},
+        "attribute":{"type":"string","minLength":1},"axis":{"enum":["horizontal","vertical"]},"orderBasis":{"enum":["visual","dom"]},"gridClusterTolerancePx":{"type":"number","minimum":0}
+      },
+      "allOf":[
+        {"if":{"properties":{"kind":{"enum":["value","text","count","enabled","attribute","rect","withinViewport"]}}},"then":{"required":["query"]}},
+        {"if":{"properties":{"kind":{"const":"attribute"}}},"then":{"required":["attribute"]}},
+        {"if":{"properties":{"kind":{"enum":["gap","grid","order"]}}},"then":{"required":["queries"]}},
+        {"if":{"properties":{"kind":{"const":"gap"}}},"then":{"required":["axis"],"properties":{"queries":{"minItems":2,"maxItems":2}}}},
+        {"if":{"properties":{"kind":{"const":"grid"}}},"then":{"required":["gridClusterTolerancePx"]}},
+        {"if":{"properties":{"kind":{"const":"order"}}},"then":{"required":["orderBasis"]}}
+      ]
+    }
+  },
+  "x-runner-invariants":[
+    "No private expected, comparator, baseline, full oracle key or private record in action/probe payloads",
+    "Query-ref resolution is finite, unique and uses only the public query catalog",
+    "Fill values are public replay actions, never secret expected values injected into browser",
+    "Each compound geometry probe records coherent capture and semantic/native identity",
+    "Exact callback field projection must be tested with private sentinels; schema validity alone is not a secrecy proof",
+    "Unsupported query/probe/action blocks pilot admission; do not silently skip required tasks",
+    "No source code or arbitrary executable string in public probes"
+  ]
+}

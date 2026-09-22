@@ -1,0 +1,1410 @@
+{
+  "schemaVersion": "editability-v04-publication-manifest-1",
+  "createdAtUtc": "2026-09-22T14:06:25.938Z",
+  "repository": "OpenCoworkAI/open-codesign",
+  "branch": "research/react-editability-v04",
+  "baseCommit": "5f6036ba526b9dd4e89aa27f6afb4d1210de486f",
+  "kind": "public-WIP-collaboration-snapshot",
+  "notOriginalF0Freeze": true,
+  "nativeReady": false,
+  "pilotAdmitted": false,
+  "formalExecutionAuthorized": false,
+  "sourceOriginalsModified": false,
+  "exactWorkingAndIndexBytesVerified": true,
+  "selfExcluded": "publication/manifest.json",
+  "selfIntegrity": "The enclosing Git commit/tree binds this manifest; no self-hash claim.",
+  "fileCountExcludingSelf": 119,
+  "totalBytesExcludingSelf": 1670719,
+  "contentInventorySha256": "897ecb09c0da70fad87d893642e4e77c5ef03f741124152d1b32e9ea87eecaae",
+  "sourceEntriesRechecked": 105,
+  "dependencyPins": [
+    {
+      "path": "package.json",
+      "sha256": "593b3145ba3bc0523012387d9796a10598ceb76e8a887a8950bcac413590267a"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "sha256": "57d47a239f0ca007ed479ed27f202dd63ee701677c612f26e2c10f075ce1e041"
+    },
+    {
+      "path": "apps/desktop/src/main/source-edit-engine.ts",
+      "sha256": "76d7043215b025430fbdbb6e27666a8807c3ca922aca0b273770f1490eedb56e"
+    },
+    {
+      "path": "packages/shared/src/source-edits.ts",
+      "sha256": "85d8991efc2a96ce4e26aac6aec9e2895685ff31e2d47d6528b60cad9c4c2ee0"
+    },
+    {
+      "path": "packages/runtime/vendor/babel.standalone.js",
+      "sha256": "2623a9e22809915ce789b4461154e277ddce520d5a4320c14d44332a5d0dcea0"
+    },
+    {
+      "path": "packages/runtime/vendor/react.umd.js",
+      "sha256": "d949f1c3687aedadcedac85261865f29b17cd273997e7f6b2bfc53b2f9d4c4dd"
+    },
+    {
+      "path": "packages/runtime/vendor/react-dom.umd.js",
+      "sha256": "35f4f974f4b2bcd44da73963347f8952e341f83909e4498227d4e26b98f66f0d"
+    }
+  ],
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 151,
+      "sha256": "e47f953fb68243f02b5eb8c2d52be62900edb049ad6c9d9ea3d21b9c5b166f79",
+      "gitBlobSha1": "e1dab866c38141fd0042ad567f943283139b7819",
+      "source": null
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 168,
+      "sha256": "b0e2acb2a4ddf24604286331569054d5b1bf16c8ce4aec341dfcaf040540ba40",
+      "gitBlobSha1": "5d528c3fcee47e173f40e1022772eb0f8b239492",
+      "source": null
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "bytes": 7562,
+      "sha256": "18da7e8989a901623536767c974fba81acaa78ce71e43a1411a45400c70745c2",
+      "gitBlobSha1": "48e353588e81c8f6b8eb54d5f5936ad60e66d95e",
+      "source": null
+    },
+    {
+      "path": "README.md",
+      "bytes": 10998,
+      "sha256": "a2fb2eb203672c3129d5f44b7baf3ab85fb6e76eaa8b8730c4dec7316fc06076",
+      "gitBlobSha1": "31d630171f2fdbb67a0a314f10392715469e4ec3",
+      "source": null
+    },
+    {
+      "path": "STATUS.md",
+      "bytes": 7954,
+      "sha256": "fd740cabf98c05d37513ee2263b25b3796e0f4018ba22ca721bb60b26664c5ed",
+      "gitBlobSha1": "cca1e9864ce3ae2540dea08d5dc405956d8f44da",
+      "source": null
+    },
+    {
+      "path": "fixtures/handwritten/entry-both.jsx",
+      "bytes": 220,
+      "sha256": "82a5973ee3ee9098846ab28362bb2d5bb4e9e5cdb68fb6b3b2184aea96ff366f",
+      "gitBlobSha1": "71e08cf592f10db4ae264eef090f3bf5efeb825b",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "fixtures/handwritten/entry-both.jsx",
+        "sourceSha256": "82a5973ee3ee9098846ab28362bb2d5bb4e9e5cdb68fb6b3b2184aea96ff366f",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "fixtures/handwritten/entry-underscore.jsx",
+      "bytes": 163,
+      "sha256": "0f3c5faff9f47dd578be8d3607287296a5a3aa221a0ce8165fc0f61ecf80efe5",
+      "gitBlobSha1": "e34cb298358ddd74ad49d4552dda8dd80d941fcf",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "fixtures/handwritten/entry-underscore.jsx",
+        "sourceSha256": "0f3c5faff9f47dd578be8d3607287296a5a3aa221a0ce8165fc0f61ecf80efe5",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "fixtures/handwritten/layout-domain-r3.html",
+      "bytes": 7415,
+      "sha256": "4294b5adb841c77e60026cb0ee7f4592fab77f398d9af65cb7c5e8db1b528267",
+      "gitBlobSha1": "cd6b3223601bcebcb5e6386ad00aa9391d6aaedc",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "fixtures/handwritten/layout-domain-r3.html",
+        "sourceSha256": "4294b5adb841c77e60026cb0ee7f4592fab77f398d9af65cb7c5e8db1b528267",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "fixtures/handwritten/layout-domain-r3.jsx",
+      "bytes": 6972,
+      "sha256": "37614047cee2504a516cb4a856c8bcf9b48ce950f9c107f8079c5f7b6ca36718",
+      "gitBlobSha1": "fd354492028d2cd3f4060c7dee51cf452cb67149",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "fixtures/handwritten/layout-domain-r3.jsx",
+        "sourceSha256": "37614047cee2504a516cb4a856c8bcf9b48ce950f9c107f8079c5f7b6ca36718",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "fixtures/handwritten/number-value-r3.html",
+      "bytes": 2009,
+      "sha256": "3b1d913d800ea029ce6f38ce91cb0b4971e6cd18f949e5a8654edfc28c4613c8",
+      "gitBlobSha1": "77667304316d810066c4dc5c3ce6434211acb4f6",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "fixtures/handwritten/number-value-r3.html",
+        "sourceSha256": "3b1d913d800ea029ce6f38ce91cb0b4971e6cd18f949e5a8654edfc28c4613c8",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "fixtures/handwritten/number-value-r3.jsx",
+      "bytes": 1773,
+      "sha256": "1bbf3387bb3dc8fc1d253b703c213a674d009d005e37cec56a312b4a92db3f6d",
+      "gitBlobSha1": "7396fa85149609220f86141696d365f4abd919f7",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "fixtures/handwritten/number-value-r3.jsx",
+        "sourceSha256": "1bbf3387bb3dc8fc1d253b703c213a674d009d005e37cec56a312b4a92db3f6d",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "fixtures/handwritten/value-matrix-legacy.jsx",
+      "bytes": 4204,
+      "sha256": "fa851e0a7a6fe23b271f7bc93899d5ac9b8759edb7db3ef1df71b2f3ee478b5f",
+      "gitBlobSha1": "cf8ed0e5044f6011c889c1041edcc867724c977f",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "fixtures/handwritten/value-matrix-legacy.jsx",
+        "sourceSha256": "fa851e0a7a6fe23b271f7bc93899d5ac9b8759edb7db3ef1df71b2f3ee478b5f",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "fixtures/handwritten/value-matrix.html",
+      "bytes": 4656,
+      "sha256": "032cd8f81aafba40157ab2fbf4478c19b8dc840062a433c958324f59d04297c6",
+      "gitBlobSha1": "affb2dddf62d7fadbc5df54bddb86d7ba0b27cd5",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "fixtures/handwritten/value-matrix.html",
+        "sourceSha256": "032cd8f81aafba40157ab2fbf4478c19b8dc840062a433c958324f59d04297c6",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "fixtures/handwritten/value-matrix.jsx",
+      "bytes": 4181,
+      "sha256": "d31139141584a732ecb37fe6eae66b6f42466a8d3e717897a547ddbaeafa23d5",
+      "gitBlobSha1": "cbe1ffdee93c44b8ac1b9e8c14613647428beac4",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "fixtures/handwritten/value-matrix.jsx",
+        "sourceSha256": "d31139141584a732ecb37fe6eae66b6f42466a8d3e717897a547ddbaeafa23d5",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "package.json",
+      "bytes": 449,
+      "sha256": "27cc030cb912e855685029930fbf83caae1255e41c1026213b46353f3ff25e70",
+      "gitBlobSha1": "d523717d2322d189ca4fef4224607d9fbc05e200",
+      "source": null
+    },
+    {
+      "path": "plans/F0-preparation-protocol-v1.md",
+      "bytes": 13350,
+      "sha256": "e73a420c2e633786c8f0c4556ef02676bfec1073eb4fa29213d83b4af1481510",
+      "gitBlobSha1": "a3ac80cd89306ff654707c9317268c0846e96475",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "plans/F0-preparation-protocol-v1.md",
+        "sourceSha256": "41e1966bd521de295ce5f33cad80c4d00bed0d4ef18c6f5f0882ce640140c9bd",
+        "adaptation": "historical-status-banner; documented portable-reference changes"
+      }
+    },
+    {
+      "path": "plans/browser-domain-r3-api.md",
+      "bytes": 11973,
+      "sha256": "a5c720195c2c4ebcbedf72a7a7c73477bb10ebb3125703dc3574b2e794b5a295",
+      "gitBlobSha1": "3464b95e49c95ba76a52a4d95a7f578f9a626ba9",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "plans/browser-domain-r3-api.md",
+        "sourceSha256": "3774c177317800fe1e91d3cb35f2e3c6a4eab679162943369421a26c189a6b40",
+        "adaptation": "historical-status-banner; documented portable-reference changes"
+      }
+    },
+    {
+      "path": "plans/browser-r3-admission-receipt-contract.md",
+      "bytes": 14139,
+      "sha256": "15fa86fa6d037cca8271df7e1ce44b0c45fc1e02f0624ff15fd84df53d6708ea",
+      "gitBlobSha1": "b2ca50fa96d4238771aa086c7892979f80894bf7",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "plans/browser-r3-admission-receipt-contract.md",
+        "sourceSha256": "6f0668019e19a10911e18a79dc2e2fab7573543ab71806f62c7c4ba7c0c23cc3",
+        "adaptation": "historical-status-banner; documented portable-reference changes"
+      }
+    },
+    {
+      "path": "plans/evaluate-adapter-r2.md",
+      "bytes": 17072,
+      "sha256": "e48ec7ed458625687fabee10e226886216bd6884b59e9b769c2baeaf2b3021a3",
+      "gitBlobSha1": "1b7420d41818c6677dec9167713f9f46231d9b12",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "plans/evaluate-adapter-r2.md",
+        "sourceSha256": "ea8b4cf842863250339b2c3d18983f010b127f915439f5b7d02669b9be93ecce",
+        "adaptation": "historical-status-banner; documented portable-reference changes"
+      }
+    },
+    {
+      "path": "plans/evaluate-adapter-r3.md",
+      "bytes": 15257,
+      "sha256": "0911599abf187658caeb4090396cf146e5dde8412cc954f54f28d9282a7a520c",
+      "gitBlobSha1": "5cfaede0b1bdbdda8fa6bf25473a2f385cd92ca8",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "plans/evaluate-adapter-r3.md",
+        "sourceSha256": "c5d4bd476a76599860bb8ffd1ebd1a3222873ea681ce30b2cef709f1311caf74",
+        "adaptation": "historical-status-banner; documented portable-reference changes"
+      }
+    },
+    {
+      "path": "plans/external-baseline-feasibility.md",
+      "bytes": 24187,
+      "sha256": "b3be9324e818d65ef62354cd55771b767bf269de8fd87e06b32c87db53a5ca4f",
+      "gitBlobSha1": "b62265f6ccee6b4c67c593710e8b573eb5979ffe",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "plans/external-baseline-feasibility.md",
+        "sourceSha256": "02258ee46d5e3907d3f68b212c19c995c3e17f6c6344ceda94676c93a7e827f2",
+        "adaptation": "historical-status-banner; documented portable-reference changes"
+      }
+    },
+    {
+      "path": "plans/measurement-r2.md",
+      "bytes": 21230,
+      "sha256": "3855e394661ac228a06d00b031041960bace2b204ce4847eb72a1e8a4bdaff94",
+      "gitBlobSha1": "f4ee82b2a0eca8418cc24ed4860431fe91825e6c",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "plans/measurement-r2.md",
+        "sourceSha256": "9b1641765ad834070e74d0475c740686044f2a5efc5103ae7982862dd9ecfe67",
+        "adaptation": "historical-status-banner; documented portable-reference changes"
+      }
+    },
+    {
+      "path": "plans/methods-v1-analysis-bridge-v1.md",
+      "bytes": 13799,
+      "sha256": "71473df955f6baf07a4dca518c3ebb6304d21613ecf6faf6ffa0914ad74d9027",
+      "gitBlobSha1": "37972377f46ddad306d3f99adcc6776302653696",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "plans/methods-v1-analysis-bridge-v1.md",
+        "sourceSha256": "b59af0860d779b144559e72ff509ced8655db47f9b41ca77d667ec0506512991",
+        "adaptation": "historical-status-banner; documented portable-reference changes"
+      }
+    },
+    {
+      "path": "plans/methods-v1-engine-adaptation.md",
+      "bytes": 11789,
+      "sha256": "7854f9106841aef2451835d3dfb6807c69d389453c03b50fcb4729bc59158ea6",
+      "gitBlobSha1": "178aa7181dde84c9888eaf6aa5a5bdf233501477",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "plans/methods-v1-engine-adaptation.md",
+        "sourceSha256": "de5057df3f87e0df68a357fc407f559392ca441eb533690a48897d5415f7f7bd",
+        "adaptation": "historical-status-banner; documented portable-reference changes"
+      }
+    },
+    {
+      "path": "plans/methods-v1.md",
+      "bytes": 14767,
+      "sha256": "7bfc060c72f6972dd266c26588c8405a908d751f081f676d2fe05168d9ef6de3",
+      "gitBlobSha1": "7cd9b2ad42e28daa257665ef9ee107f0b6c8dc93",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "plans/methods-v1.md",
+        "sourceSha256": "ee4e7369f2ada7bf2debee89ebae49c03138b98fdabd6660fe0cd38c4404aa38",
+        "adaptation": "historical-status-banner; documented portable-reference changes"
+      }
+    },
+    {
+      "path": "plans/protocol-v04.md",
+      "bytes": 19307,
+      "sha256": "98ed4af9ab1b0287867db4486f7b9c77df432ad7ed2ee4c2e40350dfdb1b40b7",
+      "gitBlobSha1": "958eb1bf2a98077992d325a7a0d7a73d8b71d0e7",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "plans/protocol-v04.md",
+        "sourceSha256": "66858dd392ab4680ecb61dedeb387edbfb9ed5d29b6f6a623f0904370015a27b",
+        "adaptation": "historical-status-banner; documented portable-reference changes"
+      }
+    },
+    {
+      "path": "plans/readiness-v04.md",
+      "bytes": 10701,
+      "sha256": "4d85fcd9feb87737ade1c6cfb938ba421ce36e080b4a176e08619c6bacc621d5",
+      "gitBlobSha1": "e22d98bdf6e700a32ec2d360f89652ed3f2dd283",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "plans/readiness-v04.md",
+        "sourceSha256": "1af1737654b8fd3363d915077595ca8896a4962914f45a7f42b7a3f75c426e1a",
+        "adaptation": "historical-status-banner; documented portable-reference changes"
+      }
+    },
+    {
+      "path": "plans/statistical-analysis-v1.md",
+      "bytes": 23065,
+      "sha256": "3d5295fba1b18e26c241f34cfb27ccd053aac07d05e8df2d3a7b4e126619714c",
+      "gitBlobSha1": "b5c143700b9404317ab0f120fa22459db67dadd2",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "plans/statistical-analysis-v1.md",
+        "sourceSha256": "f691ba51add4e75617a697ee82fcb3b5b55beb54afbd8b55abe2f263b3fedb70",
+        "adaptation": "historical-status-banner; documented portable-reference changes"
+      }
+    },
+    {
+      "path": "plans/statistical-analysis-v2.md",
+      "bytes": 19731,
+      "sha256": "eb87fd4d42815d030b96fd53eade95442342e9f61de680bdd601274b1508ee23",
+      "gitBlobSha1": "d33f717069d477c630adc3006cd24fe464934590",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "plans/statistical-analysis-v2.md",
+        "sourceSha256": "ce0b5e6e650c9f5db2c75d6b6cfe26919d1b559b507e8e8d3ec854d4c3b768ce",
+        "adaptation": "historical-status-banner; documented portable-reference changes"
+      }
+    },
+    {
+      "path": "plans/statistical-audit-v1.md",
+      "bytes": 23761,
+      "sha256": "79ba7dc362985c847b6ccf95bf101badea8b38d079fe1f8e6f76c89cc4ad0387",
+      "gitBlobSha1": "e8628d627d90993862c1f5021f1bb0fa5472f7ed",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "plans/statistical-audit-v1.md",
+        "sourceSha256": "5690354274babb18317703c1985d8f50bd80a096e0f33fccd107bc17986338de",
+        "adaptation": "historical-status-banner; documented portable-reference changes"
+      }
+    },
+    {
+      "path": "plans/statistical-audit-v2.md",
+      "bytes": 20117,
+      "sha256": "c4693da555284bc5144bfd7e841fbe6b5da4a59858fc7e8fcca2a097e8cda5f4",
+      "gitBlobSha1": "ba6d273be2811cccb8f7b81731e2003587cfa9f0",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "plans/statistical-audit-v2.md",
+        "sourceSha256": "de5b791a68ae2ba65eb1dfbf8051e00c6281278a23be2fcf2389ab1cb5a8896d",
+        "adaptation": "historical-status-banner; documented portable-reference changes"
+      }
+    },
+    {
+      "path": "plans/study-execution-bridge-v1.md",
+      "bytes": 15156,
+      "sha256": "0a5fb53e33d23b1e07bf4e01097707311e5d31add243652e0949ede03b1fe9df",
+      "gitBlobSha1": "6eea1a23ca4abf0152afb5098cf08ee796634782",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "plans/study-execution-bridge-v1.md",
+        "sourceSha256": "64569ea7ee1df6447d9d43d81670455a5173bceb5caf92e1fd6183768a07cc41",
+        "adaptation": "historical-status-banner; documented portable-reference changes"
+      }
+    },
+    {
+      "path": "plans/study-public-prepare-v1.md",
+      "bytes": 13746,
+      "sha256": "3565978ef30ff71dbcb8a1b0e7976660cc2fe0e92eac6f864201b6656a40adf4",
+      "gitBlobSha1": "11bc4b8c68269bd14943b185a744a890e5329ebe",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "plans/study-public-prepare-v1.md",
+        "sourceSha256": "d6eb4005ef5aef4bfb19c7b6914a66e6ed0bd324c743a6fbb12fc3213e383a61",
+        "adaptation": "historical-status-banner; documented portable-reference changes"
+      }
+    },
+    {
+      "path": "plans/study-visual-intent-v1.md",
+      "bytes": 6514,
+      "sha256": "96482103f32a03232bc88a5f6a2ae50781f5c8f57470512d3ff1171923c95597",
+      "gitBlobSha1": "78e5856ce12df30ce1db32e25293f6ed3b926775",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "plans/study-visual-intent-v1.md",
+        "sourceSha256": "6125f37ce6c1a9fa084ed7a86e270e360cb848576ca4ca25fc4714f44ecd107a",
+        "adaptation": "historical-status-banner; documented portable-reference changes"
+      }
+    },
+    {
+      "path": "plans/v1.1/F1-governance-and-pilot-admission.md",
+      "bytes": 8691,
+      "sha256": "e74d6e223b2fb1f02f6869ff0ba2a0b70c97f972b81c9b460d7d60eec0035b05",
+      "gitBlobSha1": "6128eb8c163bdb15f5ebd69c631babd6e4cdb778",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "plans/v1.1/F1-governance-and-pilot-admission.md",
+        "sourceSha256": "c1bb55a22efefb3be45b579e438c3fb2b21a5d55b9eabf2162a79074478c3b4f",
+        "adaptation": "historical-status-banner; documented portable-reference changes"
+      }
+    },
+    {
+      "path": "plans/v1.1/README.md",
+      "bytes": 4613,
+      "sha256": "d3c27db3c23e81c68edbef7cfd7d0af6f96d14b90a1adb9a889e27a2641439e2",
+      "gitBlobSha1": "7e2f02c0047e3f5d803faeff7a5d6a462ea4844a",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "plans/v1.1/README.md",
+        "sourceSha256": "99c0d572ed688d368d1cf7c38645143eaba67e0137cf1550585fe7205b06d28d",
+        "adaptation": "historical-status-banner; documented portable-reference changes"
+      }
+    },
+    {
+      "path": "plans/v1.1/protocol-amendment-01.md",
+      "bytes": 5921,
+      "sha256": "8b39cadc1fb54c5661654b0c7770afa7460a7c6bc1ef4ab1044d481eabc4a636",
+      "gitBlobSha1": "a6733188bb14647fbd7da3ad4785b75b7fdfd4c2",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "plans/v1.1/protocol-amendment-01.md",
+        "sourceSha256": "142cb921c52ec054b8605243182966ab2721b2a292f9b65703a2ed1f08434fd6",
+        "adaptation": "historical-status-banner; documented portable-reference changes"
+      }
+    },
+    {
+      "path": "plans/v1.1/sampling-frame-feasibility.md",
+      "bytes": 8613,
+      "sha256": "30013423e07442534e2e5ec88b82249b717b46a762b98824de01b4b44a678814",
+      "gitBlobSha1": "487eb692c357378db74f00acef049d685c65c8e2",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "plans/v1.1/sampling-frame-feasibility.md",
+        "sourceSha256": "83ddb621850bf040659d8614ca4690e9e903b5099272bb61e20f2608362b57e3",
+        "adaptation": "historical-status-banner; documented portable-reference changes"
+      }
+    },
+    {
+      "path": "plans/v1.2/public-integration-delta.md",
+      "bytes": 8389,
+      "sha256": "c22ebf7e6ee663ea8b9d0185a3ba3d3113002bb77f1445aca12e355c3a656341",
+      "gitBlobSha1": "6baae345eb9040bf37fe4706d158dc8840e76847",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "plans/v1.2/public-integration-delta.md",
+        "sourceSha256": "c1d08878b0c8eadb28ee1b2a1686e0ef0bfdeb84635aaf67812a5626f08bfcda",
+        "adaptation": "historical-status-banner; documented portable-reference changes"
+      }
+    },
+    {
+      "path": "public-contracts/cost-event-schema.json",
+      "bytes": 4340,
+      "sha256": "4e1d583a4fb5cbb2ff3c5c4224c253c9ee15d4d75d35a4438fab6082ea9f604b",
+      "gitBlobSha1": "b294d545210c939e7b16412d7a3bca76ef0434bb",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "public-contracts/cost-event-schema.json",
+        "sourceSha256": "4e1d583a4fb5cbb2ff3c5c4224c253c9ee15d4d75d35a4438fab6082ea9f604b",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "public-contracts/denominator-schema.json",
+      "bytes": 4659,
+      "sha256": "3af5c6e0f531ba6f66a29945dda12792d6ddfc030bcf99a7af26006f1118c1d6",
+      "gitBlobSha1": "5c4ddc2fd21dd65934cdd1490b9dd90e1151e1ba",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "public-contracts/denominator-schema.json",
+        "sourceSha256": "3af5c6e0f531ba6f66a29945dda12792d6ddfc030bcf99a7af26006f1118c1d6",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "public-contracts/research-requirements.md",
+      "bytes": 7894,
+      "sha256": "b22eb3bf6c8fb88bd32d316ba15790d202189a322b0dda65cc8d959afd60da3f",
+      "gitBlobSha1": "dca355ca9525ee2ff92163f2b2edcb0909344068",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "public-contracts/research-requirements.md",
+        "sourceSha256": "46e6b29a07976b448904b6ee43fb1fdaea0849750e45309d3124e01deb7f81bc",
+        "adaptation": "historical-status-banner; documented portable-reference changes"
+      }
+    },
+    {
+      "path": "public-contracts/sampling-framework.md",
+      "bytes": 5405,
+      "sha256": "d8ad3c21afa8422da67f8ca18bb4814ed15f51d7fd5bf93db68597c9bcd2f9f6",
+      "gitBlobSha1": "c61c236c28781d984b70687f30abf51c75de4d2b",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "public-contracts/sampling-framework.md",
+        "sourceSha256": "d5bb29bc9efb61d99738621ace635ed943abd8b87ab945061032e69e332f9400",
+        "adaptation": "historical-status-banner; documented portable-reference changes"
+      }
+    },
+    {
+      "path": "public-contracts/v1.1/domain-operation-query-check.schema.json",
+      "bytes": 4646,
+      "sha256": "264622e6dc9898a77c7b91955afc9f337ca4ba78e59c2e15cdd4266ba024a313",
+      "gitBlobSha1": "fb99a6c3fce7759957d5b8d1841f353d18ac6dae",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "public-contracts/v1.1/domain-operation-query-check.schema.json",
+        "sourceSha256": "264622e6dc9898a77c7b91955afc9f337ca4ba78e59c2e15cdd4266ba024a313",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "public-contracts/v1.1/pilot-admission-checklist.json",
+      "bytes": 8581,
+      "sha256": "a7e1b3bd23447a8e85136d1efd9adfbf7715ad07e1d43178d58f681ef607f0d9",
+      "gitBlobSha1": "0febc69397b135c98669403787e2b647b277757b",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "public-contracts/v1.1/pilot-admission-checklist.json",
+        "sourceSha256": "a7e1b3bd23447a8e85136d1efd9adfbf7715ad07e1d43178d58f681ef607f0d9",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "public-contracts/v1.1/pilot-interface-contract.md",
+      "bytes": 6342,
+      "sha256": "3a95355fc592aca47fbcba8bfa8da0b894d052075df39e987b8b202f0e2ae4f0",
+      "gitBlobSha1": "f932cbb05ce1af93fdf7264b32f0daa1ed0778fa",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "public-contracts/v1.1/pilot-interface-contract.md",
+        "sourceSha256": "60a25bbd64b2b5e75c2a9457830e6eb4d8a45f660162ff31b636ab1d502f190e",
+        "adaptation": "historical-status-banner; documented portable-reference changes"
+      }
+    },
+    {
+      "path": "public-contracts/v1.1/pilot-plan-seal-receipt.json",
+      "bytes": 2938,
+      "sha256": "e5f6d071553eb8509680df65f1c27a503253d49ca9e261385d9474ff9f1aeda0",
+      "gitBlobSha1": "7a7a76d1249bb0c15ac4c99261bbd926f96eed5a",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "public-contracts/v1.1/pilot-plan-seal-receipt.json",
+        "sourceSha256": "e5f6d071553eb8509680df65f1c27a503253d49ca9e261385d9474ff9f1aeda0",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "public-contracts/v1.1/plan-structural-audit.json",
+      "bytes": 499,
+      "sha256": "063c2cf6e9d7c4578d0b35c2495a211940d3f131337f1df8b984ee8134eb9cc1",
+      "gitBlobSha1": "e8138e3a7fb0deed010b497f50aa38195dad2d81",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "public-contracts/v1.1/plan-structural-audit.json",
+        "sourceSha256": "063c2cf6e9d7c4578d0b35c2495a211940d3f131337f1df8b984ee8134eb9cc1",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "public-contracts/v1.2/source-pool-feasibility-evidence.json",
+      "bytes": 7859,
+      "sha256": "1e3a3c9a28ec6efd372f66cb3404fd9bf6a741315b19d33fd79043f308d52145",
+      "gitBlobSha1": "b6a90d040770de659471e14be9fb349221bceb7b",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "public-contracts/v1.2/source-pool-feasibility-evidence.json",
+        "sourceSha256": "1e3a3c9a28ec6efd372f66cb3404fd9bf6a741315b19d33fd79043f308d52145",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "publication/DOCS-EXPORT-NOTES.md",
+      "bytes": 7935,
+      "sha256": "ec83d1f6cd922d5beadb172131d9f3731436ac5c69bf75d17b6a4b4ad8651c58",
+      "gitBlobSha1": "d4fd97c438cb362d5efd5239761a126942c67ca0",
+      "source": null
+    },
+    {
+      "path": "publication/historical-requirements.json",
+      "bytes": 3512,
+      "sha256": "aa88899d2f1723c8ff22301f4618d410de49c65f41858e59374ad8d111ba6231",
+      "gitBlobSha1": "db5fc6f1740f6c3515d5f8b2b71e2c57e1f6e2cb",
+      "source": null
+    },
+    {
+      "path": "publication/paths.mjs",
+      "bytes": 2788,
+      "sha256": "5da038b69af3cc5476b19bb98b679951a5a930c331262e06e3cc6d749be11877",
+      "gitBlobSha1": "b4d6ab2c6b077420c91d5eb8c6f49cb8b7bbcc23",
+      "source": null
+    },
+    {
+      "path": "publication/revision-map.json",
+      "bytes": 33121,
+      "sha256": "6d48376746a1cd366a1f1c8238b4834e43462751b556f64cd107eca588d2f34c",
+      "gitBlobSha1": "d1f388aec6eb9ba6f4db2a1f7fa1f572395d2a5c",
+      "source": null
+    },
+    {
+      "path": "publication/run-tests.mjs",
+      "bytes": 2161,
+      "sha256": "1277770fc32332cc7720553a70577788745575214ccb0ff997e80460e7be552d",
+      "gitBlobSha1": "bc92bc9c646fe1047064a0e9d1eda7fe7f21d548",
+      "source": null
+    },
+    {
+      "path": "publication/verification.json",
+      "bytes": 1290,
+      "sha256": "502acccb270522d7fc00742184120841e01680e58f7aceed3800826e99f2329b",
+      "gitBlobSha1": "a5bcf77e116d6cf6ee02f1b07b4aacced80b91b1",
+      "source": null
+    },
+    {
+      "path": "scripts/freeze-preparation-v04.mjs",
+      "bytes": 21009,
+      "sha256": "0bb18a9b8f953c4c84700cb64c6e9dd7ed51959679df1c2c14821de9d8866754",
+      "gitBlobSha1": "237a7eabd76607e9117f94b32b93263addda90c8",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "scripts/freeze-preparation-v04.mjs",
+        "sourceSha256": "0bec7bcf286687c682280bd07f971d3013a84623b313dc7757f47bf5eea43a12",
+        "adaptation": "publication-cli-path-and-safety-default"
+      }
+    },
+    {
+      "path": "scripts/layout-domain-controls-r3.mjs",
+      "bytes": 22249,
+      "sha256": "cffd971d12c4cfdc6803cf675c570b117da4802f18d3ff287bced01baeaa5106",
+      "gitBlobSha1": "90d9187f1f1b2533d0ee028b6f27fb61f71090a8",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "scripts/layout-domain-controls-r3.mjs",
+        "sourceSha256": "f0927f7acbc5f4252875d5382ddfb8662c3fcd642b959a5b71c1b7bbde4a1250",
+        "adaptation": "publication-cli-path-and-safety-default"
+      }
+    },
+    {
+      "path": "scripts/number-value-controls-r3.mjs",
+      "bytes": 6624,
+      "sha256": "9836545f010c18bc361a7544c0c07b92e5843a12a750504d9e56c52fdcc7abfe",
+      "gitBlobSha1": "c4311f08fc44957b4f9681b4b65b78566bd8fcfe",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "scripts/number-value-controls-r3.mjs",
+        "sourceSha256": "77b6a873fa65e70269652c1d3d838fdd6c0c9168521f67184ab14f85c471fd2e",
+        "adaptation": "publication-cli-path-and-safety-default"
+      }
+    },
+    {
+      "path": "scripts/publication-safety.mjs",
+      "bytes": 2070,
+      "sha256": "8e2d56acd27cc277c61d6a1c30ba3ab9bdd4be207a56ec243700fe1a1bda5d01",
+      "gitBlobSha1": "57991bfc08119d1d3b4738a6e1ef6ca42b3c7584",
+      "source": null
+    },
+    {
+      "path": "scripts/run-study-controls-v1.mjs",
+      "bytes": 5767,
+      "sha256": "7419c0471baaea66bae2b4143f8d7a019573dc2b4163ab982756d7d14a1e64b5",
+      "gitBlobSha1": "d5da5d89aa7c0380d7da3fc7b2edec7b88209381",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "scripts/run-study-controls-v1.mjs",
+        "sourceSha256": "7857f8037e297a742ebdfd738959a83ced517b3b5b05f9a2505df5e057441e93",
+        "adaptation": "publication-cli-path-and-safety-default"
+      }
+    },
+    {
+      "path": "scripts/run-trusted-calibration-r2.mjs",
+      "bytes": 24486,
+      "sha256": "e0062f861aaa6d5a92572c809291d7f2eae6d8f56e2d8f8207eb009b85e06b51",
+      "gitBlobSha1": "c65c1e4dbb003db2e8f11f4e0e18e8675d30ed6c",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "scripts/run-trusted-calibration-r2.mjs",
+        "sourceSha256": "20dcc62b91a437615d54a045c385567e9f1605ffb00410dfed7f51198c038d3f",
+        "adaptation": "publication-cli-path-and-safety-default"
+      }
+    },
+    {
+      "path": "scripts/run-trusted-calibration-r3.mjs",
+      "bytes": 29339,
+      "sha256": "99108af7d8b8e14383772315330aa03f96a172edb49ed5a249a611245fa5c443",
+      "gitBlobSha1": "eb775b2913a7c2611004afacf5ef7618894225f1",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "scripts/run-trusted-calibration-r3.mjs",
+        "sourceSha256": "4aaed9f0d41c3f1d45f9f5f5def9dbdebb4c381d3575ad42d99cc1d3b5921235",
+        "adaptation": "publication-cli-path-and-safety-default"
+      }
+    },
+    {
+      "path": "src/analysis-v04-v2.mjs",
+      "bytes": 49845,
+      "sha256": "defd2f468762ae0454e253bf6181504bfbfc2a655d920d55b3b1251cacb51315",
+      "gitBlobSha1": "6691b285cbdcefd2f61106656a7d56b1c26b586d",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "src/analysis-v04-v2.mjs",
+        "sourceSha256": "defd2f468762ae0454e253bf6181504bfbfc2a655d920d55b3b1251cacb51315",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "src/analysis-v04.mjs",
+      "bytes": 36128,
+      "sha256": "75b2f57f5dfc2005a14d9bba79ec1e5c2427894cef0779971858fc3799618283",
+      "gitBlobSha1": "5adc0e2d56eeef4b14f622cccc04453d512e48e8",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "src/analysis-v04.mjs",
+        "sourceSha256": "75b2f57f5dfc2005a14d9bba79ec1e5c2427894cef0779971858fc3799618283",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "src/baseline-r3.mjs",
+      "bytes": 28975,
+      "sha256": "2480d782b9f0b1919a73919dba6b8933a302ca05bab620e647fc3302e8275d37",
+      "gitBlobSha1": "c442c589aed52ffb928034c8d95835f41fed29cd",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "src/baseline-r3.mjs",
+        "sourceSha256": "2480d782b9f0b1919a73919dba6b8933a302ca05bab620e647fc3302e8275d37",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "src/browser-session-r2.mjs",
+      "bytes": 53043,
+      "sha256": "75189d74d8c75c073b79db883b6e2648f72049be2ac4b31adfc06e1ec6ba498c",
+      "gitBlobSha1": "a2f1c32bdf2fcb54eb1e1c2acd7c2531f819d97b",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "src/browser-session-r2.mjs",
+        "sourceSha256": "75189d74d8c75c073b79db883b6e2648f72049be2ac4b31adfc06e1ec6ba498c",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "src/browser-session-r3.mjs",
+      "bytes": 79176,
+      "sha256": "aace535de57a126b6c4243e6dabad116e2f3b6464e70b047165a5678410ca31f",
+      "gitBlobSha1": "5208537474944bbf958b6f50f6b782acc53e41b8",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "src/browser-session-r3.mjs",
+        "sourceSha256": "aace535de57a126b6c4243e6dabad116e2f3b6464e70b047165a5678410ca31f",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "src/entry-contract-r2.mjs",
+      "bytes": 4043,
+      "sha256": "5da3141a47fb5d769201d0345a9ddf67a550762c443ab7d388cdb55c606aa1b0",
+      "gitBlobSha1": "1295c546af82c1b103e611845cb25640fa16a615",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "src/entry-contract-r2.mjs",
+        "sourceSha256": "5da3141a47fb5d769201d0345a9ddf67a550762c443ab7d388cdb55c606aa1b0",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "src/evaluate-adapter-r2.mjs",
+      "bytes": 26382,
+      "sha256": "bc395749cc39f62631c59dcbf63e58151dd3c429624802d88106292baa93725b",
+      "gitBlobSha1": "b69b20d6532131c459535088ddc34c3bc345fcd6",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "src/evaluate-adapter-r2.mjs",
+        "sourceSha256": "bc395749cc39f62631c59dcbf63e58151dd3c429624802d88106292baa93725b",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "src/evaluate-adapter-r3.mjs",
+      "bytes": 21882,
+      "sha256": "acf5972adf27fb468f2a8ada391c94873a1d868845e84c250f46d0e80d924712",
+      "gitBlobSha1": "7f20272b718aae7f6b1e1ecb4025c93d45f41164",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "src/evaluate-adapter-r3.mjs",
+        "sourceSha256": "acf5972adf27fb468f2a8ada391c94873a1d868845e84c250f46d0e80d924712",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "src/evaluation-facts-r3.mjs",
+      "bytes": 12076,
+      "sha256": "53cbe6317fb9133210b2910031dfd9e2695ce3f348b74306a5b17f5ac1f98a90",
+      "gitBlobSha1": "2a4483961effc7f56bbdafa837026a8a54708fb3",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "src/evaluation-facts-r3.mjs",
+        "sourceSha256": "53cbe6317fb9133210b2910031dfd9e2695ce3f348b74306a5b17f5ac1f98a90",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "src/evaluation-normalizer-r3.mjs",
+      "bytes": 14340,
+      "sha256": "ed0b2d3ff33207b1403a9fab94068474ac4b4b6298837c06f5689359bc1e1df8",
+      "gitBlobSha1": "ae896e6feb001993ec1e0b75cd8373133b0d00f2",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "src/evaluation-normalizer-r3.mjs",
+        "sourceSha256": "ed0b2d3ff33207b1403a9fab94068474ac4b4b6298837c06f5689359bc1e1df8",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "src/evaluation-plan-r3.mjs",
+      "bytes": 21142,
+      "sha256": "a5b21718bb641ae89b2744887a6ef25f4a22735c3d08d3dbcf0fab817c396caa",
+      "gitBlobSha1": "d223aa17c1bf0b4bbc3b215504737f7a206efc86",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "src/evaluation-plan-r3.mjs",
+        "sourceSha256": "a5b21718bb641ae89b2744887a6ef25f4a22735c3d08d3dbcf0fab817c396caa",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "src/experiment-runner-v1.mjs",
+      "bytes": 14779,
+      "sha256": "6564bfea79fae5f12e7d68436a9c60359af9d74e13ff22c76cec713c80af9c6a",
+      "gitBlobSha1": "a205999042c2a03147b707971461365565e61539",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "src/experiment-runner-v1.mjs",
+        "sourceSha256": "6564bfea79fae5f12e7d68436a9c60359af9d74e13ff22c76cec713c80af9c6a",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "src/layout-facts-r3.mjs",
+      "bytes": 16440,
+      "sha256": "0db16dbc48ed48c2154a560d6619c7bfcd0c57cc8988fbef703d342193f2f568",
+      "gitBlobSha1": "4c5b349cc3276ebe7fd3a6c64dd90a130285b3ef",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "src/layout-facts-r3.mjs",
+        "sourceSha256": "0db16dbc48ed48c2154a560d6619c7bfcd0c57cc8988fbef703d342193f2f568",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "src/measurement-r2.mjs",
+      "bytes": 17244,
+      "sha256": "29a26bbf554fd00c7a71b81b27986b5790063060a50c19561538ad99dde0d977",
+      "gitBlobSha1": "8725f0abcf5442189448e1212767097c4e61323e",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "src/measurement-r2.mjs",
+        "sourceSha256": "29a26bbf554fd00c7a71b81b27986b5790063060a50c19561538ad99dde0d977",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "src/measurement-r3.mjs",
+      "bytes": 26434,
+      "sha256": "741b56b561757eb548f2ded4642999f4200dea7ca566bb1b9e45b66eda092a4a",
+      "gitBlobSha1": "f98b111e188dd66d9ca2b29a38ea918868229dde",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "src/measurement-r3.mjs",
+        "sourceSha256": "741b56b561757eb548f2ded4642999f4200dea7ca566bb1b9e45b66eda092a4a",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "src/measurement-records-r2.mjs",
+      "bytes": 14290,
+      "sha256": "613730ed050fbe0462d4f5f0edf5a993b1248b2b1b4876df006382b5e9bb1434",
+      "gitBlobSha1": "3dbeccc5386234f445ecc584f783b2d04b098203",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "src/measurement-records-r2.mjs",
+        "sourceSha256": "613730ed050fbe0462d4f5f0edf5a993b1248b2b1b4876df006382b5e9bb1434",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "src/measurement-records-r3.mjs",
+      "bytes": 26225,
+      "sha256": "84f19f4b0e9c602e653c3b2c105159349188e17e7d8720430566a3d8f2881ae2",
+      "gitBlobSha1": "7c87ecfbf118411288c3bba05e74fad3befe8375",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "src/measurement-records-r3.mjs",
+        "sourceSha256": "84f19f4b0e9c602e653c3b2c105159349188e17e7d8720430566a3d8f2881ae2",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "src/methods-v1-analysis.mjs",
+      "bytes": 7024,
+      "sha256": "02eb4e41da3342c22b01bebd45130614451e5b6ddd325cd1e18fa1b0c43f8198",
+      "gitBlobSha1": "05e4248213a55bfa85c6cc22d813e00a3fb6c826",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "src/methods-v1-analysis.mjs",
+        "sourceSha256": "02eb4e41da3342c22b01bebd45130614451e5b6ddd325cd1e18fa1b0c43f8198",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "src/methods-v1-engine.mjs",
+      "bytes": 13467,
+      "sha256": "857a5d1e8437f5646a880469da5e6f6994ccb426436b20d073024885c6792da4",
+      "gitBlobSha1": "3b43fb3746c1e9b55a34471bec6f2c49e672d676",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "src/methods-v1-engine.mjs",
+        "sourceSha256": "857a5d1e8437f5646a880469da5e6f6994ccb426436b20d073024885c6792da4",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "src/methods-v1-public-checks.mjs",
+      "bytes": 1308,
+      "sha256": "aa08f2d0fae09d18eda28a586636118fd0aa5b74361782a880f9de0b1e746393",
+      "gitBlobSha1": "e17e1957df89cb42652fafbbf117d27c09fcac61",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "src/methods-v1-public-checks.mjs",
+        "sourceSha256": "aa08f2d0fae09d18eda28a586636118fd0aa5b74361782a880f9de0b1e746393",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "src/methods-v1.mjs",
+      "bytes": 9744,
+      "sha256": "bc02ebd91d07b401a523bd723c47f96fddb76cf467f1bcdb9d66b0959c4b260f",
+      "gitBlobSha1": "483971cffdebcedbcb291334379c25127c19c82a",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "src/methods-v1.mjs",
+        "sourceSha256": "bc02ebd91d07b401a523bd723c47f96fddb76cf467f1bcdb9d66b0959c4b260f",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "src/native-evidence-bindings-r3.mjs",
+      "bytes": 3771,
+      "sha256": "16ee2361e1fa56eb1515587ae5dd1f0411c0ef8db2a133f6fc3e263050c7c248",
+      "gitBlobSha1": "e5763004e77afca049b2b364f38dc7ef2b5c1dff",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "src/native-evidence-bindings-r3.mjs",
+        "sourceSha256": "16ee2361e1fa56eb1515587ae5dd1f0411c0ef8db2a133f6fc3e263050c7c248",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "src/runtime-evidence-r3.mjs",
+      "bytes": 2773,
+      "sha256": "4fc3416f4f07321bfcf5f63c3df802977975cb95b8909484406566722d634c27",
+      "gitBlobSha1": "066c8257f9efe67369715f375efd23cfd03faa8c",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "src/runtime-evidence-r3.mjs",
+        "sourceSha256": "4fc3416f4f07321bfcf5f63c3df802977975cb95b8909484406566722d634c27",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "src/study-execution-bridge-v1.mjs",
+      "bytes": 14102,
+      "sha256": "ce5709289bc52228ae315d161156991a5b8c846c3806a7cf30deaf01c92e767b",
+      "gitBlobSha1": "38debb43eb8efa9b5ea01eb36b4601655300593a",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "src/study-execution-bridge-v1.mjs",
+        "sourceSha256": "ce5709289bc52228ae315d161156991a5b8c846c3806a7cf30deaf01c92e767b",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "src/study-native-evidence-seal-v1.mjs",
+      "bytes": 537,
+      "sha256": "157e25db0f6ea6bb5d1425106fd5207deeb4b6fe8c87fb9731523c5876ee7cb7",
+      "gitBlobSha1": "7dda33b204f6537264d32dc5565cbd494cb99222",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "src/study-native-evidence-seal-v1.mjs",
+        "sourceSha256": "157e25db0f6ea6bb5d1425106fd5207deeb4b6fe8c87fb9731523c5876ee7cb7",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "src/study-public-prepare-v1.mjs",
+      "bytes": 21519,
+      "sha256": "08e45b1ea78dceaf7a096c554bf2b9992493afb73d7c9b8298d6367c60896c2d",
+      "gitBlobSha1": "9e978df129f37cece631c15013ed0f8e414e51f6",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "src/study-public-prepare-v1.mjs",
+        "sourceSha256": "08e45b1ea78dceaf7a096c554bf2b9992493afb73d7c9b8298d6367c60896c2d",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "src/study-runtime-v1.mjs",
+      "bytes": 10555,
+      "sha256": "034b127556e97173ddbf25f77e91b587524df36311cf37cbfd135dea95abdb29",
+      "gitBlobSha1": "720a2afb6ef918b37bf092e0f7dd12cbf29c7ed7",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "src/study-runtime-v1.mjs",
+        "sourceSha256": "100d200033fb47d834947c9c1acac4e8f796302b44b325f08697d4435972f555",
+        "adaptation": "publication-native-admission-safety-block"
+      }
+    },
+    {
+      "path": "tests/analysis-v04-v2.test.mjs",
+      "bytes": 13065,
+      "sha256": "92e585577578a1d859e7aa13b23d04c108a934379fbc4c1770fbcce649c55f8b",
+      "gitBlobSha1": "2cb7dec24d0b2bbd2082176a904d9ab107c1e67a",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "tests/analysis-v04-v2.test.mjs",
+        "sourceSha256": "92e585577578a1d859e7aa13b23d04c108a934379fbc4c1770fbcce649c55f8b",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "tests/analysis-v04.test.mjs",
+      "bytes": 14615,
+      "sha256": "a3b0c9fd5168bd25fb2d943ecfc5ec42298ff7103f21543e3f25a4404fb9e8e3",
+      "gitBlobSha1": "a28c9324212359d7a4369c71012c6411d25191e4",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "tests/analysis-v04.test.mjs",
+        "sourceSha256": "a3b0c9fd5168bd25fb2d943ecfc5ec42298ff7103f21543e3f25a4404fb9e8e3",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "tests/baseline-r3.test.mjs",
+      "bytes": 44946,
+      "sha256": "96de556b6d1126f214c766dc633eb72dc9a321f70f9ea206a04a7cc91c947930",
+      "gitBlobSha1": "e92d77efecb9dd59a84af69996889d983818e671",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "tests/baseline-r3.test.mjs",
+        "sourceSha256": "96de556b6d1126f214c766dc633eb72dc9a321f70f9ea206a04a7cc91c947930",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "tests/browser-session-r2.test.mjs",
+      "bytes": 15072,
+      "sha256": "358511de4544633e716b4c7328ad262401806e0f7b4b0441f104774292a56aa3",
+      "gitBlobSha1": "840e0feb22ff8a38cb8f629a80c433ad29472cae",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "tests/browser-session-r2.test.mjs",
+        "sourceSha256": "2d0e1f0d4155417bc39b6551ac0cd5c115f3ad0307ba28fb9c5ef9d2548c7651",
+        "adaptation": "portable-test-path-or-temp-output"
+      }
+    },
+    {
+      "path": "tests/browser-session-r3.test.mjs",
+      "bytes": 19543,
+      "sha256": "9872b092d9d88bf43ad6384e5869bd18197ce4653b7e1cbc5b6fcbf688686f6a",
+      "gitBlobSha1": "cc285900261be1ba78b7e5a24d1123a8b6376fac",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "tests/browser-session-r3.test.mjs",
+        "sourceSha256": "694936bda4965f6e1d2af08aced0b5c1443fabfed1acc76d740ea07da58fcbcc",
+        "adaptation": "portable-path-container-policy-fixture-and-explicit-historical-case"
+      }
+    },
+    {
+      "path": "tests/entry-contract-r2.test.mjs",
+      "bytes": 4244,
+      "sha256": "50ca87909d933ba620e68ee44d1e905f308147586e6cb8d345b8eba1fc095a91",
+      "gitBlobSha1": "c364388c3956ee789b83104ed3202ce26508b9fc",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "tests/entry-contract-r2.test.mjs",
+        "sourceSha256": "b5fc8eb81ae0bded90d2a913af96b889d660356a2e0a599f2648b7c117c3aa14",
+        "adaptation": "portable-test-path-or-temp-output"
+      }
+    },
+    {
+      "path": "tests/evaluate-adapter-r2.test.mjs",
+      "bytes": 21797,
+      "sha256": "eccb836d2d0b8cd7fb9244b11368af607c1fe1b4a1faccc3ec7235019b1da290",
+      "gitBlobSha1": "3b35ffda019c725691433abc09dcf214cb77783e",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "tests/evaluate-adapter-r2.test.mjs",
+        "sourceSha256": "eccb836d2d0b8cd7fb9244b11368af607c1fe1b4a1faccc3ec7235019b1da290",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "tests/evaluate-adapter-r3.test.mjs",
+      "bytes": 24811,
+      "sha256": "17e8f2d4c5b7a9030c2d34e93a72a60d1bd66cc569201dbc3602ed0ad47ccebe",
+      "gitBlobSha1": "226eb7a34b2c3f0fb381e781e803956c0469afaf",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "tests/evaluate-adapter-r3.test.mjs",
+        "sourceSha256": "17e8f2d4c5b7a9030c2d34e93a72a60d1bd66cc569201dbc3602ed0ad47ccebe",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "tests/evaluation-normalizer-r3.test.mjs",
+      "bytes": 37652,
+      "sha256": "214c1eec212dead14bca812db8056f209240e7ff21169a7d8ec5be5a779ccd3e",
+      "gitBlobSha1": "8b0831efc45e130a6b7b6ee8cf8a2b480e843736",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "tests/evaluation-normalizer-r3.test.mjs",
+        "sourceSha256": "214c1eec212dead14bca812db8056f209240e7ff21169a7d8ec5be5a779ccd3e",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "tests/experiment-runner-v1.test.mjs",
+      "bytes": 14839,
+      "sha256": "dba2c64f27bcf19b95413d8721c063caab4c8a7f4d6881d73f5367bd49400e34",
+      "gitBlobSha1": "16aff8c736d01250ed409029765db1d34e106feb",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "tests/experiment-runner-v1.test.mjs",
+        "sourceSha256": "dba2c64f27bcf19b95413d8721c063caab4c8a7f4d6881d73f5367bd49400e34",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "tests/freeze-preparation-v04.test.mjs",
+      "bytes": 14124,
+      "sha256": "06e5f1b8bddd02ff325f3905815226539e4ed68ecb822004cca783604a5ab1f2",
+      "gitBlobSha1": "c3657b411013031104624ed689261fb410a4283b",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "tests/freeze-preparation-v04.test.mjs",
+        "sourceSha256": "a873ed3665b280243dcf9b2138fe35b9f05dbbb547884b906eab743c0d766bdf",
+        "adaptation": "portable-test-path-or-temp-output"
+      }
+    },
+    {
+      "path": "tests/helpers/evaluation-r3-fixture.mjs",
+      "bytes": 12362,
+      "sha256": "d549b70dce9b4a49c3083bcbd3a16f333bc9195ff87ec559f7f0f54f7e5e46e4",
+      "gitBlobSha1": "2a3771e949a4e4e6e27bbc645078174fea44a00e",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "tests/helpers/evaluation-r3-fixture.mjs",
+        "sourceSha256": "d549b70dce9b4a49c3083bcbd3a16f333bc9195ff87ec559f7f0f54f7e5e46e4",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "tests/layout-facts-r3.test.mjs",
+      "bytes": 6115,
+      "sha256": "4092190ca1b6504686e73fabf513b523c4203a2b6e76e90e0ed5caa5be0e6e8a",
+      "gitBlobSha1": "e78ff8b67393eb2f956aec324d0d3b9f2238fc38",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "tests/layout-facts-r3.test.mjs",
+        "sourceSha256": "4092190ca1b6504686e73fabf513b523c4203a2b6e76e90e0ed5caa5be0e6e8a",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "tests/legacy/browser-session-r1.mjs",
+      "bytes": 32121,
+      "sha256": "6c192ae8a02059be17bedb5b805d0a944e4b81fe73954fe640ffaefd7438db93",
+      "gitBlobSha1": "8e3019cf6d52cb7324f9e053f2451593ca3dd6e5",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v03",
+        "sourcePath": "src/browser-session-r1.mjs",
+        "sourceSha256": "6c192ae8a02059be17bedb5b805d0a944e4b81fe73954fe640ffaefd7438db93",
+        "adaptation": "authorized-standalone-legacy-byte-copy"
+      }
+    },
+    {
+      "path": "tests/measurement-r2.test.mjs",
+      "bytes": 25596,
+      "sha256": "fc976e5eaca411961bbfa6525ce950a5301e8ad393d4375b23347bde92d249c8",
+      "gitBlobSha1": "071fa6db82949f2624ea66537ece94af9aaeb361",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "tests/measurement-r2.test.mjs",
+        "sourceSha256": "fc976e5eaca411961bbfa6525ce950a5301e8ad393d4375b23347bde92d249c8",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "tests/measurement-r3.test.mjs",
+      "bytes": 35539,
+      "sha256": "ac37afdc7867cd1966966b617acc97c9843ed871d532a3d61b64b5eb929c67e9",
+      "gitBlobSha1": "f90796a49d43b1f32ffd57f4feaa3d842a767ea3",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "tests/measurement-r3.test.mjs",
+        "sourceSha256": "ac37afdc7867cd1966966b617acc97c9843ed871d532a3d61b64b5eb929c67e9",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "tests/methods-v1-analysis.test.mjs",
+      "bytes": 8125,
+      "sha256": "92cf46e2c2864f4f5043710244471c48c6a51de621266b6aa75a121644bc9698",
+      "gitBlobSha1": "ccd5189d3ca6bbb0f35cdedf4073e4c525283390",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "tests/methods-v1-analysis.test.mjs",
+        "sourceSha256": "92cf46e2c2864f4f5043710244471c48c6a51de621266b6aa75a121644bc9698",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "tests/methods-v1-engine.test.mjs",
+      "bytes": 17878,
+      "sha256": "d856ad46f0c0cdf001ffc235e7fa33e7aa3cc9e7e650820c6555f6f26d739353",
+      "gitBlobSha1": "8bdeef3c525bc2a5a04d76ba3bbdcad489e58ed4",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "tests/methods-v1-engine.test.mjs",
+        "sourceSha256": "244df0923bf4a21c024784383440a6abe0325fae9221e8d12457d5d4939bddaa",
+        "adaptation": "portable-test-path-or-temp-output"
+      }
+    },
+    {
+      "path": "tests/methods-v1-public-checks.test.mjs",
+      "bytes": 2107,
+      "sha256": "c9ee8e887e5fd4298f020f761d0cf466bf0f3c39378c2a289427b1016209ce89",
+      "gitBlobSha1": "1869e023ae9c91fbd5433a0c84157e94cf192b7b",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "tests/methods-v1-public-checks.test.mjs",
+        "sourceSha256": "763e2ac917410f8e9b53f7a393729ae7432630291cdcd7b265d3e45de295dd04",
+        "adaptation": "portable-test-path-or-temp-output"
+      }
+    },
+    {
+      "path": "tests/methods-v1.test.mjs",
+      "bytes": 12542,
+      "sha256": "edd5989c11761dcde2cc416c1b1b245e8c65419d50f2c8c85d239cc0fcdb5177",
+      "gitBlobSha1": "0ca4ea5d3cb423ff31975d487c2c5cf43dae6c98",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "tests/methods-v1.test.mjs",
+        "sourceSha256": "edd5989c11761dcde2cc416c1b1b245e8c65419d50f2c8c85d239cc0fcdb5177",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "tests/publication-safety.test.mjs",
+      "bytes": 4106,
+      "sha256": "3ba84128144a4ab17d94f883dbf4a08d0146586595e42ed2c1bf726ba21715b4",
+      "gitBlobSha1": "0004416105809dcef0677ce7da6a29df2a715221",
+      "source": null
+    },
+    {
+      "path": "tests/r3-evidence-audit-v1.test.mjs",
+      "bytes": 16114,
+      "sha256": "8ca8c4044ac33cc04bd2a9d61564a351b163994c88152e58237dfd222085a1c9",
+      "gitBlobSha1": "506a4a45dc0b623903eea388dfaa8c3b4897945b",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "tests/r3-evidence-audit-v1.test.mjs",
+        "sourceSha256": "1a2656adc688f992ff01bebbb196668c12c8589cdc91f3594209902d0e6a4fa1",
+        "adaptation": "explicit-nondefault-historical-gate"
+      }
+    },
+    {
+      "path": "tests/r3-evidence-calibration-audit-v1.mjs",
+      "bytes": 5238,
+      "sha256": "4dda3d5a46c5abdb9df84efa2657840136c343ee02ef803a701ca0a535a7bd38",
+      "gitBlobSha1": "f5c1e8a16382604a44c21176cb6884622664ce11",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "tests/r3-evidence-calibration-audit-v1.mjs",
+        "sourceSha256": "db7f74d460737a5236c0d572fb8e34d322a9769f1d04fc2fcf4032044cd74ade",
+        "adaptation": "explicit-nondefault-historical-gate"
+      }
+    },
+    {
+      "path": "tests/statistical-audit-v1-controls-r2.mjs",
+      "bytes": 12747,
+      "sha256": "352e3d2003506ba8308e716057a234e09703f773e007b762e356fb389f94deee",
+      "gitBlobSha1": "7b62c463f1a044855b4fd917d306e708dc33f214",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "tests/statistical-audit-v1-controls-r2.mjs",
+        "sourceSha256": "75319e8f88e22e5f858d0b198a1abb82154f335eee4faee3afa36d068d84aff8",
+        "adaptation": "explicit-nondefault-historical-gate"
+      }
+    },
+    {
+      "path": "tests/statistical-audit-v1-controls.mjs",
+      "bytes": 12175,
+      "sha256": "a13fefdd85d2ea6a79580f086352265d05d3d40bf85ffda468dc470a18d55fcd",
+      "gitBlobSha1": "437bd0f8e4b7be9fa6b8c6a84588530cf143fb55",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "tests/statistical-audit-v1-controls.mjs",
+        "sourceSha256": "ea5b3204e6fa2304930cfacf91734afa0398ad577f0fd6b83f30dcc2c8afbcd9",
+        "adaptation": "explicit-nondefault-historical-gate"
+      }
+    },
+    {
+      "path": "tests/statistical-audit-v2-controls.mjs",
+      "bytes": 23111,
+      "sha256": "b0df97b26d5c855d35e2c7229df9785900e3e60331fee8c709a904970e9949a1",
+      "gitBlobSha1": "6104b04dca2ed0258be3aba307b827b1504d6d9a",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "tests/statistical-audit-v2-controls.mjs",
+        "sourceSha256": "e190c37957a97f45623fdb7dae5c7408a8af167ee632565049eecdb050f38c88",
+        "adaptation": "explicit-nondefault-historical-gate"
+      }
+    },
+    {
+      "path": "tests/study-execution-bridge-v1.test.mjs",
+      "bytes": 14724,
+      "sha256": "5ce5b84e087d5c3f3be2c605d454573efbfb116003d4b2d520117fef375cd54e",
+      "gitBlobSha1": "e7766c71315fd15a8fa11ed0e320070edba45e22",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "tests/study-execution-bridge-v1.test.mjs",
+        "sourceSha256": "d7ecddfadefb3c59dd7faf6831f08e150530730d5ffe0d872176207cebf13f61",
+        "adaptation": "portable-path-and-synthetic-empty-journal-fixture"
+      }
+    },
+    {
+      "path": "tests/study-public-prepare-v1.test.mjs",
+      "bytes": 22244,
+      "sha256": "e97e42195a8d2705a887e65c07c6209dfb3d3893d7f1c63e270525911638919d",
+      "gitBlobSha1": "e5d243f5b57d271e352927d17210ce7435f3d795",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "tests/study-public-prepare-v1.test.mjs",
+        "sourceSha256": "9c91bb5913d7fe661979afe63f5b810c1d696e1059e83e57985c985d821d3e11",
+        "adaptation": "portable-test-path-or-temp-output"
+      }
+    },
+    {
+      "path": "tests/study-runtime-v1.test.mjs",
+      "bytes": 3584,
+      "sha256": "6932c1f0b12080cf15afd06202fcec8bcb9d64fbeeccac04c72e853ce527731c",
+      "gitBlobSha1": "2b562063dc0553fcd2dac1b47e509f5dfc070ae8",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "tests/study-runtime-v1.test.mjs",
+        "sourceSha256": "6932c1f0b12080cf15afd06202fcec8bcb9d64fbeeccac04c72e853ce527731c",
+        "adaptation": "byte-identical"
+      }
+    },
+    {
+      "path": "tests/study-visual-intent-v1.test.mjs",
+      "bytes": 12062,
+      "sha256": "1ff5e30d5b9dfc2f29be5f251f40a4e2e5166dcaf3b0e0898dd364d1f0ba9c8d",
+      "gitBlobSha1": "362b996395d46e4a49fa7f7ae64dfe00a2c9fd1a",
+      "source": {
+        "sourceRoot": "codesign-editability-research-v04",
+        "sourcePath": "tests/study-visual-intent-v1.test.mjs",
+        "sourceSha256": "e2dc776d32eca012d7619b9c0fddf7053bb235e05a142691f79f5a84856905f3",
+        "adaptation": "portable-test-path-or-temp-output"
+      }
+    }
+  ]
+}

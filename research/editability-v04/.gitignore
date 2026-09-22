@@ -1,0 +1,13 @@
+/out/
+/node_modules/
+/results/
+/freeze/
+/.work/
+/.local/
+**/private-*/
+**/.secrets/
+**/.env*
+**/*.key
+**/*private-key*.pem
+**/gateway.local.json
+**/settings.local.json

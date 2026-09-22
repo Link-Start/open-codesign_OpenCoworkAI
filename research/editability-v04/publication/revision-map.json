@@ -1,0 +1,640 @@
+{
+  "schemaVersion": "editability-v04-publication-revision-map-1",
+  "publicationRevision": true,
+  "historicalFreezeClaim": false,
+  "sourceOriginalsModified": false,
+  "productModified": false,
+  "mainApiReference": "5f6036ba526b9dd4e89aa27f6afb4d1210de486f",
+  "entries": [
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "src/analysis-v04-v2.mjs",
+      "publicationPath": "src/analysis-v04-v2.mjs",
+      "originalSha256": "defd2f468762ae0454e253bf6181504bfbfc2a655d920d55b3b1251cacb51315",
+      "publicationSha256": "defd2f468762ae0454e253bf6181504bfbfc2a655d920d55b3b1251cacb51315",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "src/analysis-v04.mjs",
+      "publicationPath": "src/analysis-v04.mjs",
+      "originalSha256": "75b2f57f5dfc2005a14d9bba79ec1e5c2427894cef0779971858fc3799618283",
+      "publicationSha256": "75b2f57f5dfc2005a14d9bba79ec1e5c2427894cef0779971858fc3799618283",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "src/baseline-r3.mjs",
+      "publicationPath": "src/baseline-r3.mjs",
+      "originalSha256": "2480d782b9f0b1919a73919dba6b8933a302ca05bab620e647fc3302e8275d37",
+      "publicationSha256": "2480d782b9f0b1919a73919dba6b8933a302ca05bab620e647fc3302e8275d37",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "src/browser-session-r2.mjs",
+      "publicationPath": "src/browser-session-r2.mjs",
+      "originalSha256": "75189d74d8c75c073b79db883b6e2648f72049be2ac4b31adfc06e1ec6ba498c",
+      "publicationSha256": "75189d74d8c75c073b79db883b6e2648f72049be2ac4b31adfc06e1ec6ba498c",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "src/browser-session-r3.mjs",
+      "publicationPath": "src/browser-session-r3.mjs",
+      "originalSha256": "aace535de57a126b6c4243e6dabad116e2f3b6464e70b047165a5678410ca31f",
+      "publicationSha256": "aace535de57a126b6c4243e6dabad116e2f3b6464e70b047165a5678410ca31f",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "src/entry-contract-r2.mjs",
+      "publicationPath": "src/entry-contract-r2.mjs",
+      "originalSha256": "5da3141a47fb5d769201d0345a9ddf67a550762c443ab7d388cdb55c606aa1b0",
+      "publicationSha256": "5da3141a47fb5d769201d0345a9ddf67a550762c443ab7d388cdb55c606aa1b0",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "src/evaluate-adapter-r2.mjs",
+      "publicationPath": "src/evaluate-adapter-r2.mjs",
+      "originalSha256": "bc395749cc39f62631c59dcbf63e58151dd3c429624802d88106292baa93725b",
+      "publicationSha256": "bc395749cc39f62631c59dcbf63e58151dd3c429624802d88106292baa93725b",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "src/evaluate-adapter-r3.mjs",
+      "publicationPath": "src/evaluate-adapter-r3.mjs",
+      "originalSha256": "acf5972adf27fb468f2a8ada391c94873a1d868845e84c250f46d0e80d924712",
+      "publicationSha256": "acf5972adf27fb468f2a8ada391c94873a1d868845e84c250f46d0e80d924712",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "src/evaluation-facts-r3.mjs",
+      "publicationPath": "src/evaluation-facts-r3.mjs",
+      "originalSha256": "53cbe6317fb9133210b2910031dfd9e2695ce3f348b74306a5b17f5ac1f98a90",
+      "publicationSha256": "53cbe6317fb9133210b2910031dfd9e2695ce3f348b74306a5b17f5ac1f98a90",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "src/evaluation-normalizer-r3.mjs",
+      "publicationPath": "src/evaluation-normalizer-r3.mjs",
+      "originalSha256": "ed0b2d3ff33207b1403a9fab94068474ac4b4b6298837c06f5689359bc1e1df8",
+      "publicationSha256": "ed0b2d3ff33207b1403a9fab94068474ac4b4b6298837c06f5689359bc1e1df8",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "src/evaluation-plan-r3.mjs",
+      "publicationPath": "src/evaluation-plan-r3.mjs",
+      "originalSha256": "a5b21718bb641ae89b2744887a6ef25f4a22735c3d08d3dbcf0fab817c396caa",
+      "publicationSha256": "a5b21718bb641ae89b2744887a6ef25f4a22735c3d08d3dbcf0fab817c396caa",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "src/experiment-runner-v1.mjs",
+      "publicationPath": "src/experiment-runner-v1.mjs",
+      "originalSha256": "6564bfea79fae5f12e7d68436a9c60359af9d74e13ff22c76cec713c80af9c6a",
+      "publicationSha256": "6564bfea79fae5f12e7d68436a9c60359af9d74e13ff22c76cec713c80af9c6a",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "src/layout-facts-r3.mjs",
+      "publicationPath": "src/layout-facts-r3.mjs",
+      "originalSha256": "0db16dbc48ed48c2154a560d6619c7bfcd0c57cc8988fbef703d342193f2f568",
+      "publicationSha256": "0db16dbc48ed48c2154a560d6619c7bfcd0c57cc8988fbef703d342193f2f568",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "src/measurement-r2.mjs",
+      "publicationPath": "src/measurement-r2.mjs",
+      "originalSha256": "29a26bbf554fd00c7a71b81b27986b5790063060a50c19561538ad99dde0d977",
+      "publicationSha256": "29a26bbf554fd00c7a71b81b27986b5790063060a50c19561538ad99dde0d977",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "src/measurement-r3.mjs",
+      "publicationPath": "src/measurement-r3.mjs",
+      "originalSha256": "741b56b561757eb548f2ded4642999f4200dea7ca566bb1b9e45b66eda092a4a",
+      "publicationSha256": "741b56b561757eb548f2ded4642999f4200dea7ca566bb1b9e45b66eda092a4a",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "src/measurement-records-r2.mjs",
+      "publicationPath": "src/measurement-records-r2.mjs",
+      "originalSha256": "613730ed050fbe0462d4f5f0edf5a993b1248b2b1b4876df006382b5e9bb1434",
+      "publicationSha256": "613730ed050fbe0462d4f5f0edf5a993b1248b2b1b4876df006382b5e9bb1434",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "src/measurement-records-r3.mjs",
+      "publicationPath": "src/measurement-records-r3.mjs",
+      "originalSha256": "84f19f4b0e9c602e653c3b2c105159349188e17e7d8720430566a3d8f2881ae2",
+      "publicationSha256": "84f19f4b0e9c602e653c3b2c105159349188e17e7d8720430566a3d8f2881ae2",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "src/methods-v1-analysis.mjs",
+      "publicationPath": "src/methods-v1-analysis.mjs",
+      "originalSha256": "02eb4e41da3342c22b01bebd45130614451e5b6ddd325cd1e18fa1b0c43f8198",
+      "publicationSha256": "02eb4e41da3342c22b01bebd45130614451e5b6ddd325cd1e18fa1b0c43f8198",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "src/methods-v1-engine.mjs",
+      "publicationPath": "src/methods-v1-engine.mjs",
+      "originalSha256": "857a5d1e8437f5646a880469da5e6f6994ccb426436b20d073024885c6792da4",
+      "publicationSha256": "857a5d1e8437f5646a880469da5e6f6994ccb426436b20d073024885c6792da4",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "src/methods-v1-public-checks.mjs",
+      "publicationPath": "src/methods-v1-public-checks.mjs",
+      "originalSha256": "aa08f2d0fae09d18eda28a586636118fd0aa5b74361782a880f9de0b1e746393",
+      "publicationSha256": "aa08f2d0fae09d18eda28a586636118fd0aa5b74361782a880f9de0b1e746393",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "src/methods-v1.mjs",
+      "publicationPath": "src/methods-v1.mjs",
+      "originalSha256": "bc02ebd91d07b401a523bd723c47f96fddb76cf467f1bcdb9d66b0959c4b260f",
+      "publicationSha256": "bc02ebd91d07b401a523bd723c47f96fddb76cf467f1bcdb9d66b0959c4b260f",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "src/native-evidence-bindings-r3.mjs",
+      "publicationPath": "src/native-evidence-bindings-r3.mjs",
+      "originalSha256": "16ee2361e1fa56eb1515587ae5dd1f0411c0ef8db2a133f6fc3e263050c7c248",
+      "publicationSha256": "16ee2361e1fa56eb1515587ae5dd1f0411c0ef8db2a133f6fc3e263050c7c248",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "src/runtime-evidence-r3.mjs",
+      "publicationPath": "src/runtime-evidence-r3.mjs",
+      "originalSha256": "4fc3416f4f07321bfcf5f63c3df802977975cb95b8909484406566722d634c27",
+      "publicationSha256": "4fc3416f4f07321bfcf5f63c3df802977975cb95b8909484406566722d634c27",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "src/study-execution-bridge-v1.mjs",
+      "publicationPath": "src/study-execution-bridge-v1.mjs",
+      "originalSha256": "ce5709289bc52228ae315d161156991a5b8c846c3806a7cf30deaf01c92e767b",
+      "publicationSha256": "ce5709289bc52228ae315d161156991a5b8c846c3806a7cf30deaf01c92e767b",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "src/study-native-evidence-seal-v1.mjs",
+      "publicationPath": "src/study-native-evidence-seal-v1.mjs",
+      "originalSha256": "157e25db0f6ea6bb5d1425106fd5207deeb4b6fe8c87fb9731523c5876ee7cb7",
+      "publicationSha256": "157e25db0f6ea6bb5d1425106fd5207deeb4b6fe8c87fb9731523c5876ee7cb7",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "src/study-public-prepare-v1.mjs",
+      "publicationPath": "src/study-public-prepare-v1.mjs",
+      "originalSha256": "08e45b1ea78dceaf7a096c554bf2b9992493afb73d7c9b8298d6367c60896c2d",
+      "publicationSha256": "08e45b1ea78dceaf7a096c554bf2b9992493afb73d7c9b8298d6367c60896c2d",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "src/study-runtime-v1.mjs",
+      "publicationPath": "src/study-runtime-v1.mjs",
+      "originalSha256": "100d200033fb47d834947c9c1acac4e8f796302b44b325f08697d4435972f555",
+      "publicationSha256": "034b127556e97173ddbf25f77e91b587524df36311cf37cbfd135dea95abdb29",
+      "change": "publication-native-admission-safety-block"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "scripts/freeze-preparation-v04.mjs",
+      "publicationPath": "scripts/freeze-preparation-v04.mjs",
+      "originalSha256": "0bec7bcf286687c682280bd07f971d3013a84623b313dc7757f47bf5eea43a12",
+      "publicationSha256": "0bb18a9b8f953c4c84700cb64c6e9dd7ed51959679df1c2c14821de9d8866754",
+      "change": "publication-cli-path-and-safety-default"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "scripts/layout-domain-controls-r3.mjs",
+      "publicationPath": "scripts/layout-domain-controls-r3.mjs",
+      "originalSha256": "f0927f7acbc5f4252875d5382ddfb8662c3fcd642b959a5b71c1b7bbde4a1250",
+      "publicationSha256": "cffd971d12c4cfdc6803cf675c570b117da4802f18d3ff287bced01baeaa5106",
+      "change": "publication-cli-path-and-safety-default",
+      "stagingSha256": "a80a56595c82dea91d3a1214bb052696f1f00a32a5e3d457b2c4a4b133ed3c33"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "scripts/number-value-controls-r3.mjs",
+      "publicationPath": "scripts/number-value-controls-r3.mjs",
+      "originalSha256": "77b6a873fa65e70269652c1d3d838fdd6c0c9168521f67184ab14f85c471fd2e",
+      "publicationSha256": "9836545f010c18bc361a7544c0c07b92e5843a12a750504d9e56c52fdcc7abfe",
+      "change": "publication-cli-path-and-safety-default",
+      "stagingSha256": "eaae37631a099e1164bde4a3721032d81e722874055f3f6e1aa5bba7267b56d0"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "scripts/run-study-controls-v1.mjs",
+      "publicationPath": "scripts/run-study-controls-v1.mjs",
+      "originalSha256": "7857f8037e297a742ebdfd738959a83ced517b3b5b05f9a2505df5e057441e93",
+      "publicationSha256": "7419c0471baaea66bae2b4143f8d7a019573dc2b4163ab982756d7d14a1e64b5",
+      "change": "publication-cli-path-and-safety-default"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "scripts/run-trusted-calibration-r2.mjs",
+      "publicationPath": "scripts/run-trusted-calibration-r2.mjs",
+      "originalSha256": "20dcc62b91a437615d54a045c385567e9f1605ffb00410dfed7f51198c038d3f",
+      "publicationSha256": "e0062f861aaa6d5a92572c809291d7f2eae6d8f56e2d8f8207eb009b85e06b51",
+      "change": "publication-cli-path-and-safety-default",
+      "stagingSha256": "367b436e8e15a639440e2c0fdee3d00d4d6970f7e5eb034184a23cf27a324ee0"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "scripts/run-trusted-calibration-r3.mjs",
+      "publicationPath": "scripts/run-trusted-calibration-r3.mjs",
+      "originalSha256": "4aaed9f0d41c3f1d45f9f5f5def9dbdebb4c381d3575ad42d99cc1d3b5921235",
+      "publicationSha256": "99108af7d8b8e14383772315330aa03f96a172edb49ed5a249a611245fa5c443",
+      "change": "publication-cli-path-and-safety-default",
+      "stagingSha256": "0f74932952351da7e8907c794416bd019d8b7b07ba3e569380fd2d8580701652"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "tests/analysis-v04-v2.test.mjs",
+      "publicationPath": "tests/analysis-v04-v2.test.mjs",
+      "originalSha256": "92e585577578a1d859e7aa13b23d04c108a934379fbc4c1770fbcce649c55f8b",
+      "publicationSha256": "92e585577578a1d859e7aa13b23d04c108a934379fbc4c1770fbcce649c55f8b",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "tests/analysis-v04.test.mjs",
+      "publicationPath": "tests/analysis-v04.test.mjs",
+      "originalSha256": "a3b0c9fd5168bd25fb2d943ecfc5ec42298ff7103f21543e3f25a4404fb9e8e3",
+      "publicationSha256": "a3b0c9fd5168bd25fb2d943ecfc5ec42298ff7103f21543e3f25a4404fb9e8e3",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "tests/baseline-r3.test.mjs",
+      "publicationPath": "tests/baseline-r3.test.mjs",
+      "originalSha256": "96de556b6d1126f214c766dc633eb72dc9a321f70f9ea206a04a7cc91c947930",
+      "publicationSha256": "96de556b6d1126f214c766dc633eb72dc9a321f70f9ea206a04a7cc91c947930",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "tests/browser-session-r2.test.mjs",
+      "publicationPath": "tests/browser-session-r2.test.mjs",
+      "originalSha256": "2d0e1f0d4155417bc39b6551ac0cd5c115f3ad0307ba28fb9c5ef9d2548c7651",
+      "publicationSha256": "358511de4544633e716b4c7328ad262401806e0f7b4b0441f104774292a56aa3",
+      "change": "portable-test-path-or-temp-output"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "tests/browser-session-r3.test.mjs",
+      "publicationPath": "tests/browser-session-r3.test.mjs",
+      "originalSha256": "694936bda4965f6e1d2af08aced0b5c1443fabfed1acc76d740ea07da58fcbcc",
+      "publicationSha256": "9872b092d9d88bf43ad6384e5869bd18197ce4653b7e1cbc5b6fcbf688686f6a",
+      "change": "portable-path-container-policy-fixture-and-explicit-historical-case"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "tests/entry-contract-r2.test.mjs",
+      "publicationPath": "tests/entry-contract-r2.test.mjs",
+      "originalSha256": "b5fc8eb81ae0bded90d2a913af96b889d660356a2e0a599f2648b7c117c3aa14",
+      "publicationSha256": "50ca87909d933ba620e68ee44d1e905f308147586e6cb8d345b8eba1fc095a91",
+      "change": "portable-test-path-or-temp-output"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "tests/evaluate-adapter-r2.test.mjs",
+      "publicationPath": "tests/evaluate-adapter-r2.test.mjs",
+      "originalSha256": "eccb836d2d0b8cd7fb9244b11368af607c1fe1b4a1faccc3ec7235019b1da290",
+      "publicationSha256": "eccb836d2d0b8cd7fb9244b11368af607c1fe1b4a1faccc3ec7235019b1da290",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "tests/evaluate-adapter-r3.test.mjs",
+      "publicationPath": "tests/evaluate-adapter-r3.test.mjs",
+      "originalSha256": "17e8f2d4c5b7a9030c2d34e93a72a60d1bd66cc569201dbc3602ed0ad47ccebe",
+      "publicationSha256": "17e8f2d4c5b7a9030c2d34e93a72a60d1bd66cc569201dbc3602ed0ad47ccebe",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "tests/evaluation-normalizer-r3.test.mjs",
+      "publicationPath": "tests/evaluation-normalizer-r3.test.mjs",
+      "originalSha256": "214c1eec212dead14bca812db8056f209240e7ff21169a7d8ec5be5a779ccd3e",
+      "publicationSha256": "214c1eec212dead14bca812db8056f209240e7ff21169a7d8ec5be5a779ccd3e",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "tests/experiment-runner-v1.test.mjs",
+      "publicationPath": "tests/experiment-runner-v1.test.mjs",
+      "originalSha256": "dba2c64f27bcf19b95413d8721c063caab4c8a7f4d6881d73f5367bd49400e34",
+      "publicationSha256": "dba2c64f27bcf19b95413d8721c063caab4c8a7f4d6881d73f5367bd49400e34",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "tests/freeze-preparation-v04.test.mjs",
+      "publicationPath": "tests/freeze-preparation-v04.test.mjs",
+      "originalSha256": "a873ed3665b280243dcf9b2138fe35b9f05dbbb547884b906eab743c0d766bdf",
+      "publicationSha256": "06e5f1b8bddd02ff325f3905815226539e4ed68ecb822004cca783604a5ab1f2",
+      "change": "portable-test-path-or-temp-output"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "tests/layout-facts-r3.test.mjs",
+      "publicationPath": "tests/layout-facts-r3.test.mjs",
+      "originalSha256": "4092190ca1b6504686e73fabf513b523c4203a2b6e76e90e0ed5caa5be0e6e8a",
+      "publicationSha256": "4092190ca1b6504686e73fabf513b523c4203a2b6e76e90e0ed5caa5be0e6e8a",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "tests/measurement-r2.test.mjs",
+      "publicationPath": "tests/measurement-r2.test.mjs",
+      "originalSha256": "fc976e5eaca411961bbfa6525ce950a5301e8ad393d4375b23347bde92d249c8",
+      "publicationSha256": "fc976e5eaca411961bbfa6525ce950a5301e8ad393d4375b23347bde92d249c8",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "tests/measurement-r3.test.mjs",
+      "publicationPath": "tests/measurement-r3.test.mjs",
+      "originalSha256": "ac37afdc7867cd1966966b617acc97c9843ed871d532a3d61b64b5eb929c67e9",
+      "publicationSha256": "ac37afdc7867cd1966966b617acc97c9843ed871d532a3d61b64b5eb929c67e9",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "tests/methods-v1-analysis.test.mjs",
+      "publicationPath": "tests/methods-v1-analysis.test.mjs",
+      "originalSha256": "92cf46e2c2864f4f5043710244471c48c6a51de621266b6aa75a121644bc9698",
+      "publicationSha256": "92cf46e2c2864f4f5043710244471c48c6a51de621266b6aa75a121644bc9698",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "tests/methods-v1-engine.test.mjs",
+      "publicationPath": "tests/methods-v1-engine.test.mjs",
+      "originalSha256": "244df0923bf4a21c024784383440a6abe0325fae9221e8d12457d5d4939bddaa",
+      "publicationSha256": "d856ad46f0c0cdf001ffc235e7fa33e7aa3cc9e7e650820c6555f6f26d739353",
+      "change": "portable-test-path-or-temp-output"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "tests/methods-v1-public-checks.test.mjs",
+      "publicationPath": "tests/methods-v1-public-checks.test.mjs",
+      "originalSha256": "763e2ac917410f8e9b53f7a393729ae7432630291cdcd7b265d3e45de295dd04",
+      "publicationSha256": "c9ee8e887e5fd4298f020f761d0cf466bf0f3c39378c2a289427b1016209ce89",
+      "change": "portable-test-path-or-temp-output"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "tests/methods-v1.test.mjs",
+      "publicationPath": "tests/methods-v1.test.mjs",
+      "originalSha256": "edd5989c11761dcde2cc416c1b1b245e8c65419d50f2c8c85d239cc0fcdb5177",
+      "publicationSha256": "edd5989c11761dcde2cc416c1b1b245e8c65419d50f2c8c85d239cc0fcdb5177",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "tests/r3-evidence-audit-v1.test.mjs",
+      "publicationPath": "tests/r3-evidence-audit-v1.test.mjs",
+      "originalSha256": "1a2656adc688f992ff01bebbb196668c12c8589cdc91f3594209902d0e6a4fa1",
+      "publicationSha256": "8ca8c4044ac33cc04bd2a9d61564a351b163994c88152e58237dfd222085a1c9",
+      "change": "explicit-nondefault-historical-gate"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "tests/r3-evidence-calibration-audit-v1.mjs",
+      "publicationPath": "tests/r3-evidence-calibration-audit-v1.mjs",
+      "originalSha256": "db7f74d460737a5236c0d572fb8e34d322a9769f1d04fc2fcf4032044cd74ade",
+      "publicationSha256": "4dda3d5a46c5abdb9df84efa2657840136c343ee02ef803a701ca0a535a7bd38",
+      "change": "explicit-nondefault-historical-gate"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "tests/statistical-audit-v1-controls-r2.mjs",
+      "publicationPath": "tests/statistical-audit-v1-controls-r2.mjs",
+      "originalSha256": "75319e8f88e22e5f858d0b198a1abb82154f335eee4faee3afa36d068d84aff8",
+      "publicationSha256": "352e3d2003506ba8308e716057a234e09703f773e007b762e356fb389f94deee",
+      "change": "explicit-nondefault-historical-gate"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "tests/statistical-audit-v1-controls.mjs",
+      "publicationPath": "tests/statistical-audit-v1-controls.mjs",
+      "originalSha256": "ea5b3204e6fa2304930cfacf91734afa0398ad577f0fd6b83f30dcc2c8afbcd9",
+      "publicationSha256": "a13fefdd85d2ea6a79580f086352265d05d3d40bf85ffda468dc470a18d55fcd",
+      "change": "explicit-nondefault-historical-gate"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "tests/statistical-audit-v2-controls.mjs",
+      "publicationPath": "tests/statistical-audit-v2-controls.mjs",
+      "originalSha256": "e190c37957a97f45623fdb7dae5c7408a8af167ee632565049eecdb050f38c88",
+      "publicationSha256": "b0df97b26d5c855d35e2c7229df9785900e3e60331fee8c709a904970e9949a1",
+      "change": "explicit-nondefault-historical-gate"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "tests/study-execution-bridge-v1.test.mjs",
+      "publicationPath": "tests/study-execution-bridge-v1.test.mjs",
+      "originalSha256": "d7ecddfadefb3c59dd7faf6831f08e150530730d5ffe0d872176207cebf13f61",
+      "publicationSha256": "5ce5b84e087d5c3f3be2c605d454573efbfb116003d4b2d520117fef375cd54e",
+      "change": "portable-path-and-synthetic-empty-journal-fixture"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "tests/study-public-prepare-v1.test.mjs",
+      "publicationPath": "tests/study-public-prepare-v1.test.mjs",
+      "originalSha256": "9c91bb5913d7fe661979afe63f5b810c1d696e1059e83e57985c985d821d3e11",
+      "publicationSha256": "e97e42195a8d2705a887e65c07c6209dfb3d3893d7f1c63e270525911638919d",
+      "change": "portable-test-path-or-temp-output"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "tests/study-runtime-v1.test.mjs",
+      "publicationPath": "tests/study-runtime-v1.test.mjs",
+      "originalSha256": "6932c1f0b12080cf15afd06202fcec8bcb9d64fbeeccac04c72e853ce527731c",
+      "publicationSha256": "6932c1f0b12080cf15afd06202fcec8bcb9d64fbeeccac04c72e853ce527731c",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "tests/study-visual-intent-v1.test.mjs",
+      "publicationPath": "tests/study-visual-intent-v1.test.mjs",
+      "originalSha256": "e2dc776d32eca012d7619b9c0fddf7053bb235e05a142691f79f5a84856905f3",
+      "publicationSha256": "1ff5e30d5b9dfc2f29be5f251f40a4e2e5166dcaf3b0e0898dd364d1f0ba9c8d",
+      "change": "portable-test-path-or-temp-output"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "tests/helpers/evaluation-r3-fixture.mjs",
+      "publicationPath": "tests/helpers/evaluation-r3-fixture.mjs",
+      "originalSha256": "d549b70dce9b4a49c3083bcbd3a16f333bc9195ff87ec559f7f0f54f7e5e46e4",
+      "publicationSha256": "d549b70dce9b4a49c3083bcbd3a16f333bc9195ff87ec559f7f0f54f7e5e46e4",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "fixtures/handwritten/entry-both.jsx",
+      "publicationPath": "fixtures/handwritten/entry-both.jsx",
+      "originalSha256": "82a5973ee3ee9098846ab28362bb2d5bb4e9e5cdb68fb6b3b2184aea96ff366f",
+      "publicationSha256": "82a5973ee3ee9098846ab28362bb2d5bb4e9e5cdb68fb6b3b2184aea96ff366f",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "fixtures/handwritten/entry-underscore.jsx",
+      "publicationPath": "fixtures/handwritten/entry-underscore.jsx",
+      "originalSha256": "0f3c5faff9f47dd578be8d3607287296a5a3aa221a0ce8165fc0f61ecf80efe5",
+      "publicationSha256": "0f3c5faff9f47dd578be8d3607287296a5a3aa221a0ce8165fc0f61ecf80efe5",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "fixtures/handwritten/layout-domain-r3.html",
+      "publicationPath": "fixtures/handwritten/layout-domain-r3.html",
+      "originalSha256": "4294b5adb841c77e60026cb0ee7f4592fab77f398d9af65cb7c5e8db1b528267",
+      "publicationSha256": "4294b5adb841c77e60026cb0ee7f4592fab77f398d9af65cb7c5e8db1b528267",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "fixtures/handwritten/layout-domain-r3.jsx",
+      "publicationPath": "fixtures/handwritten/layout-domain-r3.jsx",
+      "originalSha256": "37614047cee2504a516cb4a856c8bcf9b48ce950f9c107f8079c5f7b6ca36718",
+      "publicationSha256": "37614047cee2504a516cb4a856c8bcf9b48ce950f9c107f8079c5f7b6ca36718",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "fixtures/handwritten/number-value-r3.html",
+      "publicationPath": "fixtures/handwritten/number-value-r3.html",
+      "originalSha256": "3b1d913d800ea029ce6f38ce91cb0b4971e6cd18f949e5a8654edfc28c4613c8",
+      "publicationSha256": "3b1d913d800ea029ce6f38ce91cb0b4971e6cd18f949e5a8654edfc28c4613c8",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "fixtures/handwritten/number-value-r3.jsx",
+      "publicationPath": "fixtures/handwritten/number-value-r3.jsx",
+      "originalSha256": "1bbf3387bb3dc8fc1d253b703c213a674d009d005e37cec56a312b4a92db3f6d",
+      "publicationSha256": "1bbf3387bb3dc8fc1d253b703c213a674d009d005e37cec56a312b4a92db3f6d",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "fixtures/handwritten/value-matrix-legacy.jsx",
+      "publicationPath": "fixtures/handwritten/value-matrix-legacy.jsx",
+      "originalSha256": "fa851e0a7a6fe23b271f7bc93899d5ac9b8759edb7db3ef1df71b2f3ee478b5f",
+      "publicationSha256": "fa851e0a7a6fe23b271f7bc93899d5ac9b8759edb7db3ef1df71b2f3ee478b5f",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "fixtures/handwritten/value-matrix.html",
+      "publicationPath": "fixtures/handwritten/value-matrix.html",
+      "originalSha256": "032cd8f81aafba40157ab2fbf4478c19b8dc840062a433c958324f59d04297c6",
+      "publicationSha256": "032cd8f81aafba40157ab2fbf4478c19b8dc840062a433c958324f59d04297c6",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v04",
+      "sourcePath": "fixtures/handwritten/value-matrix.jsx",
+      "publicationPath": "fixtures/handwritten/value-matrix.jsx",
+      "originalSha256": "d31139141584a732ecb37fe6eae66b6f42466a8d3e717897a547ddbaeafa23d5",
+      "publicationSha256": "d31139141584a732ecb37fe6eae66b6f42466a8d3e717897a547ddbaeafa23d5",
+      "change": "byte-identical"
+    },
+    {
+      "sourceRoot": "codesign-editability-research-v03",
+      "sourcePath": "src/browser-session-r1.mjs",
+      "publicationPath": "tests/legacy/browser-session-r1.mjs",
+      "originalSha256": "6c192ae8a02059be17bedb5b805d0a944e4b81fe73954fe640ffaefd7438db93",
+      "publicationSha256": "6c192ae8a02059be17bedb5b805d0a944e4b81fe73954fe640ffaefd7438db93",
+      "change": "authorized-standalone-legacy-byte-copy"
+    }
+  ],
+  "additions": [
+    {
+      "publicationPath": ".gitignore",
+      "publicationSha256": "b0e2acb2a4ddf24604286331569054d5b1bf16c8ce4aec341dfcaf040540ba40",
+      "change": "publication-only-new-file; coordinator adds private/credential/local-output exclusions",
+      "stagingSha256": "6be775772cbe77bd3a73dca78b57a296bf2c612113113082af078771d9421157"
+    },
+    {
+      "publicationPath": "package.json",
+      "publicationSha256": "27cc030cb912e855685029930fbf83caae1255e41c1026213b46353f3ff25e70",
+      "change": "publication-only-new-file"
+    },
+    {
+      "publicationPath": "publication/historical-requirements.json",
+      "publicationSha256": "aa88899d2f1723c8ff22301f4618d410de49c65f41858e59374ad8d111ba6231",
+      "change": "publication-only-new-file"
+    },
+    {
+      "publicationPath": "publication/paths.mjs",
+      "publicationSha256": "5da038b69af3cc5476b19bb98b679951a5a930c331262e06e3cc6d749be11877",
+      "change": "publication-only-new-file"
+    },
+    {
+      "publicationPath": "publication/run-tests.mjs",
+      "publicationSha256": "1277770fc32332cc7720553a70577788745575214ccb0ff997e80460e7be552d",
+      "change": "publication-only-new-file"
+    },
+    {
+      "publicationPath": "scripts/publication-safety.mjs",
+      "publicationSha256": "8e2d56acd27cc277c61d6a1c30ba3ab9bdd4be207a56ec243700fe1a1bda5d01",
+      "change": "publication-only-new-file"
+    },
+    {
+      "publicationPath": "tests/publication-safety.test.mjs",
+      "publicationSha256": "3ba84128144a4ab17d94f883dbf4a08d0146586595e42ed2c1bf726ba21715b4",
+      "change": "publication-only-new-file",
+      "stagingSha256": "5fea5b8502d1d37ad06a075f2ab6259c128d45ca2310e8985ab8d99968083e87"
+    }
+  ],
+  "selfHashExcluded": "publication/revision-map.json",
+  "notIncluded": [
+    "out",
+    "results",
+    "private-*",
+    "freeze",
+    "external",
+    "external-dev",
+    "tools",
+    ".work",
+    "logs",
+    "screenshots",
+    "calibration receipts",
+    "method-cost configs",
+    "credentials",
+    "machine ProfileJSON"
+  ],
+  "scope": "Code/test publication copy only; separately prepared parent documentation is not mapped here.",
+  "finalWorktreeRevision": "Four guarded calibration/control runners use researchRoot for local src/fixtures/out and runtimeDirectory for product vendor; publication-only path regression added. Staging preserved as earlier source snapshot."
+}

@@ -1,0 +1,28 @@
+{
+  "publicationRevision": true,
+  "notNativeOrPilotEvidence": true,
+  "historicalCommand": "pnpm -C research/editability-v04 test:historical",
+  "historicalCommandScope": "Preserves old defect-reproduction expectations; failures against current fixes are expected and must not be relabeled as current validation.",
+  "historicalTests": [
+    {"path":"tests/r3-evidence-audit-v1.test.mjs","reason":"Mixed historical counterexamples and old consumer/producer assertions (including A03/A04/A10); excluded as an explicitly labeled file, not silently deleted."},
+    {"path":"tests/browser-session-r3.test.mjs","case":"historical: r3 pre-allow-forms envelope equality (not a current invariant)","reason":"Old full envelope equality conflicts with explicitly versioned allow-forms container; retained under opt-in. Other r3/r2 browser-free tests remain default."}
+  ],
+  "artifactCommand": "pnpm -C research/editability-v04 test:historical-artifacts",
+  "artifactCommandStatus": "BLOCKED pending separately reviewed portable public input manifest. Exits 2, never follows original local paths.",
+  "artifactPrograms": [
+    {"path":"tests/r3-evidence-calibration-audit-v1.mjs","requires":["Original public results/browser-calibration-r3-MDiU66/report.json and raw calibration inputs","Reviewed mapping of inputIntegrity absolute paths and recorded profile paths to public artifacts, with original hash anchors"]},
+    {"path":"tests/statistical-audit-v1-controls.mjs","requires":["plans/statistical-analysis-v1.md","Original src/analysis-v04.mjs and tests/analysis-v04.test.mjs snapshots","results/analysis-v04-simulation-v1-productionB.json","results/analysis-v04-final-verification-v1.json","public-contracts/sampling-framework.md","plans/protocol-v04.md"],"note":"Original v1 binomial underflow defect retained; not endorsed."},
+    {"path":"tests/statistical-audit-v1-controls-r2.mjs","requires":["Same original inputs as statistical-audit-v1-controls.mjs, preserving hash anchors"]},
+    {"path":"tests/statistical-audit-v2-controls.mjs","requires":["Original src/analysis-v04-v2.mjs and tests/analysis-v04-v2.test.mjs snapshots","plans/statistical-analysis-v2.md","results/analysis-v04-v2-tests-final.tap","results/analysis-v04-v2-simulation-final.json","plans/v1.1/protocol-amendment-01.md"]}
+  ],
+  "excludedArtifacts": ["results", "private-*", "external", "external-dev", "tools", ".work", "freeze", "logs", "screenshots", "calibration receipts", "method cost configs", "credentials", "machine ProfileJSON"],
+  "legacyHelper": {
+    "publicationPath": "tests/legacy/browser-session-r1.mjs",
+    "sourceRelativePath": "codesign-editability-research-v03/src/browser-session-r1.mjs",
+    "sha256": "6c192ae8a02059be17bedb5b805d0a944e4b81fe73954fe640ffaefd7438db93",
+    "bytes": "Unmodified standalone helper, exact byte-copy; no v03 cases or archives copied.",
+    "repositoryAttribution": "OpenCoworkAI/open-codesign (MIT); repository license and provenance notice to be reviewed by publication owner.",
+    "scope": "Historical r1 envelope comparison only in default r2 node tests; no browser launch or v03 results access."
+  },
+  "wip": ["study-native-evidence-seal-v1.mjs is fail-closed stub", "Normalizer does not consume seal", "Latest browser keyboard/style/raw identity/allow-forms/journal source changes lack full native calibration", "Pure unit fixtures and trusted compiler checks are not native capture or pilot evidence", "Native study admission and all native script execution remain blocked"]
+}

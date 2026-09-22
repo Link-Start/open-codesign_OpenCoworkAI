@@ -1,0 +1,39 @@
+<!doctype html><html><head><style>
+html,body{margin:0;padding:0}main{padding:12px}label{display:block;margin:4px}input,textarea{width:160px}button{min-height:40px}.override{display:block}#spacer{height:1600px}#inner-scroll{height:160px;width:260px;overflow:auto}#inner-content{height:800px;width:600px;position:relative}#inner-button{position:absolute;left:450px;top:700px}
+</style></head><body><main>
+<label>Input empty<input id="i-empty" aria-label="Input empty" value=""></label>
+<label>Input zero<input id="i-zero" aria-label="Input zero" value="0"></label>
+<label>Input seed<input id="i-seed" aria-label="Input seed" value="seed"></label>
+<label>Input space<input id="i-space" aria-label="Input space" value=" "></label>
+<label>Textarea empty<textarea id="t-empty" aria-label="Textarea empty"></textarea></label>
+<label>Textarea zero<textarea id="t-zero" aria-label="Textarea zero">0</textarea></label>
+<label>Textarea seed<textarea id="t-seed" aria-label="Textarea seed">seed</textarea></label>
+<label>Textarea space<textarea id="t-space" aria-label="Textarea space"> </textarea></label>
+<label>Textarea newline<textarea id="t-newline" aria-label="Textarea newline">line1
+line2
+</textarea></label>
+<input id="hidden-input" aria-label="Hidden input" hidden value="seed">
+<input id="override-input" aria-label="Override input" hidden class="override" value="">
+<div role="group" aria-label="Duplicate context"><input aria-label="Duplicate input" value="seed"></div>
+<div role="group" aria-label="Duplicate context" hidden class="override"><input aria-label="Duplicate input" value=""></div>
+<input id="n-empty" type="number" aria-label="Number empty" value=""><input id="n-zero" type="number" aria-label="Number zero" value="0">
+<input id="readonly-seed" aria-label="Readonly seed" readonly value="seed"><input id="readonly-empty" aria-label="Readonly empty" readonly value="">
+<input id="disabled-seed" aria-label="Disabled seed" disabled value="seed"><input id="disabled-empty" aria-label="Disabled empty" disabled value="">
+<input id="visibility-seed" aria-label="Visibility hidden seed" style="visibility:hidden" value="seed"><input id="visibility-empty" aria-label="Visibility hidden empty" style="visibility:hidden" value="">
+<input id="aria-seed" aria-label="Aria hidden seed" aria-hidden="true" value="seed"><input id="aria-empty" aria-label="Aria hidden empty" aria-hidden="true" value="">
+<div id="migration-a" role="group" aria-label="Migration context"><input id="migrating" aria-label="Migrating input" value="seed"></div><div id="migration-b" role="group" aria-label="Empty context"></div>
+<button onclick="const el=document.getElementById('migrating'),old=el.parentElement,dest=document.getElementById(old.id==='migration-a'?'migration-b':'migration-a');dest.appendChild(el);old.setAttribute('aria-label','Old context');dest.setAttribute('aria-label','Migration context')">Move context</button>
+<div id="controlled"></div>
+<button id="mount" onclick="document.getElementById('dynamic-slot').innerHTML='<input id=&quot;dynamic&quot; aria-label=&quot;Dynamic input&quot; value=&quot;&quot;>'">Mount</button><div id="dynamic-slot"></div>
+<button id="unmount" onclick="document.getElementById('dynamic-slot').replaceChildren()">Unmount</button>
+<div id="spacer"></div><button id="bottom" onclick="this.textContent='Bottom 1'">Bottom 0</button>
+<div id="inner-scroll"><div id="inner-content"><button id="inner-button" onclick="this.textContent='Inner 1'">Inner 0</button></div></div>
+</main><script>
+function Controlled(){const [accept,setAccept]=React.useState('seed');const [reject,setReject]=React.useState('seed');const [restore,setRestore]=React.useState('seed');const [ta,setTa]=React.useState('seed');const [tr,setTr]=React.useState('seed');return React.createElement(React.Fragment,null,
+React.createElement('textarea',{id:'ct-accept','aria-label':'Textarea accept clear',value:ta,onChange:e=>setTa(e.target.value)}),
+React.createElement('textarea',{id:'ct-reject','aria-label':'Textarea reject clear',value:tr,onChange:e=>setTr(e.target.value||'seed')}),
+React.createElement('input',{id:'c-accept','aria-label':'Accept clear',value:accept,onChange:e=>setAccept(e.target.value)}),
+React.createElement('input',{id:'c-reject','aria-label':'Reject clear',value:reject,onChange:e=>setReject(e.target.value||'seed')}),
+React.createElement('input',{id:'c-restore','aria-label':'Restore clear',value:restore,onChange:e=>{setRestore(e.target.value);if(e.target.value==='')setTimeout(()=>setRestore('seed'),200)}}));}
+ReactDOM.createRoot(document.getElementById('controlled')).render(React.createElement(Controlled));
+</script></body></html>

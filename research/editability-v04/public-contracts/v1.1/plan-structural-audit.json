@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "v04-source-free-plan-structural-audit-1.1",
+  "at": "2026-09-20T10:21:45.156Z",
+  "checksPassed": 11,
+  "publicPacketsValidated": 222,
+  "privateExpectedValuesDisclosed": false,
+  "sourceGenerated": false,
+  "browserRun": false,
+  "modelExperimentCalls": 0,
+  "executionReady": false,
+  "validationScope": "Locally implemented subset of keywords used by this schema plus explicit plan and frozen-file invariants; not full metaschema certification or runtime dataflow proof."
+}

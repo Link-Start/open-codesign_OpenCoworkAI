@@ -1,0 +1,13 @@
+{
+  "name": "@codesign-research/editability-v04",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.33.4",
+  "engines": { "node": ">=22 <23" },
+  "scripts": {
+    "test": "node publication/run-tests.mjs",
+    "check": "node publication/run-tests.mjs --check-only",
+    "test:historical": "node publication/run-tests.mjs --historical",
+    "test:historical-artifacts": "node publication/run-tests.mjs --historical-artifacts"
+  }
+}
